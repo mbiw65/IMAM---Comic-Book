@@ -86,6 +86,91 @@
   to{opacity:.92;filter:saturate(1.08) brightness(1.04)}
 }
 
+/* Character close-up hero — uses the comic art already in the repository */
+body.side-selected .hero{isolation:isolate}
+body.side-selected .hero-inner{position:relative;z-index:2}
+body.side-selected .hero:before{
+  z-index:0!important;
+  inset:-7%!important;
+  opacity:.72!important;
+  transition:background-image .45s ease,filter .45s ease,opacity .45s ease!important;
+  transform:scale(1.03);
+}
+body.side-selected .hero:after{
+  z-index:1!important;
+  pointer-events:none!important;
+  inset:0!important;
+  content:""!important;
+  will-change:opacity,filter,transform!important;
+}
+
+/* MBIW: silver awakening */
+body.side-selected[data-side="mbiw"] .hero:before{
+  background:
+    linear-gradient(180deg,rgba(246,250,252,.18) 0,rgba(237,243,246,.42) 62%,rgba(231,238,242,.86) 100%),
+    url('/assets/issue1/page-01.webp') center 16%/175% auto no-repeat!important;
+  filter:grayscale(.08) saturate(.5) contrast(1.04) brightness(1.04)!important;
+  opacity:.72!important;
+}
+body.side-selected[data-side="mbiw"] .hero:after{
+  background:
+    radial-gradient(ellipse 4.3% 2.3% at 45.7% 29.5%,rgba(255,255,255,1) 0 20%,rgba(220,239,252,.96) 31%,rgba(151,200,231,.52) 47%,transparent 72%),
+    radial-gradient(ellipse 4.3% 2.3% at 54.3% 29.5%,rgba(255,255,255,1) 0 20%,rgba(220,239,252,.96) 31%,rgba(151,200,231,.52) 47%,transparent 72%),
+    radial-gradient(ellipse at 50% 31%,rgba(205,235,253,.22) 0,rgba(225,242,252,.1) 24%,transparent 48%),
+    linear-gradient(180deg,rgba(255,255,255,.04),rgba(236,242,246,.56))!important;
+  mix-blend-mode:screen;
+  animation:mbiwHeroEyes 3.4s ease-in-out infinite!important;
+}
+@keyframes mbiwHeroEyes{
+  0%,100%{opacity:.54;filter:brightness(.92) blur(.15px);transform:scale(1)}
+  48%{opacity:1;filter:brightness(1.35) blur(0);transform:scale(1.006)}
+  62%{opacity:.82;filter:brightness(1.12)}
+}
+
+/* ÏMAM: green, heavier and slightly unstable */
+body.side-selected[data-side="imam"] .hero:before{
+  background:
+    linear-gradient(180deg,rgba(2,8,5,.12) 0,rgba(3,12,8,.42) 57%,rgba(3,8,6,.9) 100%),
+    url('/assets/issue2/page-01.webp') center 15%/175% auto no-repeat!important;
+  filter:saturate(.72) contrast(1.16) brightness(.62)!important;
+  opacity:.88!important;
+}
+body.side-selected[data-side="imam"] .hero:after{
+  background:
+    radial-gradient(ellipse 4.2% 2.25% at 45.7% 29.5%,rgba(213,255,224,.98) 0 18%,rgba(85,220,132,.92) 31%,rgba(45,147,83,.53) 49%,transparent 73%),
+    radial-gradient(ellipse 4.2% 2.25% at 54.3% 29.5%,rgba(213,255,224,.98) 0 18%,rgba(85,220,132,.92) 31%,rgba(45,147,83,.53) 49%,transparent 73%),
+    radial-gradient(ellipse at 50% 31%,rgba(44,139,78,.24) 0,rgba(25,89,50,.11) 27%,transparent 50%),
+    linear-gradient(180deg,rgba(3,11,7,.04),rgba(2,7,5,.55))!important;
+  mix-blend-mode:screen;
+  animation:imamHeroEyes 4.1s ease-in-out infinite!important;
+}
+@keyframes imamHeroEyes{
+  0%,100%{opacity:.4;filter:brightness(.82) blur(.25px);transform:scale(1)}
+  40%{opacity:.92;filter:brightness(1.25);transform:scale(1.004)}
+  47%{opacity:.55;filter:brightness(.96)}
+  51%{opacity:1;filter:brightness(1.48) blur(0);transform:scale(1.008)}
+  58%{opacity:.78;filter:brightness(1.12)}
+}
+
+@media(max-width:900px){
+  body.side-selected[data-side="mbiw"] .hero:before,
+  body.side-selected[data-side="imam"] .hero:before{background-size:225% auto!important;background-position:center 13%!important;opacity:.56!important}
+  body.side-selected[data-side="mbiw"] .hero:after{
+    background:
+      radial-gradient(ellipse 5% 2.5% at 44.8% 27.5%,rgba(255,255,255,.98) 0 20%,rgba(183,219,241,.7) 38%,transparent 72%),
+      radial-gradient(ellipse 5% 2.5% at 55.2% 27.5%,rgba(255,255,255,.98) 0 20%,rgba(183,219,241,.7) 38%,transparent 72%),
+      linear-gradient(180deg,rgba(255,255,255,.03),rgba(236,242,246,.64))!important;
+  }
+  body.side-selected[data-side="imam"] .hero:after{
+    background:
+      radial-gradient(ellipse 5% 2.5% at 44.8% 27.5%,rgba(208,255,221,.96) 0 18%,rgba(82,214,127,.74) 39%,transparent 72%),
+      radial-gradient(ellipse 5% 2.5% at 55.2% 27.5%,rgba(208,255,221,.96) 0 18%,rgba(82,214,127,.74) 39%,transparent 72%),
+      linear-gradient(180deg,rgba(3,11,7,.03),rgba(2,7,5,.62))!important;
+  }
+}
+
 @media(prefers-reduced-motion:reduce){
-  body.side-selected:before,body.side-selected:after{animation:none!important}
+  body.side-selected:before,body.side-selected:after,
+  body.side-selected[data-side="mbiw"] .hero:after,
+  body.side-selected[data-side="imam"] .hero:after{animation:none!important}
 }
