@@ -117,3 +117,28 @@ body.side-selected[data-side="imam"] .hero:after{
   body.side-selected[data-side="mbiw"] .hero:after,
   body.side-selected[data-side="imam"] .hero:after{animation:none!important}
 }
+
+/* Reader chrome auto-hide — desktop only */
+@keyframes readerChromeFadeAway{
+  0%,55%{opacity:1;transform:translateY(0)}
+  100%{opacity:0;transform:translateY(-6px)}
+}
+@media (hover:hover) and (pointer:fine){
+  .reader-overlay.is-open .reader-overlay-bar,
+  .reader-body .reader-bar{
+    animation:readerChromeFadeAway 2s ease forwards;
+    transition:opacity .25s ease,transform .25s ease;
+    will-change:opacity,transform;
+  }
+  .reader-overlay.is-open .reader-overlay-bar:hover,
+  .reader-overlay.is-open .reader-overlay-bar:focus-within,
+  .reader-body .reader-bar:hover,
+  .reader-body .reader-bar:focus-within{
+    animation:none;
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+@media (hover:none),(pointer:coarse){
+  .reader-overlay-bar,.reader-bar{opacity:1!important;transform:none!important;animation:none!important}
+}
