@@ -42,16 +42,49 @@
   document.querySelector('#prevPage')?.addEventListener('click',()=>go(-1));
   document.querySelector('#nextPage')?.addEventListener('click',()=>go(1));
 
-  // When opened inside the main-site reader overlay, fullscreen the iframe itself.
-  // That removes the outer "Close reader" bar too, leaving only the comic canvas.
-  let hostFrame=null,hostDocument=null;
+  // The reader can be embedded inside the main site's overlay.
+  let hostFrame=null,hostDocument=null,hostOverlayBar=null;
   try{
     if(window.frameElement){
       hostFrame=window.frameElement;
       hostDocument=hostFrame.ownerDocument;
+      hostOverlayBar=hostDocument.querySelector('.reader-overlay-bar');
     }
   }catch(e){}
 
+  // Desktop cinematic chrome: both the inner navigation bar and the outer
+  // "Close reader" bar disappear after a moment and return on hover.
+  const finePointer=window.matchMedia?.('(hover:hover) and (pointer:fine)').matches;
+  const chromeTimers=new WeakMap();
+  const showChrome=(bar)=>{
+    if(!bar)return;
+    const old=chromeTimers.get(bar);if(old)clearTimeout(old);
+    bar.style.opacity='1';
+    bar.style.transform='translateY(0)';
+    bar.style.visibility='visible';
+  };
+  const hideChrome=(bar,delay=300)=>{
+    if(!bar||!finePointer)return;
+    const old=chromeTimers.get(bar);if(old)clearTimeout(old);
+    const timer=setTimeout(()=>{
+      bar.style.opacity='0';
+      bar.style.transform='translateY(-8px)';
+    },delay);
+    chromeTimers.set(bar,timer);
+  };
+  const wireChrome=(bar)=>{
+    if(!bar||!finePointer)return;
+    bar.style.transition='opacity .22s ease, transform .22s ease';
+    bar.onmouseenter=()=>showChrome(bar);
+    bar.onmouseleave=()=>hideChrome(bar,250);
+    showChrome(bar);
+    hideChrome(bar,1500);
+  };
+  wireChrome(readerBar);
+  wireChrome(hostOverlayBar);
+
+  // Fullscreen the iframe itself when embedded. This covers the parent overlay
+  // and removes the outer Close reader bar. The inner bar is hidden completely.
   const isReaderFullscreen=()=>{
     const local=!!(document.fullscreenElement||document.webkitFullscreenElement);
     const hosted=!!(hostDocument&&hostFrame&&(hostDocument.fullscreenElement===hostFrame||hostDocument.webkitFullscreenElement===hostFrame));
@@ -62,7 +95,6 @@
     const active=isReaderFullscreen();
     if(readerBar)readerBar.style.display=active?'none':'';
     if(fullscreenBtn){
-      fullscreenBtn.textContent=active?'⛶':'⛶';
       fullscreenBtn.setAttribute('aria-label',active?'Exit fullscreen':'Enter fullscreen');
       fullscreenBtn.title=active?'Exit fullscreen':'Enter fullscreen';
     }
