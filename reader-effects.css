@@ -1,0 +1,98 @@
+/* Animated reader-side atmosphere for ÏMAM Verse */
+body.reader-body{
+  position:relative;
+  isolation:isolate;
+  overflow-x:hidden;
+}
+body.reader-body .reader-wrap{position:relative;z-index:2}
+body.reader-body .reader-bar{position:sticky;z-index:90}
+
+@media (min-width:1150px){
+  body.reader-body:before,
+  body.reader-body:after{
+    content:"";
+    position:fixed;
+    top:52px;
+    bottom:0;
+    width:max(105px,calc((100vw - 1120px)/2));
+    z-index:1;
+    pointer-events:none;
+    opacity:.92;
+    will-change:background-position,opacity,filter,transform;
+  }
+  body.reader-body:before{
+    left:0;
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 62%,rgba(0,0,0,.76) 82%,transparent 100%);
+    mask-image:linear-gradient(90deg,#000 0,#000 62%,rgba(0,0,0,.76) 82%,transparent 100%);
+  }
+  body.reader-body:after{
+    right:0;
+    -webkit-mask-image:linear-gradient(270deg,#000 0,#000 62%,rgba(0,0,0,.76) 82%,transparent 100%);
+    mask-image:linear-gradient(270deg,#000 0,#000 62%,rgba(0,0,0,.76) 82%,transparent 100%);
+  }
+
+  /* MBIW — silver light, rising particles, moving beam */
+  body.reader-body[data-side="mbiw"]{background:#e8edf0}
+  body.reader-body[data-side="mbiw"]:before,
+  body.reader-body[data-side="mbiw"]:after{
+    background-image:
+      radial-gradient(circle,rgba(255,255,255,.95) 0 1.4px,transparent 2px),
+      radial-gradient(circle,rgba(126,190,229,.62) 0 1.8px,transparent 2.7px),
+      linear-gradient(112deg,transparent 18%,rgba(144,205,239,.05) 33%,rgba(178,223,248,.55) 48%,rgba(255,255,255,.96) 52%,rgba(150,207,240,.38) 57%,transparent 73%),
+      radial-gradient(ellipse at 35% 42%,rgba(204,235,252,.72) 0,rgba(174,220,245,.30) 34%,transparent 68%),
+      linear-gradient(180deg,rgba(255,255,255,.72),rgba(202,222,233,.48));
+    background-size:92px 138px,156px 214px,245% 100%,100% 100%,100% 100%;
+    filter:saturate(.92) brightness(1.04);
+  }
+  body.reader-body[data-side="mbiw"]:before{animation:readerMbiwLeft 8s linear infinite,readerMbiwPulse 3.8s ease-in-out infinite alternate}
+  body.reader-body[data-side="mbiw"]:after{animation:readerMbiwRight 9s linear infinite,readerMbiwPulse 4.4s ease-in-out infinite alternate}
+
+  /* ÏMAM — green fog, embers, shadow pulse */
+  body.reader-body[data-side="imam"]{background:#020604}
+  body.reader-body[data-side="imam"]:before,
+  body.reader-body[data-side="imam"]:after{
+    background-image:
+      radial-gradient(circle,rgba(112,209,143,.72) 0 1.2px,transparent 2.1px),
+      radial-gradient(circle,rgba(192,83,49,.38) 0 1.2px,transparent 2px),
+      radial-gradient(ellipse at 34% 38%,rgba(34,108,65,.58) 0,rgba(14,57,34,.34) 34%,transparent 68%),
+      linear-gradient(108deg,transparent 14%,rgba(20,83,47,.12) 31%,rgba(47,132,76,.52) 49%,rgba(22,72,43,.22) 59%,transparent 76%),
+      linear-gradient(180deg,#031008 0,#07170f 45%,#020604 100%);
+    background-size:110px 154px,188px 252px,100% 100%,235% 100%,100% 100%;
+    filter:saturate(1.08) contrast(1.07);
+  }
+  body.reader-body[data-side="imam"]:before{animation:readerImamLeft 10s linear infinite,readerImamPulse 5.2s ease-in-out infinite alternate}
+  body.reader-body[data-side="imam"]:after{animation:readerImamRight 11.5s linear infinite,readerImamPulse 6s ease-in-out infinite alternate}
+}
+
+@keyframes readerMbiwLeft{
+  0%{background-position:0 160px,38px 260px,-120% 0,0 0,0 0}
+  50%{background-position:24px -210px,2px -140px,5% 0,0 -22px,0 0}
+  100%{background-position:48px -580px,-34px -540px,120% 0,0 0,0 0}
+}
+@keyframes readerMbiwRight{
+  0%{background-position:42px 220px,0 300px,120% 0,0 0,0 0}
+  50%{background-position:10px -160px,40px -100px,-5% 0,0 24px,0 0}
+  100%{background-position:-22px -540px,80px -500px,-120% 0,0 0,0 0}
+}
+@keyframes readerMbiwPulse{
+  from{opacity:.64;filter:saturate(.88) brightness(.98)}
+  to{opacity:1;filter:saturate(1.12) brightness(1.12)}
+}
+@keyframes readerImamLeft{
+  0%{background-position:0 190px,62px 290px,0 0,-118% 0,0 0}
+  50%{background-position:28px -190px,12px -130px,0 30px,7% 0,0 0}
+  100%{background-position:56px -570px,-38px -550px,0 0,118% 0,0 0}
+}
+@keyframes readerImamRight{
+  0%{background-position:52px 240px,0 330px,0 0,118% 0,0 0}
+  50%{background-position:16px -150px,46px -100px,0 -26px,-7% 0,0 0}
+  100%{background-position:-20px -540px,92px -530px,0 0,-118% 0,0 0}
+}
+@keyframes readerImamPulse{
+  from{opacity:.56;filter:saturate(.92) brightness(.78)}
+  to{opacity:.94;filter:saturate(1.18) brightness(1.05)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  body.reader-body:before,body.reader-body:after{animation:none!important}
+}
