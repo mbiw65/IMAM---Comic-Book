@@ -4,6 +4,8 @@
   const progress=document.querySelector('#progress');
   const pages=[...document.querySelectorAll('.comic-page')];
   const current={page:1};
+  const readerBar=document.querySelector('.reader-bar');
+  const fullscreenBtn=document.querySelector('#fullscreen');
 
   pages.forEach(fig=>{
     const img=fig.querySelector('img');
@@ -39,10 +41,64 @@
 
   document.querySelector('#prevPage')?.addEventListener('click',()=>go(-1));
   document.querySelector('#nextPage')?.addEventListener('click',()=>go(1));
-  document.querySelector('#fullscreen')?.addEventListener('click',()=>{
-    if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();
-    else document.exitFullscreen?.();
+
+  // When opened inside the main-site reader overlay, fullscreen the iframe itself.
+  // That removes the outer "Close reader" bar too, leaving only the comic canvas.
+  let hostFrame=null,hostDocument=null;
+  try{
+    if(window.frameElement){
+      hostFrame=window.frameElement;
+      hostDocument=hostFrame.ownerDocument;
+    }
+  }catch(e){}
+
+  const isReaderFullscreen=()=>{
+    const local=!!(document.fullscreenElement||document.webkitFullscreenElement);
+    const hosted=!!(hostDocument&&hostFrame&&(hostDocument.fullscreenElement===hostFrame||hostDocument.webkitFullscreenElement===hostFrame));
+    return local||hosted;
+  };
+
+  const syncFullscreenUI=()=>{
+    const active=isReaderFullscreen();
+    if(readerBar)readerBar.style.display=active?'none':'';
+    if(fullscreenBtn){
+      fullscreenBtn.textContent=active?'⛶':'⛶';
+      fullscreenBtn.setAttribute('aria-label',active?'Exit fullscreen':'Enter fullscreen');
+      fullscreenBtn.title=active?'Exit fullscreen':'Enter fullscreen';
+    }
+  };
+
+  fullscreenBtn?.addEventListener('click',async()=>{
+    try{
+      if(isReaderFullscreen()){
+        if(hostDocument&&(hostDocument.fullscreenElement||hostDocument.webkitFullscreenElement)){
+          if(hostDocument.exitFullscreen)await hostDocument.exitFullscreen();
+          else hostDocument.webkitExitFullscreen?.();
+        }else{
+          if(document.exitFullscreen)await document.exitFullscreen();
+          else document.webkitExitFullscreen?.();
+        }
+      }else if(hostFrame){
+        if(hostFrame.requestFullscreen)await hostFrame.requestFullscreen();
+        else if(hostFrame.webkitRequestFullscreen)hostFrame.webkitRequestFullscreen();
+        else if(document.documentElement.requestFullscreen)await document.documentElement.requestFullscreen();
+      }else if(document.documentElement.requestFullscreen){
+        await document.documentElement.requestFullscreen();
+      }else{
+        document.documentElement.webkitRequestFullscreen?.();
+      }
+    }catch(e){
+      try{await document.documentElement.requestFullscreen?.();}catch(_){}
+    }
+    syncFullscreenUI();
   });
+
+  document.addEventListener('fullscreenchange',syncFullscreenUI);
+  document.addEventListener('webkitfullscreenchange',syncFullscreenUI);
+  try{
+    hostDocument?.addEventListener('fullscreenchange',syncFullscreenUI);
+    hostDocument?.addEventListener('webkitfullscreenchange',syncFullscreenUI);
+  }catch(e){}
 
   addEventListener('keydown',e=>{
     if(['ArrowRight','PageDown'].includes(e.key))go(1);
@@ -53,4 +109,6 @@
     const max=document.documentElement.scrollHeight-innerHeight;
     if(progress)progress.style.width=`${max>0?(scrollY/max)*100:0}%`;
   },{passive:true});
+
+  syncFullscreenUI();
 })();
