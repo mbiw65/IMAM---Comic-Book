@@ -60,7 +60,7 @@ body.side-selected .hero-inner{position:relative;z-index:3}
 body.side-selected .hero:before{z-index:0!important;inset:0!important;transform:none!important;transition:background .45s ease,filter .45s ease,opacity .45s ease!important}
 body.side-selected .hero:after{z-index:2!important;pointer-events:none!important;inset:0!important;content:""!important;will-change:opacity,filter!important}
 
-/* MBIW — actual Issue One artwork, project-relative path */
+/* MBIW — actual Issue One artwork */
 body.side-selected[data-side="mbiw"] .hero:before{
   background-image:url('assets/issue1/page-01.webp')!important;
   background-repeat:no-repeat!important;
@@ -71,17 +71,22 @@ body.side-selected[data-side="mbiw"] .hero:before{
 }
 body.side-selected[data-side="mbiw"] .hero:after{
   background:
-    radial-gradient(ellipse 5.8% 2.7% at 45.5% 29.5%,rgba(255,255,255,1) 0 18%,rgba(226,243,255,.98) 28%,rgba(142,196,230,.62) 46%,transparent 72%),
-    radial-gradient(ellipse 5.8% 2.7% at 51.4% 29.5%,rgba(255,255,255,1) 0 18%,rgba(226,243,255,.98) 28%,rgba(142,196,230,.62) 46%,transparent 72%),
-    radial-gradient(ellipse at 48.5% 30%,rgba(203,235,255,.26) 0,rgba(218,239,252,.1) 20%,transparent 43%),
-    linear-gradient(90deg,rgba(237,244,248,.66) 0%,rgba(237,244,248,.18) 28%,rgba(237,244,248,.06) 58%,rgba(237,244,248,.7) 100%),
-    linear-gradient(180deg,rgba(255,255,255,.02),rgba(235,242,246,.48))!important;
+    radial-gradient(ellipse 3.1% 1.5% at 21.4% 37.1%,rgba(255,255,255,1) 0 16%,rgba(236,248,255,1) 26%,rgba(181,222,249,.92) 43%,rgba(116,184,227,.45) 61%,transparent 78%),
+    radial-gradient(ellipse 3.1% 1.5% at 30.4% 40%,rgba(255,255,255,1) 0 16%,rgba(236,248,255,1) 26%,rgba(181,222,249,.92) 43%,rgba(116,184,227,.45) 61%,transparent 78%),
+    radial-gradient(ellipse 18% 13% at 25.8% 39%,rgba(201,235,255,.26) 0,rgba(183,225,250,.11) 40%,transparent 72%),
+    linear-gradient(90deg,rgba(237,244,248,.38) 0%,transparent 34%,transparent 70%,rgba(237,244,248,.48) 100%),
+    linear-gradient(180deg,transparent 0%,rgba(235,242,246,.32) 100%)!important;
   mix-blend-mode:screen;
-  animation:mbiwHeroEyes 3.2s ease-in-out infinite!important;
+  animation:mbiwHeroEyes 3.15s ease-in-out infinite!important;
 }
-@keyframes mbiwHeroEyes{0%,100%{opacity:.44;filter:brightness(.9) blur(.25px)}48%{opacity:1;filter:brightness(1.5) blur(0)}62%{opacity:.74;filter:brightness(1.15)}}
+@keyframes mbiwHeroEyes{
+  0%,100%{opacity:.48;filter:brightness(.9) blur(.35px)}
+  38%{opacity:.72;filter:brightness(1.12) blur(.18px)}
+  52%{opacity:1;filter:brightness(1.9) blur(0)}
+  61%{opacity:.83;filter:brightness(1.28) blur(.08px)}
+}
 
-/* ÏMAM — actual Issue Two artwork, project-relative path */
+/* ÏMAM — actual Issue Two artwork */
 body.side-selected[data-side="imam"] .hero:before{
   background-image:url('assets/issue2/page-01.webp')!important;
   background-repeat:no-repeat!important;
