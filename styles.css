@@ -186,3 +186,33 @@ html:-webkit-full-screen .reader-bar{
     animation:imamVisiblePulse 4.5s ease-in-out infinite alternate!important;
   }
 }
+
+/* ÏMAM choice — text animation only, no green text panel */
+.enter-gate.imam-transition .imam-transition-layer{
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+.enter-gate.imam-transition .imam-transition-layer:before,
+.enter-gate.imam-transition .imam-transition-layer:after,
+.enter-gate.imam-transition .imam-transition-copy:before,
+.enter-gate.imam-transition .imam-transition-copy:after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  opacity:0!important;
+  animation:none!important;
+  filter:none!important;
+}
+.enter-gate.imam-transition .imam-transition-copy,
+.enter-gate.imam-transition .imam-transition-copy span,
+.enter-gate.imam-transition .imam-transition-copy strong{
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+.enter-gate.imam-transition .imam-transition-copy{
+  animation:imamWords 1.05s .3s ease forwards!important;
+}
