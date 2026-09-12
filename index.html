@@ -2,7 +2,7 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
 <title>ÏMAM — Official Comic</title><meta name="description" content="Read ÏMAM Issue One: Days Before Reincarnation and Issue Two: The Reincarnation online.">
-<link rel="icon" href="assets/site/favicon.svg"><link rel="stylesheet" href="styles.css?v=20">
+<link rel="icon" href="assets/site/favicon.svg"><link rel="stylesheet" href="styles.css?v=19">
 <style>
 .volume-control{height:44px;display:flex;align-items:center;gap:8px;padding:0 11px;border:1px solid var(--side-line,#343937);border-radius:999px;background:var(--side-player,rgba(8,10,9,.92));backdrop-filter:blur(16px);color:var(--side-ink,#f1ede6);transition:.2s}
 .volume-control:hover{border-color:var(--side-accent,#7b8881)}
@@ -91,44 +91,10 @@ body.side-selected[data-side="imam"]:after{background-image:radial-gradient(circ
 @media(max-width:1050px){body.side-selected:before,body.side-selected:after{display:none}}
 @media(max-width:720px){.music-player{left:10px;right:10px;bottom:10px;flex-wrap:wrap}.music-toggle{flex:1 1 178px;min-width:0}.volume-control{flex:0 1 116px;padding:0 8px;gap:5px}.volume-slider{width:58px}.volume-value{display:none}.side-switch{flex:1 0 100%;height:38px}.mbiw-transition-copy strong,.imam-transition-copy strong{font-size:clamp(28px,9vw,48px)}.mbiw-transition-copy span,.imam-transition-copy span{font-size:9px;letter-spacing:.32em}}
 </style>
-<link rel="stylesheet" href="imam-corruption-v3.css?v=8">
-<style id="imam-crack-hotfix-v8">
-/* Explicit DOM crack transition: no background-image dependency. */
-.enter-gate.imam-transition .imam-transition-layer{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:70!important;display:block!important;visibility:visible!important;opacity:1!important;overflow:hidden!important;background:rgba(0,4,2,.28)!important;pointer-events:none!important}
-.enter-gate.imam-transition .imam-transition-layer:before,.enter-gate.imam-transition .imam-transition-layer:after{display:none!important}
-.imam-matter-v8{position:absolute;inset:-20%;z-index:1;opacity:0;transform:scale(.24);transform-origin:37% 58%;background:radial-gradient(circle at 37% 58%,#000 0 9%,rgba(0,0,0,.99) 13%,rgba(3,12,7,.98) 20%,rgba(8,38,21,.94) 30%,rgba(25,112,62,.76) 42%,rgba(55,255,145,.22) 52%,transparent 67%),radial-gradient(circle at 28% 67%,rgba(0,0,0,.96) 0 8%,transparent 29%),radial-gradient(circle at 48% 43%,rgba(0,0,0,.94) 0 7%,transparent 28%);filter:blur(7px) contrast(1.12)}
-.enter-gate.imam-transition .imam-matter-v8{animation:imamMatterV8 1.55s cubic-bezier(.12,.82,.22,1) forwards!important}
-.imam-cracks-v8{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;z-index:3!important;overflow:visible!important;opacity:0!important;filter:drop-shadow(0 0 8px rgba(211,255,229,1)) drop-shadow(0 0 22px rgba(77,255,164,1)) drop-shadow(0 0 48px rgba(31,231,127,.92));pointer-events:none!important}
-.enter-gate.imam-transition .imam-cracks-v8{opacity:1!important}
-.imam-cracks-v8 path{fill:none;stroke-linecap:round;stroke-linejoin:round;path-length:1;stroke-dasharray:1;stroke-dashoffset:1}
-.enter-gate.imam-transition .imam-cracks-v8 .crack-core path{stroke:#001309;stroke-width:24;animation:imamCrackDrawV8 .72s .05s ease-out forwards!important}
-.enter-gate.imam-transition .imam-cracks-v8 .crack-green path{stroke:#48ff98;stroke-width:11;animation:imamCrackDrawV8 .72s .05s ease-out forwards!important}
-.enter-gate.imam-transition .imam-cracks-v8 .crack-hot path{stroke:#e6fff0;stroke-width:3.5;animation:imamCrackDrawV8 .72s .05s ease-out forwards!important}
-.enter-gate.imam-transition .imam-transition-copy{position:absolute!important;left:50%!important;top:50%!important;z-index:5!important;width:min(94vw,1100px)!important;display:block!important;opacity:0!important;transform:translate(-50%,-42%) scale(.96)!important;color:#f5fff9!important;text-align:center!important;text-shadow:0 0 12px rgba(132,255,197,.95),0 0 34px rgba(57,239,143,.68),0 3px 28px #000!important;animation:imamTextV8 .55s .62s ease forwards!important}
-.enter-gate.imam-transition .imam-transition-copy span{display:block!important;color:#9dffca!important;font-size:11px!important;letter-spacing:.42em!important;margin-bottom:9px!important}
-.enter-gate.imam-transition .imam-transition-copy strong{display:block!important;font-size:clamp(34px,6.5vw,82px)!important;letter-spacing:.075em!important}
-@keyframes imamMatterV8{0%{opacity:0;transform:scale(.24)}12%{opacity:.96}55%{opacity:1;transform:scale(.90)}100%{opacity:1;transform:scale(1.58)}}
-@keyframes imamCrackDrawV8{0%{stroke-dashoffset:1;opacity:0}8%{opacity:1}100%{stroke-dashoffset:0;opacity:1}}
-@keyframes imamTextV8{0%{opacity:0;transform:translate(-50%,-36%) scale(.95);filter:blur(3px)}55%{opacity:1}100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}}
-</style>
 </head><body class="gate-open">
 <div class="enter-gate" id="enterGate">
   <div class="mbiw-transition-layer" id="mbiwTransitionLayer" aria-hidden="true"><div class="mbiw-transition-copy"><span>MBIW</span><strong>YOU CHOSE THE LIGHT</strong></div></div>
-  <div class="imam-transition-layer" id="imamTransitionLayer" aria-hidden="true">
-    <div class="imam-matter-v8" aria-hidden="true"></div>
-    <svg class="imam-cracks-v8" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
-      <g class="crack-core">
-        <path pathLength="1" d="M590 520 L520 448 L470 374 L394 320 L342 246 L278 198 L208 120 L132 54"/><path pathLength="1" d="M590 520 L515 535 L432 566 L350 632 L250 682 L142 760 L42 842"/><path pathLength="1" d="M590 520 L650 455 L703 376 L782 314 L856 222 L978 128 L1120 46"/><path pathLength="1" d="M590 520 L664 548 L748 590 L846 664 L930 738 L1060 838"/><path pathLength="1" d="M590 520 L620 430 L608 348 L636 268 L617 172 L646 72 L678 10"/><path pathLength="1" d="M590 520 L704 514 L804 484 L916 462 L1030 410 L1190 388 L1370 326 L1560 250"/><path pathLength="1" d="M590 520 L476 470 L380 432 L300 382 L210 354 L82 300 L0 260"/><path pathLength="1" d="M590 520 L708 566 L810 622 L938 642 L1084 706 L1268 748 L1510 826 L1600 866"/>
-      </g>
-      <g class="crack-green">
-        <path pathLength="1" d="M590 520 L520 448 L470 374 L394 320 L342 246 L278 198 L208 120 L132 54"/><path pathLength="1" d="M590 520 L515 535 L432 566 L350 632 L250 682 L142 760 L42 842"/><path pathLength="1" d="M590 520 L650 455 L703 376 L782 314 L856 222 L978 128 L1120 46"/><path pathLength="1" d="M590 520 L664 548 L748 590 L846 664 L930 738 L1060 838"/><path pathLength="1" d="M590 520 L620 430 L608 348 L636 268 L617 172 L646 72 L678 10"/><path pathLength="1" d="M590 520 L704 514 L804 484 L916 462 L1030 410 L1190 388 L1370 326 L1560 250"/><path pathLength="1" d="M590 520 L476 470 L380 432 L300 382 L210 354 L82 300 L0 260"/><path pathLength="1" d="M590 520 L708 566 L810 622 L938 642 L1084 706 L1268 748 L1510 826 L1600 866"/><path pathLength="1" d="M470 374 L430 350 L414 300 L382 254"/><path pathLength="1" d="M350 632 L328 680 L290 708 L248 744"/><path pathLength="1" d="M703 376 L748 352 L770 312 L804 274"/><path pathLength="1" d="M846 664 L876 620 L930 602 L978 572"/><path pathLength="1" d="M804 484 L838 430 L892 408 L946 364"/><path pathLength="1" d="M380 432 L356 390 L310 368 L264 326"/>
-      </g>
-      <g class="crack-hot">
-        <path pathLength="1" d="M590 520 L520 448 L470 374 L394 320 L342 246 L278 198 L208 120 L132 54"/><path pathLength="1" d="M590 520 L515 535 L432 566 L350 632 L250 682 L142 760 L42 842"/><path pathLength="1" d="M590 520 L650 455 L703 376 L782 314 L856 222 L978 128 L1120 46"/><path pathLength="1" d="M590 520 L664 548 L748 590 L846 664 L930 738 L1060 838"/><path pathLength="1" d="M590 520 L620 430 L608 348 L636 268 L617 172 L646 72 L678 10"/><path pathLength="1" d="M590 520 L704 514 L804 484 L916 462 L1030 410 L1190 388 L1370 326 L1560 250"/><path pathLength="1" d="M590 520 L476 470 L380 432 L300 382 L210 354 L82 300 L0 260"/><path pathLength="1" d="M590 520 L708 566 L810 622 L938 642 L1084 706 L1268 748 L1510 826 L1600 866"/>
-      </g>
-    </svg>
-    <div class="imam-transition-copy"><span>ÏMAM</span><strong>YOU CHOSE REINCARNATION</strong></div>
-  </div>
+  <div class="imam-transition-layer" id="imamTransitionLayer" aria-hidden="true"><div class="imam-transition-copy"><span>ÏMAM</span><strong>YOU CHOSE REINCARNATION</strong></div></div>
   <div class="side-choice">
     <div class="choice-heading"><div class="eyebrow">ÏMAMVERSE</div><h2>PICK A SIDE</h2><p>Your choice changes the soundtrack and the world around the story.</p></div>
     <button class="side-card imam" type="button" data-side-choice="imam" aria-label="Choose ÏMAM"><span class="side-card-content"><span class="side-name">ÏMAM</span><span class="side-tag">Fear · Control · Reincarnation</span></span></button>
@@ -269,7 +235,7 @@ body.side-selected[data-side="imam"]:after{background-image:radial-gradient(circ
       gate.classList.remove('mbiw-transition');
       gate.classList.add('imam-transition');
       const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      window.setTimeout(finishSideChoice,reduced?800:2100);
+      window.setTimeout(finishSideChoice,reduced?650:1500);
       return;
     }
     finishSideChoice();
