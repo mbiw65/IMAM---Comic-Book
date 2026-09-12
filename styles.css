@@ -64,10 +64,10 @@ body.side-selected .hero:after{z-index:2!important;pointer-events:none!important
 body.side-selected[data-side="mbiw"] .hero:before{
   background-image:url('assets/issue1/page-01.webp')!important;
   background-repeat:no-repeat!important;
-  background-size:auto 190%!important;
+  background-size:auto 230%!important;
   background-position:34% 66%!important;
   filter:grayscale(.08) saturate(.72) contrast(1.12) brightness(.86)!important;
-  opacity:.58!important;
+  opacity:1!important;
 }
 body.side-selected[data-side="mbiw"] .hero:after{
   background:
