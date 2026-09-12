@@ -52,12 +52,23 @@
   const frame=document.getElementById('readerFrame');
   const overlayTitle=document.getElementById('readerOverlayTitle');
   const closeBtn=document.getElementById('readerOverlayClose');
+  const siteBrand=document.querySelector('.brand');
+  const heroTitle=document.querySelector('.hero h1');
   let currentSide=null,trackIndex=0,manuallyPaused=false,preloader=null;
   audio.volume=.42;
 
+  const updateIdentity=(side)=>{
+    const isMbiw=side==='mbiw';
+    const name=isMbiw?'MBIW':'ÏMAM';
+    if(siteBrand&&siteBrand.firstChild)siteBrand.firstChild.nodeValue=name;
+    if(heroTitle&&heroTitle.firstChild)heroTitle.firstChild.nodeValue=name;
+    const subtitle=heroTitle?heroTitle.querySelector('span'):null;
+    if(subtitle)subtitle.textContent=isMbiw?'DAYS BEFORE REINCARNATION':'THE REINCARNATION';
+    document.title=name+' — Official Comic';
+  };
   const setTheme=(side)=>{
     currentSide=side;document.body.dataset.side=side;document.documentElement.dataset.side=side;
-    document.body.classList.add('side-selected');localStorage.setItem('imamverse_side',side);
+    document.body.classList.add('side-selected');localStorage.setItem('imamverse_side',side);updateIdentity(side);
   };
   const sync=()=>{
     const playing=!audio.paused&&!!currentSide;
