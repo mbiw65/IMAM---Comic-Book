@@ -10,10 +10,35 @@
 .volume-mute:focus-visible,.volume-slider:focus-visible{outline:2px solid currentColor;outline-offset:2px}
 .volume-slider{width:92px;height:20px;margin:0;cursor:pointer;accent-color:var(--side-ink,#f1ede6)}
 .volume-value{min-width:30px;color:var(--side-muted,#9ca29e);font-size:9px;font-variant-numeric:tabular-nums;text-align:right}
-@media(max-width:720px){.music-player{left:10px;right:10px;bottom:10px;flex-wrap:wrap}.music-toggle{flex:1 1 178px;min-width:0}.volume-control{flex:0 1 116px;padding:0 8px;gap:5px}.volume-slider{width:58px}.volume-value{display:none}.side-switch{flex:1 0 100%;height:38px}}
+
+/* MBIW — choose the light transition */
+.mbiw-transition-layer{position:absolute;inset:0;z-index:8;display:grid;place-items:center;overflow:hidden;pointer-events:none;opacity:0;visibility:hidden}
+.mbiw-transition-layer:before{content:"";position:absolute;width:34vmax;height:34vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.98) 0,rgba(220,239,250,.86) 20%,rgba(187,220,239,.38) 45%,rgba(255,255,255,0) 72%);filter:blur(3px);transform:scale(.05);opacity:0}
+.mbiw-transition-copy{position:relative;z-index:2;text-align:center;color:#172128;text-shadow:0 2px 18px rgba(255,255,255,.9);opacity:0;transform:translateY(12px) scale(.98)}
+.mbiw-transition-copy span{display:block;font-size:10px;letter-spacing:.42em;text-transform:uppercase;color:#5d7481;margin-bottom:8px}
+.mbiw-transition-copy strong{display:block;font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,6vw,72px);font-weight:700;letter-spacing:.08em}
+.enter-gate.mbiw-transition{background:#f3f8fb}
+.enter-gate.mbiw-transition:before,.enter-gate.mbiw-transition:after{animation:mbiwWash 1.35s ease forwards}
+.enter-gate.mbiw-transition .choice-heading{animation:mbiwHeadingAway .5s ease forwards}
+.enter-gate.mbiw-transition .side-card.imam{animation:mbiwDarkSideAway .72s cubic-bezier(.4,0,.2,1) forwards;pointer-events:none}
+.enter-gate.mbiw-transition .side-card.mbiw{z-index:7;animation:mbiwCardRise 1.15s cubic-bezier(.16,.84,.32,1) forwards;pointer-events:none}
+.enter-gate.mbiw-transition .mbiw-transition-layer{visibility:visible;animation:mbiwLayer 1.45s ease forwards}
+.enter-gate.mbiw-transition .mbiw-transition-layer:before{animation:mbiwBloom 1.35s cubic-bezier(.16,.84,.3,1) forwards}
+.enter-gate.mbiw-transition .mbiw-transition-copy{animation:mbiwWords 1.1s .3s ease forwards}
+@keyframes mbiwWash{0%{opacity:1;filter:none}55%{opacity:.55;filter:brightness(1.35) saturate(.65)}100%{opacity:.12;filter:brightness(1.7) saturate(.35)}}
+@keyframes mbiwHeadingAway{to{opacity:0;transform:translateY(-12px);filter:blur(5px)}}
+@keyframes mbiwDarkSideAway{0%{opacity:1;transform:none;filter:none}100%{opacity:0;transform:scale(.92) translateX(-18px);filter:blur(10px) brightness(.55)}}
+@keyframes mbiwCardRise{0%{transform:none;filter:none}42%{transform:scale(1.025);filter:brightness(1.08)}100%{transform:scale(1.055);filter:brightness(1.22);border-color:rgba(255,255,255,.95);box-shadow:0 0 0 1px rgba(255,255,255,.75),0 0 85px rgba(196,226,244,.82),0 28px 100px rgba(255,255,255,.45)}}
+@keyframes mbiwLayer{0%{opacity:0}16%{opacity:1}82%{opacity:1}100%{opacity:.96}}
+@keyframes mbiwBloom{0%{opacity:0;transform:scale(.05)}18%{opacity:.95}70%{opacity:.95;transform:scale(3.2)}100%{opacity:.7;transform:scale(4.4)}}
+@keyframes mbiwWords{0%{opacity:0;transform:translateY(12px) scale(.98);letter-spacing:.02em}35%{opacity:1}100%{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.enter-gate.mbiw-transition:before,.enter-gate.mbiw-transition:after,.enter-gate.mbiw-transition .choice-heading,.enter-gate.mbiw-transition .side-card.imam,.enter-gate.mbiw-transition .side-card.mbiw,.enter-gate.mbiw-transition .mbiw-transition-layer,.enter-gate.mbiw-transition .mbiw-transition-layer:before,.enter-gate.mbiw-transition .mbiw-transition-copy{animation:none!important}.enter-gate.mbiw-transition .choice-heading,.enter-gate.mbiw-transition .side-card.imam{opacity:0}.enter-gate.mbiw-transition .side-card.mbiw{transform:scale(1.02);filter:brightness(1.12)}.enter-gate.mbiw-transition .mbiw-transition-layer{opacity:1;visibility:visible}.enter-gate.mbiw-transition .mbiw-transition-layer:before{opacity:.8;transform:scale(3)}.enter-gate.mbiw-transition .mbiw-transition-copy{opacity:1;transform:none}}
+
+@media(max-width:720px){.music-player{left:10px;right:10px;bottom:10px;flex-wrap:wrap}.music-toggle{flex:1 1 178px;min-width:0}.volume-control{flex:0 1 116px;padding:0 8px;gap:5px}.volume-slider{width:58px}.volume-value{display:none}.side-switch{flex:1 0 100%;height:38px}.mbiw-transition-copy strong{font-size:clamp(28px,9vw,48px)}.mbiw-transition-copy span{font-size:9px;letter-spacing:.32em}}
 </style>
 </head><body class="gate-open">
 <div class="enter-gate" id="enterGate">
+  <div class="mbiw-transition-layer" id="mbiwTransitionLayer" aria-hidden="true"><div class="mbiw-transition-copy"><span>MBIW</span><strong>YOU CHOSE THE LIGHT</strong></div></div>
   <div class="side-choice">
     <div class="choice-heading"><div class="eyebrow">ÏMAMVERSE</div><h2>PICK A SIDE</h2><p>Your choice changes the soundtrack and the world around the story.</p></div>
     <button class="side-card imam" type="button" data-side-choice="imam" aria-label="Choose ÏMAM"><span class="side-card-content"><span class="side-name">ÏMAM</span><span class="side-tag">Fear · Control · Reincarnation</span></span></button>
@@ -72,7 +97,8 @@
   const closeBtn=document.getElementById('readerOverlayClose');
   const siteBrand=document.querySelector('.brand');
   const heroTitle=document.querySelector('.hero h1');
-  let currentSide=null,trackIndex=0,manuallyPaused=false,preloader=null,lastAudibleVolume=.03;
+  const sideButtons=[...document.querySelectorAll('[data-side-choice]')];
+  let currentSide=null,trackIndex=0,manuallyPaused=false,preloader=null,lastAudibleVolume=.03,sideTransitioning=false;
   audio.volume=.03;
 
   const syncVolume=()=>{
@@ -124,14 +150,32 @@
   };
   const playCurrent=async()=>{if(!currentSide||manuallyPaused)return;try{audio.muted=false;await audio.play();}catch(e){}sync();};
   const closeReader=()=>{overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');if(frame)frame.src='about:blank';document.body.style.overflow='';};
-  const chooseSide=async(side)=>{
-    if(!playlists[side])return;closeReader();setTheme(side);manuallyPaused=false;trackIndex=0;loadTrack(0);
-    try{await audio.play();}catch(e){}
-    gate.classList.add('is-hidden');document.body.classList.remove('gate-open');sync();
+  const finishSideChoice=()=>{
+    gate.classList.add('is-hidden');
+    document.body.classList.remove('gate-open');
+    window.setTimeout(()=>gate.classList.remove('mbiw-transition'),520);
+    sideButtons.forEach(btn=>btn.disabled=false);
+    sideTransitioning=false;
+    sync();
   };
-  document.querySelectorAll('[data-side-choice]').forEach(btn=>btn.addEventListener('click',()=>chooseSide(btn.dataset.sideChoice)));
+  const chooseSide=(side)=>{
+    if(!playlists[side]||sideTransitioning)return;
+    closeReader();setTheme(side);manuallyPaused=false;trackIndex=0;loadTrack(0);
+    audio.muted=false;audio.play().catch(()=>{});
+    if(side==='mbiw'){
+      sideTransitioning=true;
+      sideButtons.forEach(btn=>btn.disabled=true);
+      gate.classList.remove('is-hidden');
+      gate.classList.add('mbiw-transition');
+      const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.setTimeout(finishSideChoice,reduced?650:1500);
+      return;
+    }
+    finishSideChoice();
+  };
+  sideButtons.forEach(btn=>btn.addEventListener('click',()=>chooseSide(btn.dataset.sideChoice)));
   toggle.addEventListener('click',async()=>{if(audio.paused){manuallyPaused=false;await playCurrent();}else{manuallyPaused=true;audio.pause();}sync();});
-  sideSwitch.addEventListener('click',()=>{closeReader();manuallyPaused=true;audio.pause();gate.classList.remove('is-hidden');document.body.classList.add('gate-open');document.body.classList.remove('side-selected');sync();});
+  sideSwitch.addEventListener('click',()=>{closeReader();manuallyPaused=true;audio.pause();gate.classList.remove('is-hidden','mbiw-transition');document.body.classList.add('gate-open');document.body.classList.remove('side-selected');sideButtons.forEach(btn=>btn.disabled=false);sideTransitioning=false;sync();});
   audio.addEventListener('ended',async()=>{if(!currentSide)return;manuallyPaused=false;loadTrack(trackIndex+1);await playCurrent();});
   audio.addEventListener('play',sync);audio.addEventListener('pause',sync);audio.addEventListener('error',()=>{state.textContent='Track unavailable';});
   const openReader=(issue)=>{
