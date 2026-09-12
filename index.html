@@ -2,20 +2,15 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
 <title>ÏMAM — Official Comic</title><meta name="description" content="Read ÏMAM Issue One: Days Before Reincarnation and Issue Two: The Reincarnation online.">
-<link rel="icon" href="/assets/site/favicon.svg"><link rel="stylesheet" href="/styles.css?v=9">
-<style>
-body.gate-open{overflow:hidden}
-.enter-gate{position:fixed;inset:0;z-index:300;display:flex;align-items:center;justify-content:center;padding:28px;background:radial-gradient(circle at 50% 28%,rgba(87,17,24,.42),rgba(0,0,0,.96) 62%),#020303;transition:opacity .45s ease,visibility .45s ease}
-.enter-gate.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
-.enter-panel{width:min(680px,100%);text-align:center;padding:38px 28px;border:1px solid rgba(255,255,255,.15);border-radius:24px;background:rgba(9,10,10,.76);backdrop-filter:blur(18px);box-shadow:0 24px 90px rgba(0,0,0,.62)}
-.enter-panel .eyebrow{margin-bottom:14px}.enter-panel h2{margin:0 0 14px;font-family:Georgia,"Times New Roman",serif;font-size:clamp(40px,7vw,78px);line-height:.94;letter-spacing:.03em}.enter-panel p{max-width:520px;margin:0 auto 26px;color:#c9c5be;font-size:clamp(15px,2vw,19px);line-height:1.65}
-.enter-button{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:14px 24px;border:1px solid rgba(255,255,255,.28);border-radius:999px;background:#e8e3da;color:#101110;font:inherit;font-weight:800;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.2s}.enter-button:hover{transform:translateY(-2px);background:#fff;border-color:#fff}
-.music-player{position:fixed;left:18px;bottom:18px;z-index:240;filter:drop-shadow(0 12px 30px rgba(0,0,0,.55))}.music-toggle{display:flex;align-items:center;gap:10px;min-width:174px;padding:10px 13px;border:1px solid rgba(255,255,255,.2);border-radius:999px;background:rgba(8,10,9,.92);backdrop-filter:blur(16px);color:#f1ede6;cursor:pointer;transition:.2s}.music-toggle:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.4);background:rgba(16,19,17,.98)}.music-icon{font-family:Georgia,serif;font-size:22px;line-height:1;width:22px;text-align:center}.music-copy{display:flex;flex-direction:column;align-items:flex-start;line-height:1.08;min-width:86px}.music-copy strong{font-size:12px;letter-spacing:.04em}.music-copy small{margin-top:4px;color:#9ca29e;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.music-bars{height:18px;display:flex;align-items:flex-end;gap:2px;margin-left:auto}.music-bars i{display:block;width:2px;height:5px;border-radius:2px;background:#d8d3cb;opacity:.45;transform-origin:bottom}.music-player.is-playing .music-bars i{opacity:1;animation:imamBars .75s ease-in-out infinite alternate}.music-player.is-playing .music-bars i:nth-child(2){animation-delay:.18s}.music-player.is-playing .music-bars i:nth-child(3){animation-delay:.36s}@keyframes imamBars{from{height:4px}to{height:17px}}
-.reader-overlay{position:fixed;inset:0;z-index:180;display:none;flex-direction:column;background:#020303}.reader-overlay.is-open{display:flex}.reader-overlay-bar{height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 14px;background:rgba(4,5,5,.97);border-bottom:1px solid #1b1e1d}.reader-overlay-title{font-family:Georgia,"Times New Roman",serif;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reader-overlay-close{border:1px solid #343937;background:#0c0f0e;color:#eee;border-radius:999px;padding:8px 13px;font:inherit;cursor:pointer}.reader-overlay-close:hover{background:#171b19}.reader-frame{flex:1;width:100%;border:0;background:#020303}
-@media(max-width:720px){.music-player{left:10px;bottom:10px}.music-toggle{min-width:0;padding:9px 11px}.music-copy small{display:none}.music-copy{min-width:80px}.enter-panel{padding:30px 18px}.reader-overlay-bar{height:48px;padding:7px 10px}.reader-overlay-title{font-size:14px}}
-</style>
+<link rel="icon" href="/assets/site/favicon.svg"><link rel="stylesheet" href="/styles.css?v=10">
 </head><body class="gate-open">
-<div class="enter-gate" id="enterGate"><div class="enter-panel"><div class="eyebrow">Soundtrack enabled experience</div><h2>Enter ÏMAMVERSE</h2><p>Enter once and Fennan II will begin. The soundtrack will keep playing while you open and scroll through Issue One and Issue Two.</p><button class="enter-button" id="enterButton" type="button">Enter with music</button></div></div>
+<div class="enter-gate" id="enterGate">
+  <div class="side-choice">
+    <div class="choice-heading"><div class="eyebrow">ÏMAMVERSE</div><h2>PICK A SIDE</h2><p>Your choice changes the soundtrack and the world around the story.</p></div>
+    <button class="side-card imam" type="button" data-side-choice="imam" aria-label="Choose ÏMAM"><span class="side-card-content"><span class="side-name">ÏMAM</span><span class="side-tag">Fear · Control · Reincarnation</span></span></button>
+    <button class="side-card mbiw" type="button" data-side-choice="mbiw" aria-label="Choose MBIW"><span class="side-card-content"><span class="side-name">MBIW</span><span class="side-tag">Hope · Sacrifice · Light</span></span></button>
+  </div>
+</div>
 <header class="site-header"><a class="brand" href="/">ÏMAM<span>OFFICIAL COMIC</span></a><nav class="nav"><a href="#issues">Issues</a><a href="/issue1/" data-reader="issue1">Issue One</a><a href="/issue2/" data-reader="issue2">Issue Two</a></nav></header>
 <main>
 <section class="hero"><div class="hero-inner"><div class="eyebrow">A dark superhero saga</div><h1>ÏMAM<span>THE REINCARNATION</span></h1><p>MBIW gave everything to protect his city. When the city turned on him, something colder woke inside. Read the story from the beginning.</p><div class="hero-actions"><a class="button primary" href="/issue1/" data-reader="issue1">Start Issue One</a><a class="button" href="/issue2/" data-reader="issue2">Read Issue Two</a></div></div></section>
@@ -26,34 +21,81 @@ body.gate-open{overflow:hidden}
 </div></section>
 <section class="quote"><blockquote>“You think you are at peace because I exist? You are at peace because I allow it.”</blockquote><cite>ÏMAM</cite></section>
 </main><footer class="footer">ÏMAM · Independent comic project</footer>
-<div class="music-player" id="musicPlayer" aria-label="Background music controls"><button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Play background music"><span class="music-icon" aria-hidden="true">♪</span><span class="music-copy"><strong id="musicState">Music ready</strong><small>Fennan II</small></span><span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span></button></div>
-<audio id="bgMusic" preload="auto" loop src="/assets/audio/Fennan_II.mp3"></audio>
+<div class="music-player" id="musicPlayer" aria-label="Soundtrack controls">
+  <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Pause soundtrack"><span class="music-icon" aria-hidden="true">♪</span><span class="music-copy"><strong id="musicState">Now playing</strong><small id="musicTrack">Soundtrack</small></span><span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
+  <button class="side-switch" id="sideSwitch" type="button">Switch side</button>
+</div>
+<audio id="bgMusic" preload="auto"></audio>
 <div class="reader-overlay" id="readerOverlay" aria-hidden="true"><div class="reader-overlay-bar"><div class="reader-overlay-title" id="readerOverlayTitle">ÏMAM</div><button class="reader-overlay-close" id="readerOverlayClose" type="button">Close reader ✕</button></div><iframe class="reader-frame" id="readerFrame" title="ÏMAM comic reader" loading="eager"></iframe></div>
 <script>
 (() => {
+  const playlists={
+    imam:[
+      {title:'TALIBAN',src:'/assets/audio/5%20-%20Taliban.mp3'},
+      {title:'ICONIC',src:'/assets/audio/6%20-%20Iconic.mp3'},
+      {title:'7EREK RAS X HAQQI',src:'/assets/audio/7erek%20ras%20x%20haqqi.mp3'}
+    ],
+    mbiw:[
+      {title:'FORSA',src:'/assets/audio/1%20-%20Forsa.mp3'},
+      {title:'FENNAN II',src:'/assets/audio/2%20-%20Fennan%20II.mp3'},
+      {title:'DEMISE OF MBIW',src:'/assets/audio/3%20-%20DEMISE%20OF%20MBIW.mp3'}
+    ]
+  };
   const audio=document.getElementById('bgMusic');
   const toggle=document.getElementById('musicToggle');
   const state=document.getElementById('musicState');
+  const trackLabel=document.getElementById('musicTrack');
   const player=document.getElementById('musicPlayer');
   const gate=document.getElementById('enterGate');
-  const enter=document.getElementById('enterButton');
+  const sideSwitch=document.getElementById('sideSwitch');
   const overlay=document.getElementById('readerOverlay');
   const frame=document.getElementById('readerFrame');
   const overlayTitle=document.getElementById('readerOverlayTitle');
   const closeBtn=document.getElementById('readerOverlayClose');
-  if(!audio||!toggle||!enter) return;
+  let currentSide=null,trackIndex=0,manuallyPaused=false,preloader=null;
   audio.volume=.42;
-  let manuallyPaused=false;
-  const sync=()=>{const playing=!audio.paused;toggle.setAttribute('aria-pressed',playing?'true':'false');toggle.setAttribute('aria-label',playing?'Pause background music':'Play background music');state.textContent=playing?'Now playing':(manuallyPaused?'Music paused':'Music ready');player.classList.toggle('is-playing',playing);};
-  const start=async()=>{if(manuallyPaused)return;try{audio.muted=false;await audio.play();}catch(e){}sync();};
-  enter.addEventListener('click',async()=>{manuallyPaused=false;await start();gate.classList.add('is-hidden');document.body.classList.remove('gate-open');});
-  toggle.addEventListener('click',async()=>{if(audio.paused){manuallyPaused=false;await start();}else{manuallyPaused=true;audio.pause();}sync();});
-  audio.addEventListener('play',sync);audio.addEventListener('pause',sync);
-  const openReader=(issue)=>{const one=issue==='issue1';frame.src=one?'/issue1/':'/issue2/';overlayTitle.textContent=one?'ÏMAM · Issue One — Days Before Reincarnation':'ÏMAM · Issue Two — The Reincarnation';overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';};
-  const closeReader=()=>{overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');frame.src='about:blank';document.body.style.overflow='';};
+
+  const setTheme=(side)=>{
+    currentSide=side;document.body.dataset.side=side;document.documentElement.dataset.side=side;
+    document.body.classList.add('side-selected');localStorage.setItem('imamverse_side',side);
+  };
+  const sync=()=>{
+    const playing=!audio.paused&&!!currentSide;
+    toggle.setAttribute('aria-pressed',playing?'true':'false');
+    toggle.setAttribute('aria-label',playing?'Pause soundtrack':'Play soundtrack');
+    state.textContent=playing?'Now playing':(manuallyPaused?'Music paused':'Music ready');
+    player.classList.toggle('is-playing',playing);
+  };
+  const preloadNext=()=>{
+    if(!currentSide)return;
+    const list=playlists[currentSide],next=list[(trackIndex+1)%list.length];
+    preloader=new Audio();preloader.preload='auto';preloader.src=next.src;
+  };
+  const loadTrack=(index)=>{
+    const list=playlists[currentSide];trackIndex=(index+list.length)%list.length;
+    const track=list[trackIndex];audio.src=track.src;trackLabel.textContent=track.title;audio.load();preloadNext();
+  };
+  const playCurrent=async()=>{if(!currentSide||manuallyPaused)return;try{audio.muted=false;await audio.play();}catch(e){}sync();};
+  const closeReader=()=>{overlay.classList.remove('is-open');overlay.setAttribute('aria-hidden','true');if(frame)frame.src='about:blank';document.body.style.overflow='';};
+  const chooseSide=async(side)=>{
+    if(!playlists[side])return;closeReader();setTheme(side);manuallyPaused=false;trackIndex=0;loadTrack(0);
+    try{await audio.play();}catch(e){}
+    gate.classList.add('is-hidden');document.body.classList.remove('gate-open');sync();
+  };
+  document.querySelectorAll('[data-side-choice]').forEach(btn=>btn.addEventListener('click',()=>chooseSide(btn.dataset.sideChoice)));
+  toggle.addEventListener('click',async()=>{if(audio.paused){manuallyPaused=false;await playCurrent();}else{manuallyPaused=true;audio.pause();}sync();});
+  sideSwitch.addEventListener('click',()=>{closeReader();manuallyPaused=true;audio.pause();gate.classList.remove('is-hidden');document.body.classList.add('gate-open');document.body.classList.remove('side-selected');sync();});
+  audio.addEventListener('ended',async()=>{if(!currentSide)return;manuallyPaused=false;loadTrack(trackIndex+1);await playCurrent();});
+  audio.addEventListener('play',sync);audio.addEventListener('pause',sync);audio.addEventListener('error',()=>{state.textContent='Track unavailable';});
+  const openReader=(issue)=>{
+    if(!currentSide)return;const one=issue==='issue1';
+    frame.src=(one?'/issue1/':'/issue2/')+'?side='+encodeURIComponent(currentSide);
+    overlayTitle.textContent=one?'ÏMAM · Issue One — Days Before Reincarnation':'ÏMAM · Issue Two — The Reincarnation';
+    overlay.classList.add('is-open');overlay.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+  };
   document.querySelectorAll('[data-reader]').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();openReader(link.dataset.reader);}));
   closeBtn.addEventListener('click',closeReader);
-  window.addEventListener('message',e=>{if(e.origin!==location.origin)return;if(e.data&&e.data.type==='imamverse-close-reader')closeReader();});
+  window.addEventListener('message',e=>{if(e.origin!==location.origin||!e.data)return;if(e.data.type==='imamverse-close-reader')closeReader();if(e.data.type==='imamverse-open-reader'&&e.data.issue)openReader(e.data.issue);});
   window.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('is-open'))closeReader();});
   sync();
 })();
