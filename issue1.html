@@ -4,14 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>ÏMAM — Days Before Reincarnation</title>
-  <link rel="icon" href="assets/site/favicon.svg">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="icon" href="/assets/site/favicon.svg">
+  <link rel="stylesheet" href="/styles.css?v=9">
 </head>
 <body class="reader-body" data-pages="24">
   <div class="progress" id="progress"></div>
   <header class="reader-bar">
     <div class="left">
-      <a class="icon-btn" href="index.html">← Home</a>
+      <a class="icon-btn" id="homeLink" href="/">← Home</a>
       <div class="reader-title">Days Before Reincarnation<small>ÏMAM · Issue One</small></div>
     </div>
     <div class="right">
@@ -21,9 +21,7 @@
       <button class="icon-btn" id="fullscreen">⛶</button>
     </div>
   </header>
-
   <main class="reader-wrap" id="reader"></main>
-
   <script>
     (() => {
       const reader = document.getElementById('reader');
@@ -35,27 +33,33 @@
         fig.dataset.page = i;
         fig.dataset.label = `Page ${i}`;
         const img = document.createElement('img');
-        img.src = `assets/issue1/page-${n}.webp`;
+        img.src = `/assets/issue1/page-${n}.webp`;
         img.alt = `ÏMAM Issue One — Page ${i}`;
         img.loading = i <= 2 ? 'eager' : 'lazy';
         img.decoding = 'async';
         fig.appendChild(img);
         reader.appendChild(fig);
       }
-
       reader.insertAdjacentHTML('beforeend', `
         <section class="reader-end">
           <div class="eyebrow">End of Issue One</div>
           <h2>The Reincarnation Begins.</h2>
           <p>Continue directly into Issue Two.</p>
           <div class="hero-actions">
-            <a class="button primary" href="issue2.html">Read Issue Two</a>
-            <a class="button" href="assets/issue1/IMAM_Issue_One.pdf" download>Download PDF</a>
+            <a class="button primary" href="/issue2/">Read Issue Two</a>
+            <a class="button" href="/assets/issue1/IMAM_Issue_One.pdf" download>Download PDF</a>
           </div>
         </section>
       `);
+      const home = document.getElementById('homeLink');
+      if (window.top !== window.self && home) {
+        home.addEventListener('click', (event) => {
+          event.preventDefault();
+          window.parent.postMessage({type:'imamverse-close-reader'}, window.location.origin);
+        });
+      }
     })();
   </script>
-  <script src="reader.js?v=3"></script>
+  <script src="/reader.js?v=9"></script>
 </body>
 </html>
