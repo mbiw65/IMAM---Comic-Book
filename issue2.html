@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>ÏMAM — The Reincarnation</title>
   <link rel="icon" href="/assets/site/favicon.svg">
-  <link rel="stylesheet" href="/styles.css?v=9">
+  <link rel="stylesheet" href="/styles.css?v=10">
 </head>
 <body class="reader-body" data-pages="36">
   <div class="progress" id="progress"></div>
@@ -24,45 +24,24 @@
   <main class="reader-wrap" id="reader"></main>
   <script>
     (() => {
-      const reader = document.getElementById('reader');
-      for (let i = 1; i <= 36; i++) {
-        const n = String(i).padStart(2, '0');
-        const fig = document.createElement('figure');
-        fig.className = 'comic-page';
-        fig.id = `page-${i}`;
-        fig.dataset.page = i;
-        fig.dataset.label = `Page ${i}`;
-        const img = document.createElement('img');
-        img.src = `/assets/issue2/page-${n}.webp`;
-        img.alt = `ÏMAM Issue Two — Page ${i}`;
-        img.loading = i <= 2 ? 'eager' : 'lazy';
-        img.decoding = 'async';
-        fig.appendChild(img);
-        reader.appendChild(fig);
+      const params=new URLSearchParams(location.search),requested=params.get('side'),saved=localStorage.getItem('imamverse_side');
+      const side=(requested==='mbiw'||requested==='imam')?requested:((saved==='mbiw'||saved==='imam')?saved:'imam');
+      document.documentElement.dataset.side=side;document.body.dataset.side=side;
+      const reader=document.getElementById('reader');
+      for(let i=1;i<=36;i++){
+        const n=String(i).padStart(2,'0'),fig=document.createElement('figure'),img=document.createElement('img');
+        fig.className='comic-page';fig.id=`page-${i}`;fig.dataset.page=i;fig.dataset.label=`Page ${i}`;
+        img.src=`/assets/issue2/page-${n}.webp`;img.alt=`ÏMAM Issue Two — Page ${i}`;img.loading=i<=2?'eager':'lazy';img.decoding='async';
+        fig.appendChild(img);reader.appendChild(fig);
       }
-      reader.insertAdjacentHTML('beforeend', `
-        <section class="reader-end">
-          <div class="eyebrow">End of Issue Two</div>
-          <h2>The World Is Next.</h2>
-          <p>ÏMAM — The Reincarnation.</p>
-          <div class="hero-actions">
-            <a class="button primary" id="backHome" href="/">Back Home</a>
-            <a class="button" href="/assets/issue2/IMAM_Issue_Two.pdf" download>Download PDF</a>
-          </div>
-        </section>
-      `);
-      const closeFromFrame = (event) => {
-        if (window.top !== window.self) {
-          event.preventDefault();
-          window.parent.postMessage({type:'imamverse-close-reader'}, window.location.origin);
-        }
-      };
-      const home = document.getElementById('homeLink');
-      const back = document.getElementById('backHome');
-      if (home) home.addEventListener('click', closeFromFrame);
-      if (back) back.addEventListener('click', closeFromFrame);
+      reader.insertAdjacentHTML('beforeend',`<section class="reader-end"><div class="eyebrow">End of Issue Two</div><h2>The World Is Next.</h2><p>ÏMAM — The Reincarnation.</p><div class="hero-actions"><a class="button primary" id="backHome" href="/">Back Home</a><a class="button" href="/assets/issue2/IMAM_Issue_Two.pdf" download>Download PDF</a></div></section>`);
+      const closeFromFrame=(event)=>{if(window.top!==window.self){event.preventDefault();window.parent.postMessage({type:'imamverse-close-reader'},window.location.origin);}};
+      const home=document.getElementById('homeLink');if(home)home.addEventListener('click',closeFromFrame);
+      const back=document.getElementById('backHome');if(back)back.addEventListener('click',closeFromFrame);
+      const next=document.getElementById('nextIssue');
+      if(next){next.href='/issue2/?side='+encodeURIComponent(side);if(window.top!==window.self)next.addEventListener('click',event=>{event.preventDefault();window.parent.postMessage({type:'imamverse-open-reader',issue:'issue2'},window.location.origin);});}
     })();
   </script>
-  <script src="/reader.js?v=9"></script>
+  <script src="/reader.js?v=10"></script>
 </body>
 </html>
