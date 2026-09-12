@@ -216,3 +216,35 @@ html:-webkit-full-screen .reader-bar{
 .enter-gate.imam-transition .imam-transition-copy{
   animation:imamWords 1.05s .3s ease forwards!important;
 }
+
+/* MBIW choice — text animation only, no light text panel */
+.enter-gate.mbiw-transition .mbiw-transition-layer{
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+.enter-gate.mbiw-transition .mbiw-transition-layer:before,
+.enter-gate.mbiw-transition .mbiw-transition-layer:after,
+.enter-gate.mbiw-transition .mbiw-transition-copy:before,
+.enter-gate.mbiw-transition .mbiw-transition-copy:after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  opacity:0!important;
+  animation:none!important;
+  filter:none!important;
+}
+.enter-gate.mbiw-transition .mbiw-transition-copy,
+.enter-gate.mbiw-transition .mbiw-transition-copy span,
+.enter-gate.mbiw-transition .mbiw-transition-copy strong{
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  border:0!important;
+  padding:0!important;
+}
+.enter-gate.mbiw-transition .mbiw-transition-copy{
+  animation:mbiwWords 1.1s .3s ease forwards!important;
+}
