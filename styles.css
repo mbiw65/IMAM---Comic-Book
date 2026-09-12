@@ -248,3 +248,11 @@ html:-webkit-full-screen .reader-bar{
 .enter-gate.mbiw-transition .mbiw-transition-copy{
   animation:mbiwWords 1.1s .3s ease forwards!important;
 }
+
+
+/* v21 — three issue cards side by side on desktop */
+@media (min-width:901px){
+  .issue-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:22px!important}
+  .issue-meta{padding:20px!important}
+  .issue-meta h3{font-size:clamp(24px,2.4vw,34px)!important}
+}
