@@ -21,7 +21,6 @@
     -webkit-mask-image:linear-gradient(270deg,#000 0,#000 52%,rgba(0,0,0,.78) 72%,transparent 100%)!important;
     mask-image:linear-gradient(270deg,#000 0,#000 52%,rgba(0,0,0,.78) 72%,transparent 100%)!important;
   }
-
   body.side-selected[data-side="mbiw"]:before,body.side-selected[data-side="mbiw"]:after{
     background-image:
       radial-gradient(circle,rgba(66,120,158,.48) 0 2px,transparent 3px),
@@ -32,13 +31,8 @@
     background-position:0 0,34px 74px,-115% 0,0 0!important;
     filter:saturate(1.08) contrast(1.02)!important;
   }
-  body.side-selected[data-side="mbiw"]:before{
-    animation:mbiwVisibleLeft 7s linear infinite,mbiwVisiblePulse 3.4s ease-in-out infinite alternate!important;
-  }
-  body.side-selected[data-side="mbiw"]:after{
-    animation:mbiwVisibleRight 7.8s linear infinite,mbiwVisiblePulse 3.8s ease-in-out infinite alternate!important;
-  }
-
+  body.side-selected[data-side="mbiw"]:before{animation:mbiwVisibleLeft 7s linear infinite,mbiwVisiblePulse 3.4s ease-in-out infinite alternate!important}
+  body.side-selected[data-side="mbiw"]:after{animation:mbiwVisibleRight 7.8s linear infinite,mbiwVisiblePulse 3.8s ease-in-out infinite alternate!important}
   body.side-selected[data-side="imam"]:before,body.side-selected[data-side="imam"]:after{
     background-image:
       radial-gradient(circle,rgba(118,168,135,.42) 0 2px,transparent 3px),
@@ -49,124 +43,67 @@
     background-position:0 0,48px 82px,-115% 0,0 0!important;
     filter:saturate(1.04) contrast(1.05)!important;
   }
-  body.side-selected[data-side="imam"]:before{
-    animation:imamVisibleLeft 8.5s linear infinite,imamVisiblePulse 4.2s ease-in-out infinite alternate!important;
-  }
-  body.side-selected[data-side="imam"]:after{
-    animation:imamVisibleRight 9.3s linear infinite,imamVisiblePulse 4.8s ease-in-out infinite alternate!important;
-  }
+  body.side-selected[data-side="imam"]:before{animation:imamVisibleLeft 8.5s linear infinite,imamVisiblePulse 4.2s ease-in-out infinite alternate!important}
+  body.side-selected[data-side="imam"]:after{animation:imamVisibleRight 9.3s linear infinite,imamVisiblePulse 4.8s ease-in-out infinite alternate!important}
 }
 
-@keyframes mbiwVisibleLeft{
-  0%{background-position:0 120px,34px 210px,-115% 0,0 0}
-  50%{background-position:26px -180px,4px -130px,5% 0,0 -18px}
-  100%{background-position:52px -480px,-26px -470px,115% 0,0 0}
-}
-@keyframes mbiwVisibleRight{
-  0%{background-position:38px 180px,0 250px,115% 0,0 0}
-  50%{background-position:8px -140px,36px -100px,-5% 0,0 20px}
-  100%{background-position:-22px -470px,72px -450px,-115% 0,0 0}
-}
-@keyframes mbiwVisiblePulse{
-  from{opacity:.72;filter:saturate(.95) brightness(.98)}
-  to{opacity:1;filter:saturate(1.16) brightness(1.06)}
-}
-@keyframes imamVisibleLeft{
-  0%{background-position:0 150px,48px 240px,-115% 0,0 0}
-  50%{background-position:34px -170px,12px -120px,8% 0,0 24px}
-  100%{background-position:68px -500px,-24px -480px,115% 0,0 0}
-}
-@keyframes imamVisibleRight{
-  0%{background-position:42px 180px,0 280px,115% 0,0 0}
-  50%{background-position:10px -160px,38px -100px,-8% 0,0 -22px}
-  100%{background-position:-24px -520px,76px -470px,-115% 0,0 0}
-}
-@keyframes imamVisiblePulse{
-  from{opacity:.62;filter:saturate(.88) brightness(.82)}
-  to{opacity:.92;filter:saturate(1.08) brightness(1.04)}
-}
+@keyframes mbiwVisibleLeft{0%{background-position:0 120px,34px 210px,-115% 0,0 0}50%{background-position:26px -180px,4px -130px,5% 0,0 -18px}100%{background-position:52px -480px,-26px -470px,115% 0,0 0}}
+@keyframes mbiwVisibleRight{0%{background-position:38px 180px,0 250px,115% 0,0 0}50%{background-position:8px -140px,36px -100px,-5% 0,0 20px}100%{background-position:-22px -470px,72px -450px,-115% 0,0 0}}
+@keyframes mbiwVisiblePulse{from{opacity:.72;filter:saturate(.95) brightness(.98)}to{opacity:1;filter:saturate(1.16) brightness(1.06)}}
+@keyframes imamVisibleLeft{0%{background-position:0 150px,48px 240px,-115% 0,0 0}50%{background-position:34px -170px,12px -120px,8% 0,0 24px}100%{background-position:68px -500px,-24px -480px,115% 0,0 0}}
+@keyframes imamVisibleRight{0%{background-position:42px 180px,0 280px,115% 0,0 0}50%{background-position:10px -160px,38px -100px,-8% 0,0 -22px}100%{background-position:-24px -520px,76px -470px,-115% 0,0 0}}
+@keyframes imamVisiblePulse{from{opacity:.62;filter:saturate(.88) brightness(.82)}to{opacity:.92;filter:saturate(1.08) brightness(1.04)}}
 
-/* Character close-up hero — uses the comic art already in the repository */
-body.side-selected .hero{isolation:isolate}
-body.side-selected .hero-inner{position:relative;z-index:2}
-body.side-selected .hero:before{
-  z-index:0!important;
-  inset:-7%!important;
-  opacity:.72!important;
-  transition:background-image .45s ease,filter .45s ease,opacity .45s ease!important;
-  transform:scale(1.03);
-}
-body.side-selected .hero:after{
-  z-index:1!important;
-  pointer-events:none!important;
-  inset:0!important;
-  content:""!important;
-  will-change:opacity,filter,transform!important;
-}
+/* Cinematic hero close-ups */
+body.side-selected .hero{isolation:isolate;background:var(--side-bg,#020303)}
+body.side-selected .hero-inner{position:relative;z-index:3}
+body.side-selected .hero:before{z-index:0!important;inset:0!important;transform:none!important;transition:background .45s ease,filter .45s ease,opacity .45s ease!important}
+body.side-selected .hero:after{z-index:2!important;pointer-events:none!important;inset:0!important;content:""!important;will-change:opacity,filter!important}
 
-/* MBIW: silver awakening */
+/* MBIW — bring the lower-left face from Issue One into the center */
 body.side-selected[data-side="mbiw"] .hero:before{
   background:
-    linear-gradient(180deg,rgba(246,250,252,.18) 0,rgba(237,243,246,.42) 62%,rgba(231,238,242,.86) 100%),
-    url('/assets/issue1/page-01.webp') center 16%/175% auto no-repeat!important;
-  filter:grayscale(.08) saturate(.5) contrast(1.04) brightness(1.04)!important;
-  opacity:.72!important;
+    linear-gradient(90deg,rgba(238,245,249,.82) 0%,rgba(238,245,249,.2) 28%,rgba(238,245,249,.08) 52%,rgba(238,245,249,.72) 100%),
+    linear-gradient(180deg,rgba(255,255,255,.06) 0%,rgba(239,245,248,.16) 58%,rgba(232,239,243,.72) 100%),
+    url('/assets/issue1/page-01.webp') 62% 76% / auto 180% no-repeat!important;
+  filter:grayscale(.04) saturate(.64) contrast(1.08) brightness(.92)!important;
+  opacity:.78!important;
 }
 body.side-selected[data-side="mbiw"] .hero:after{
   background:
-    radial-gradient(ellipse 4.3% 2.3% at 45.7% 29.5%,rgba(255,255,255,1) 0 20%,rgba(220,239,252,.96) 31%,rgba(151,200,231,.52) 47%,transparent 72%),
-    radial-gradient(ellipse 4.3% 2.3% at 54.3% 29.5%,rgba(255,255,255,1) 0 20%,rgba(220,239,252,.96) 31%,rgba(151,200,231,.52) 47%,transparent 72%),
-    radial-gradient(ellipse at 50% 31%,rgba(205,235,253,.22) 0,rgba(225,242,252,.1) 24%,transparent 48%),
-    linear-gradient(180deg,rgba(255,255,255,.04),rgba(236,242,246,.56))!important;
+    radial-gradient(ellipse 5.8% 2.7% at 47.2% 29.3%,rgba(255,255,255,1) 0 18%,rgba(226,243,255,.98) 28%,rgba(142,196,230,.62) 46%,transparent 72%),
+    radial-gradient(ellipse 5.8% 2.7% at 52.8% 29.3%,rgba(255,255,255,1) 0 18%,rgba(226,243,255,.98) 28%,rgba(142,196,230,.62) 46%,transparent 72%),
+    radial-gradient(ellipse at 50% 30%,rgba(203,235,255,.28) 0,rgba(218,239,252,.12) 20%,transparent 43%),
+    linear-gradient(180deg,rgba(255,255,255,.02),rgba(235,242,246,.18))!important;
   mix-blend-mode:screen;
-  animation:mbiwHeroEyes 3.4s ease-in-out infinite!important;
+  animation:mbiwHeroEyes 3.2s ease-in-out infinite!important;
 }
-@keyframes mbiwHeroEyes{
-  0%,100%{opacity:.54;filter:brightness(.92) blur(.15px);transform:scale(1)}
-  48%{opacity:1;filter:brightness(1.35) blur(0);transform:scale(1.006)}
-  62%{opacity:.82;filter:brightness(1.12)}
-}
+@keyframes mbiwHeroEyes{0%,100%{opacity:.42;filter:brightness(.88) blur(.3px)}48%{opacity:1;filter:brightness(1.55) blur(0)}62%{opacity:.72;filter:brightness(1.15)}}
 
-/* ÏMAM: green, heavier and slightly unstable */
+/* ÏMAM — centered face from Issue Two, darker and heavier */
 body.side-selected[data-side="imam"] .hero:before{
   background:
-    linear-gradient(180deg,rgba(2,8,5,.12) 0,rgba(3,12,8,.42) 57%,rgba(3,8,6,.9) 100%),
-    url('/assets/issue2/page-01.webp') center 15%/175% auto no-repeat!important;
-  filter:saturate(.72) contrast(1.16) brightness(.62)!important;
-  opacity:.88!important;
+    linear-gradient(90deg,rgba(2,8,5,.72) 0%,rgba(2,8,5,.14) 30%,rgba(2,8,5,.08) 55%,rgba(2,8,5,.74) 100%),
+    linear-gradient(180deg,rgba(1,5,3,.04) 0%,rgba(2,8,5,.18) 58%,rgba(2,7,5,.82) 100%),
+    url('/assets/issue2/page-01.webp') 50% 76% / auto 180% no-repeat!important;
+  filter:saturate(.78) contrast(1.2) brightness(.58)!important;
+  opacity:.92!important;
 }
 body.side-selected[data-side="imam"] .hero:after{
   background:
-    radial-gradient(ellipse 4.2% 2.25% at 45.7% 29.5%,rgba(213,255,224,.98) 0 18%,rgba(85,220,132,.92) 31%,rgba(45,147,83,.53) 49%,transparent 73%),
-    radial-gradient(ellipse 4.2% 2.25% at 54.3% 29.5%,rgba(213,255,224,.98) 0 18%,rgba(85,220,132,.92) 31%,rgba(45,147,83,.53) 49%,transparent 73%),
-    radial-gradient(ellipse at 50% 31%,rgba(44,139,78,.24) 0,rgba(25,89,50,.11) 27%,transparent 50%),
-    linear-gradient(180deg,rgba(3,11,7,.04),rgba(2,7,5,.55))!important;
+    radial-gradient(ellipse 5.5% 2.6% at 47.2% 29.3%,rgba(222,255,229,.98) 0 17%,rgba(89,225,137,.96) 29%,rgba(35,147,78,.58) 48%,transparent 73%),
+    radial-gradient(ellipse 5.5% 2.6% at 52.8% 29.3%,rgba(222,255,229,.98) 0 17%,rgba(89,225,137,.96) 29%,rgba(35,147,78,.58) 48%,transparent 73%),
+    radial-gradient(ellipse at 50% 30%,rgba(45,151,83,.26) 0,rgba(27,98,54,.11) 22%,transparent 46%),
+    linear-gradient(180deg,rgba(2,9,6,.02),rgba(2,7,5,.24))!important;
   mix-blend-mode:screen;
-  animation:imamHeroEyes 4.1s ease-in-out infinite!important;
+  animation:imamHeroEyes 4s ease-in-out infinite!important;
 }
-@keyframes imamHeroEyes{
-  0%,100%{opacity:.4;filter:brightness(.82) blur(.25px);transform:scale(1)}
-  40%{opacity:.92;filter:brightness(1.25);transform:scale(1.004)}
-  47%{opacity:.55;filter:brightness(.96)}
-  51%{opacity:1;filter:brightness(1.48) blur(0);transform:scale(1.008)}
-  58%{opacity:.78;filter:brightness(1.12)}
-}
+@keyframes imamHeroEyes{0%,100%{opacity:.34;filter:brightness(.78) blur(.35px)}40%{opacity:.86;filter:brightness(1.18)}47%{opacity:.5;filter:brightness(.9)}51%{opacity:1;filter:brightness(1.62) blur(0)}59%{opacity:.7;filter:brightness(1.08)}}
 
 @media(max-width:900px){
-  body.side-selected[data-side="mbiw"] .hero:before,
-  body.side-selected[data-side="imam"] .hero:before{background-size:225% auto!important;background-position:center 13%!important;opacity:.56!important}
-  body.side-selected[data-side="mbiw"] .hero:after{
-    background:
-      radial-gradient(ellipse 5% 2.5% at 44.8% 27.5%,rgba(255,255,255,.98) 0 20%,rgba(183,219,241,.7) 38%,transparent 72%),
-      radial-gradient(ellipse 5% 2.5% at 55.2% 27.5%,rgba(255,255,255,.98) 0 20%,rgba(183,219,241,.7) 38%,transparent 72%),
-      linear-gradient(180deg,rgba(255,255,255,.03),rgba(236,242,246,.64))!important;
-  }
-  body.side-selected[data-side="imam"] .hero:after{
-    background:
-      radial-gradient(ellipse 5% 2.5% at 44.8% 27.5%,rgba(208,255,221,.96) 0 18%,rgba(82,214,127,.74) 39%,transparent 72%),
-      radial-gradient(ellipse 5% 2.5% at 55.2% 27.5%,rgba(208,255,221,.96) 0 18%,rgba(82,214,127,.74) 39%,transparent 72%),
-      linear-gradient(180deg,rgba(3,11,7,.03),rgba(2,7,5,.62))!important;
-  }
+  body.side-selected[data-side="mbiw"] .hero:before{background-position:58% 74%!important;background-size:auto 155%!important;opacity:.68!important}
+  body.side-selected[data-side="imam"] .hero:before{background-position:50% 74%!important;background-size:auto 155%!important;opacity:.78!important}
+  body.side-selected[data-side="mbiw"] .hero:after,body.side-selected[data-side="imam"] .hero:after{background-position:center!important}
 }
 
 @media(prefers-reduced-motion:reduce){
