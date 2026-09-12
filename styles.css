@@ -151,3 +151,16 @@ html:-webkit-full-screen .reader-bar{
 @media (hover:none),(pointer:coarse){
   .reader-overlay-bar,.reader-bar{opacity:1!important;transform:none!important;animation:none!important}
 }
+
+/* Keep the Pick a Side controls centered over the two character worlds. */
+.enter-gate .side-choice{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:min(1100px,calc(100% - 48px))!important;
+  z-index:2!important;
+}
+@media(max-width:720px){
+  .enter-gate .side-choice{width:calc(100% - 24px)!important}
+}
