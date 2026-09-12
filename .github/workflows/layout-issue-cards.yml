@@ -1,0 +1,42 @@
+name: Put all issue cards side by side
+
+on:
+  push:
+    paths:
+      - '.github/workflows/layout-issue-cards.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update-layout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Update issue card layout
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          css = Path('styles.css')
+          text = css.read_text(encoding='utf-8')
+          marker = '/* v21 — three issue cards side by side on desktop */'
+          block = '''\n\n/* v21 — three issue cards side by side on desktop */\n@media (min-width:901px){\n  .issue-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:22px!important}\n  .issue-meta{padding:20px!important}\n  .issue-meta h3{font-size:clamp(24px,2.4vw,34px)!important}\n}\n'''
+          if marker not in text:
+              css.write_text(text + block, encoding='utf-8')
+
+          home = Path('index.html')
+          html = home.read_text(encoding='utf-8')
+          html = html.replace('styles.css?v=19', 'styles.css?v=21')
+          home.write_text(html, encoding='utf-8')
+          PY
+      - name: Commit layout update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add styles.css index.html
+          git diff --cached --quiet && exit 0
+          git commit -m "Show all three issues side by side"
+          git push
