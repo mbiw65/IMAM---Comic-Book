@@ -60,50 +60,51 @@ body.side-selected .hero-inner{position:relative;z-index:3}
 body.side-selected .hero:before{z-index:0!important;inset:0!important;transform:none!important;transition:background .45s ease,filter .45s ease,opacity .45s ease!important}
 body.side-selected .hero:after{z-index:2!important;pointer-events:none!important;inset:0!important;content:""!important;will-change:opacity,filter!important}
 
-/* MBIW — bring the lower-left face from Issue One into the center */
+/* MBIW — actual Issue One artwork, project-relative path */
 body.side-selected[data-side="mbiw"] .hero:before{
-  background:
-    linear-gradient(90deg,rgba(238,245,249,.82) 0%,rgba(238,245,249,.2) 28%,rgba(238,245,249,.08) 52%,rgba(238,245,249,.72) 100%),
-    linear-gradient(180deg,rgba(255,255,255,.06) 0%,rgba(239,245,248,.16) 58%,rgba(232,239,243,.72) 100%),
-    url('/assets/issue1/page-01.webp') 62% 76% / auto 180% no-repeat!important;
-  filter:grayscale(.04) saturate(.64) contrast(1.08) brightness(.92)!important;
-  opacity:.78!important;
+  background-image:url('assets/issue1/page-01.webp')!important;
+  background-repeat:no-repeat!important;
+  background-size:auto 190%!important;
+  background-position:34% 66%!important;
+  filter:grayscale(.08) saturate(.72) contrast(1.12) brightness(.86)!important;
+  opacity:.58!important;
 }
 body.side-selected[data-side="mbiw"] .hero:after{
   background:
-    radial-gradient(ellipse 5.8% 2.7% at 47.2% 29.3%,rgba(255,255,255,1) 0 18%,rgba(226,243,255,.98) 28%,rgba(142,196,230,.62) 46%,transparent 72%),
-    radial-gradient(ellipse 5.8% 2.7% at 52.8% 29.3%,rgba(255,255,255,1) 0 18%,rgba(226,243,255,.98) 28%,rgba(142,196,230,.62) 46%,transparent 72%),
-    radial-gradient(ellipse at 50% 30%,rgba(203,235,255,.28) 0,rgba(218,239,252,.12) 20%,transparent 43%),
-    linear-gradient(180deg,rgba(255,255,255,.02),rgba(235,242,246,.18))!important;
+    radial-gradient(ellipse 5.8% 2.7% at 45.5% 29.5%,rgba(255,255,255,1) 0 18%,rgba(226,243,255,.98) 28%,rgba(142,196,230,.62) 46%,transparent 72%),
+    radial-gradient(ellipse 5.8% 2.7% at 51.4% 29.5%,rgba(255,255,255,1) 0 18%,rgba(226,243,255,.98) 28%,rgba(142,196,230,.62) 46%,transparent 72%),
+    radial-gradient(ellipse at 48.5% 30%,rgba(203,235,255,.26) 0,rgba(218,239,252,.1) 20%,transparent 43%),
+    linear-gradient(90deg,rgba(237,244,248,.66) 0%,rgba(237,244,248,.18) 28%,rgba(237,244,248,.06) 58%,rgba(237,244,248,.7) 100%),
+    linear-gradient(180deg,rgba(255,255,255,.02),rgba(235,242,246,.48))!important;
   mix-blend-mode:screen;
   animation:mbiwHeroEyes 3.2s ease-in-out infinite!important;
 }
-@keyframes mbiwHeroEyes{0%,100%{opacity:.42;filter:brightness(.88) blur(.3px)}48%{opacity:1;filter:brightness(1.55) blur(0)}62%{opacity:.72;filter:brightness(1.15)}}
+@keyframes mbiwHeroEyes{0%,100%{opacity:.44;filter:brightness(.9) blur(.25px)}48%{opacity:1;filter:brightness(1.5) blur(0)}62%{opacity:.74;filter:brightness(1.15)}}
 
-/* ÏMAM — centered face from Issue Two, darker and heavier */
+/* ÏMAM — actual Issue Two artwork, project-relative path */
 body.side-selected[data-side="imam"] .hero:before{
-  background:
-    linear-gradient(90deg,rgba(2,8,5,.72) 0%,rgba(2,8,5,.14) 30%,rgba(2,8,5,.08) 55%,rgba(2,8,5,.74) 100%),
-    linear-gradient(180deg,rgba(1,5,3,.04) 0%,rgba(2,8,5,.18) 58%,rgba(2,7,5,.82) 100%),
-    url('/assets/issue2/page-01.webp') 50% 76% / auto 180% no-repeat!important;
-  filter:saturate(.78) contrast(1.2) brightness(.58)!important;
-  opacity:.92!important;
+  background-image:url('assets/issue2/page-01.webp')!important;
+  background-repeat:no-repeat!important;
+  background-size:auto 190%!important;
+  background-position:50% 65%!important;
+  filter:saturate(.8) contrast(1.18) brightness(.55)!important;
+  opacity:.78!important;
 }
 body.side-selected[data-side="imam"] .hero:after{
   background:
     radial-gradient(ellipse 5.5% 2.6% at 47.2% 29.3%,rgba(222,255,229,.98) 0 17%,rgba(89,225,137,.96) 29%,rgba(35,147,78,.58) 48%,transparent 73%),
     radial-gradient(ellipse 5.5% 2.6% at 52.8% 29.3%,rgba(222,255,229,.98) 0 17%,rgba(89,225,137,.96) 29%,rgba(35,147,78,.58) 48%,transparent 73%),
     radial-gradient(ellipse at 50% 30%,rgba(45,151,83,.26) 0,rgba(27,98,54,.11) 22%,transparent 46%),
-    linear-gradient(180deg,rgba(2,9,6,.02),rgba(2,7,5,.24))!important;
+    linear-gradient(90deg,rgba(2,8,5,.66) 0%,rgba(2,8,5,.08) 32%,rgba(2,8,5,.06) 58%,rgba(2,8,5,.7) 100%),
+    linear-gradient(180deg,rgba(2,9,6,.02),rgba(2,7,5,.45))!important;
   mix-blend-mode:screen;
   animation:imamHeroEyes 4s ease-in-out infinite!important;
 }
 @keyframes imamHeroEyes{0%,100%{opacity:.34;filter:brightness(.78) blur(.35px)}40%{opacity:.86;filter:brightness(1.18)}47%{opacity:.5;filter:brightness(.9)}51%{opacity:1;filter:brightness(1.62) blur(0)}59%{opacity:.7;filter:brightness(1.08)}}
 
 @media(max-width:900px){
-  body.side-selected[data-side="mbiw"] .hero:before{background-position:58% 74%!important;background-size:auto 155%!important;opacity:.68!important}
-  body.side-selected[data-side="imam"] .hero:before{background-position:50% 74%!important;background-size:auto 155%!important;opacity:.78!important}
-  body.side-selected[data-side="mbiw"] .hero:after,body.side-selected[data-side="imam"] .hero:after{background-position:center!important}
+  body.side-selected[data-side="mbiw"] .hero:before{background-size:auto 165%!important;background-position:32% 62%!important;opacity:.5!important}
+  body.side-selected[data-side="imam"] .hero:before{background-size:auto 165%!important;background-position:50% 62%!important;opacity:.68!important}
 }
 
 @media(prefers-reduced-motion:reduce){
