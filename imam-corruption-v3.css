@@ -1,153 +1,135 @@
-/* ÏMAM corruption transition — v4, glowy green cracks */
-
+/* ÏMAM corruption transition — v5: obvious neon-green screen cracks */
 .enter-gate .imam-transition-layer,
 .enter-gate .mbiw-transition-layer{
-  position:absolute !important;
-  inset:0 !important;
-  width:100% !important;
-  height:100% !important;
-  z-index:24 !important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
 }
 
-.enter-gate.imam-transition{
-  background:#07110d !important;
-}
-
-.enter-gate.imam-transition .choice-heading{
-  animation:imamHeadingOutV4 .34s ease forwards !important;
-}
-
-.enter-gate.imam-transition .side-card.mbiw{
-  animation:imamSwallowMbiwV4 1s cubic-bezier(.4,0,.2,1) forwards !important;
-  pointer-events:none !important;
-}
-
-.enter-gate.imam-transition .side-card.imam{
-  z-index:21 !important;
-  animation:imamCorruptCardV4 1.2s cubic-bezier(.16,.84,.32,1) forwards !important;
-  pointer-events:none !important;
-}
+.enter-gate.imam-transition{background:#020603!important}
+.enter-gate.imam-transition .choice-heading{animation:imamHeadingOutV5 .34s ease forwards!important}
+.enter-gate.imam-transition .side-card.mbiw{animation:imamSwallowMbiwV5 1s cubic-bezier(.4,0,.2,1) forwards!important;pointer-events:none!important}
+.enter-gate.imam-transition .side-card.imam{z-index:31!important;animation:imamCorruptCardV5 1.2s cubic-bezier(.16,.84,.32,1) forwards!important;pointer-events:none!important}
 
 .enter-gate.imam-transition .imam-transition-layer{
-  visibility:visible !important;
-  opacity:1 !important;
-  display:block !important;
-  overflow:hidden !important;
-  pointer-events:none !important;
+  z-index:30!important;
+  visibility:visible!important;
+  opacity:1!important;
+  display:block!important;
+  overflow:hidden!important;
+  pointer-events:none!important;
   background:
-    radial-gradient(circle at 37% 58%, rgba(40,255,154,.12) 0, rgba(17,111,67,.12) 10%, rgba(0,0,0,0) 32%),
-    radial-gradient(circle at 34% 50%, rgba(0,0,0,.58) 0, rgba(0,0,0,0) 26%),
-    linear-gradient(180deg, rgba(0,0,0,.04), rgba(0,0,0,.68)) !important;
-  animation:imamLayerInV4 1.45s ease forwards !important;
+    radial-gradient(circle at 37% 58%,rgba(50,255,157,.20) 0,rgba(20,112,67,.16) 18%,transparent 38%),
+    linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.76))!important;
+  animation:imamLayerInV5 1.45s ease forwards!important;
 }
 
-/* black matter grows from the ÏMAM side */
+/* Black matter grows outward from ÏMAM. */
 .enter-gate.imam-transition .imam-transition-layer::before{
-  content:"";
-  position:absolute;
-  inset:-18%;
+  content:""!important;
+  position:absolute!important;
+  inset:-22%!important;
+  opacity:0!important;
+  transform:scale(.40)!important;
+  transform-origin:37% 58%!important;
+  border-radius:50%!important;
   background:
-    radial-gradient(circle at 24% 54%, rgba(96,255,170,.95) 0 2%, rgba(68,241,145,.65) 3%, rgba(17,33,22,.95) 6%, rgba(0,0,0,.98) 12%, rgba(0,0,0,.92) 21%, rgba(0,0,0,0) 42%),
-    radial-gradient(circle at 28% 38%, rgba(76,255,167,.45) 0 2%, rgba(0,0,0,.92) 7%, rgba(0,0,0,0) 22%),
-    radial-gradient(circle at 22% 72%, rgba(87,255,177,.38) 0 2%, rgba(0,0,0,.9) 7%, rgba(0,0,0,0) 22%),
-    radial-gradient(circle at 36% 56%, rgba(38,230,124,.28) 0 3%, rgba(0,0,0,.88) 8%, rgba(0,0,0,0) 26%);
-  filter:blur(8px) saturate(1.15);
-  transform-origin:left center;
-  opacity:0;
-  animation:imamBlackMatterGrowV4 1.2s cubic-bezier(.2,.8,.2,1) forwards !important;
+    radial-gradient(circle at 37% 58%,#000 0 9%,rgba(0,0,0,.99) 13%,rgba(2,8,5,.98) 20%,rgba(8,31,18,.96) 28%,rgba(18,76,43,.82) 38%,rgba(38,170,96,.35) 48%,transparent 62%),
+    radial-gradient(circle at 28% 67%,rgba(0,0,0,.98) 0 8%,rgba(0,0,0,.78) 16%,transparent 31%),
+    radial-gradient(circle at 47% 45%,rgba(0,0,0,.95) 0 7%,rgba(0,0,0,.7) 15%,transparent 30%),
+    radial-gradient(circle at 24% 45%,rgba(56,255,154,.20) 0 2%,rgba(0,0,0,.92) 8%,transparent 27%)!important;
+  filter:blur(7px) contrast(1.14)!important;
+  animation:imamMatterEatV5 1.30s cubic-bezier(.12,.82,.22,1) forwards!important;
 }
 
-/* glowy green crack network */
+/* REAL crack artwork: bright neon-green, full screen, radiating from ÏMAM. */
 .enter-gate.imam-transition .imam-transition-layer::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(112deg, transparent 0 47.7%, rgba(130,255,192,.96) 48.05%, rgba(70,255,160,.88) 48.18%, rgba(5,20,10,.98) 48.4%, rgba(54,255,148,.95) 48.62%, rgba(145,255,205,.98) 48.76%, transparent 49.12%),
-    linear-gradient(74deg, transparent 0 50.15%, rgba(136,255,198,.95) 50.45%, rgba(72,255,162,.92) 50.58%, rgba(5,20,10,.98) 50.82%, rgba(62,255,152,.95) 51.06%, rgba(150,255,208,.98) 51.22%, transparent 51.58%),
-    linear-gradient(156deg, transparent 0 42.42%, rgba(124,255,189,.92) 42.72%, rgba(63,255,154,.9) 42.84%, rgba(4,16,9,.98) 43.02%, rgba(74,255,165,.94) 43.21%, rgba(142,255,203,.97) 43.36%, transparent 43.72%),
-    linear-gradient(33deg, transparent 0 58.66%, rgba(124,255,188,.95) 58.96%, rgba(58,255,149,.9) 59.08%, rgba(4,16,9,.98) 59.28%, rgba(72,255,163,.94) 59.46%, rgba(148,255,207,.98) 59.61%, transparent 59.95%),
-    linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.36));
-  background-repeat:no-repeat;
-  opacity:0;
-  filter:drop-shadow(0 0 10px rgba(90,255,170,.9)) drop-shadow(0 0 24px rgba(65,245,152,.75)) drop-shadow(0 0 42px rgba(56,230,138,.55));
-  transform:scale(.94);
-  mix-blend-mode:screen;
-  animation:imamCracksGlowV4 1.05s ease forwards !important;
+  content:""!important;
+  position:absolute!important;
+  inset:-3%!important;
+  z-index:5!important;
+  opacity:0!important;
+  transform:scale(.58)!important;
+  transform-origin:37% 58%!important;
+  background-image:url('assets/site/imam-cracks-v3.svg')!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:100% 100%!important;
+  mix-blend-mode:screen!important;
+  filter:
+    brightness(2.7)
+    saturate(3.2)
+    contrast(1.35)
+    drop-shadow(0 0 5px rgba(120,255,188,1))
+    drop-shadow(0 0 13px rgba(64,255,158,.98))
+    drop-shadow(0 0 30px rgba(35,225,126,.88))
+    drop-shadow(0 0 52px rgba(26,179,99,.62))!important;
+  animation:imamCrackExplodeV5 1.18s cubic-bezier(.12,.9,.2,1) forwards!important;
 }
 
 .enter-gate.imam-transition .imam-transition-copy{
-  position:relative !important;
-  z-index:25 !important;
-  opacity:0;
-  transform:translateY(18px) scale(.97);
-  color:#ecfff5 !important;
-  text-align:center !important;
-  text-shadow:
-    0 0 10px rgba(107,255,185,.55),
-    0 0 22px rgba(67,240,148,.35),
-    0 2px 18px rgba(0,0,0,.92) !important;
-  animation:imamWordsInV4 1s .35s ease forwards !important;
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-42%) scale(.96)!important;
+  z-index:40!important;
+  width:min(92vw,1000px)!important;
+  opacity:0!important;
+  color:#effff5!important;
+  text-align:center!important;
+  text-shadow:0 0 12px rgba(107,255,185,.7),0 0 28px rgba(58,238,145,.42),0 3px 24px rgba(0,0,0,.96)!important;
+  animation:imamWordsInV5 .74s .64s ease forwards!important;
 }
+.enter-gate.imam-transition .imam-transition-copy span{color:#9affca!important}
+.enter-gate.imam-transition .imam-transition-copy strong{letter-spacing:.075em!important}
 
-.enter-gate.imam-transition .imam-transition-copy span{
-  display:block;
-  color:#98ffc9 !important;
-  letter-spacing:.42em;
-  text-transform:uppercase;
-  font-size:10px;
-  margin-bottom:8px;
-}
-
-.enter-gate.imam-transition .imam-transition-copy strong{
-  display:block;
-  font-family:Georgia, "Times New Roman", serif;
-  font-size:clamp(30px,6vw,72px);
-  font-weight:700;
-  letter-spacing:.08em;
-}
-
-@keyframes imamHeadingOutV4{
-  to{opacity:0;transform:translateY(-12px);filter:blur(6px)}
-}
-
-@keyframes imamSwallowMbiwV4{
+@keyframes imamHeadingOutV5{to{opacity:0;transform:translateY(-12px);filter:blur(6px)}}
+@keyframes imamSwallowMbiwV5{
   0%{opacity:1;transform:none;filter:none}
-  35%{opacity:.82;transform:scale(.98) translateX(8px);filter:brightness(.8)}
-  100%{opacity:0;transform:scale(.88) translateX(24px);filter:blur(12px) brightness(.4)}
+  42%{opacity:.62;transform:scale(.97) translateX(10px);filter:brightness(.72) blur(2px)}
+  100%{opacity:0;transform:scale(.87) translateX(38px);filter:brightness(.16) blur(15px)}
 }
-
-@keyframes imamCorruptCardV4{
+@keyframes imamCorruptCardV5{
   0%{transform:none;filter:none}
-  22%{transform:scale(1.018)}
-  56%{transform:scale(1.048) translateY(-2px);filter:brightness(.92) contrast(1.12)}
-  100%{transform:scale(1.065);filter:brightness(.76) contrast(1.18);border-color:rgba(89,255,172,.95);box-shadow:0 0 0 1px rgba(54,198,116,.82),0 0 22px rgba(82,255,176,.55),0 0 90px rgba(18,82,45,.92),0 28px 100px rgba(0,0,0,.72)}
+  18%{transform:scale(1.02)}
+  45%{transform:scale(1.06);filter:brightness(.82) contrast(1.16)}
+  100%{transform:scale(1.07);filter:brightness(.62) contrast(1.28);border-color:rgba(100,255,176,.98);box-shadow:0 0 0 1px rgba(69,220,132,.9),0 0 26px rgba(93,255,179,.72),0 0 80px rgba(35,159,91,.48),0 0 135px rgba(0,0,0,.98),0 30px 110px rgba(0,0,0,.78)}
+}
+@keyframes imamLayerInV5{0%{opacity:0}7%{opacity:1}100%{opacity:1}}
+@keyframes imamMatterEatV5{
+  0%{opacity:0;transform:scale(.40)}
+  12%{opacity:.94}
+  38%{opacity:1;transform:scale(.72)}
+  68%{opacity:1;transform:scale(1.10)}
+  100%{opacity:1;transform:scale(1.62)}
+}
+@keyframes imamCrackExplodeV5{
+  0%{opacity:0;transform:scale(.58)}
+  7%{opacity:1;transform:scale(.70)}
+  16%{opacity:.78}
+  25%{opacity:1;transform:scale(.86)}
+  38%{opacity:.86}
+  52%{opacity:1;transform:scale(.98)}
+  70%{opacity:.95;transform:scale(1.02)}
+  100%{opacity:.82;transform:scale(1.06)}
+}
+@keyframes imamWordsInV5{
+  0%{opacity:0;transform:translate(-50%,-32%) scale(.94);filter:blur(3px)}
+  45%{opacity:1}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}
 }
 
-@keyframes imamLayerInV4{
-  0%{opacity:0}
-  12%{opacity:1}
-  100%{opacity:1}
-}
-
-@keyframes imamBlackMatterGrowV4{
-  0%{opacity:0;transform:scale(.42) translateX(-12%)}
-  18%{opacity:.95}
-  58%{opacity:1;transform:scale(1.02) translateX(6%)}
-  100%{opacity:1;transform:scale(1.45) translateX(20%)}
-}
-
-@keyframes imamCracksGlowV4{
-  0%{opacity:0;transform:scale(.88)}
-  16%{opacity:1}
-  36%{opacity:.74}
-  54%{opacity:1}
-  78%{opacity:.82}
-  100%{opacity:.56;transform:scale(1.04)}
-}
-
-@keyframes imamWordsInV4{
-  0%{opacity:0;transform:translateY(18px) scale(.97)}
-  35%{opacity:1}
-  100%{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .enter-gate.imam-transition .imam-transition-layer,
+  .enter-gate.imam-transition .imam-transition-layer::before,
+  .enter-gate.imam-transition .imam-transition-layer::after,
+  .enter-gate.imam-transition .side-card.imam,
+  .enter-gate.imam-transition .side-card.mbiw,
+  .enter-gate.imam-transition .choice-heading,
+  .enter-gate.imam-transition .imam-transition-copy{animation:none!important}
+  .enter-gate.imam-transition .imam-transition-layer::before{opacity:1!important;transform:scale(1.45)!important}
+  .enter-gate.imam-transition .imam-transition-layer::after{opacity:1!important;transform:scale(1.02)!important}
+  .enter-gate.imam-transition .imam-transition-copy{opacity:1!important;transform:translate(-50%,-50%)!important}
+  .enter-gate.imam-transition .side-card.mbiw{opacity:0!important}
 }
