@@ -1,0 +1,36 @@
+/* Reader side margins — keep atmosphere/characters, remove particle dots. */
+@media (min-width:1150px){
+  body.reader-body[data-side="mbiw"]:before{
+    background-image:
+      url('/assets/site/mbiw-fly-left.png'),
+      linear-gradient(transparent,transparent),
+      linear-gradient(transparent,transparent),
+      linear-gradient(112deg,transparent 18%,rgba(178,223,248,.08) 36%,rgba(255,255,255,.82) 51%,rgba(150,207,240,.30) 58%,transparent 73%),
+      linear-gradient(180deg,rgba(255,255,255,.68),rgba(202,222,233,.42))!important;
+  }
+  body.reader-body[data-side="mbiw"]:after{
+    background-image:
+      url('/assets/site/mbiw-fly-right.png'),
+      linear-gradient(transparent,transparent),
+      linear-gradient(transparent,transparent),
+      linear-gradient(248deg,transparent 18%,rgba(178,223,248,.08) 36%,rgba(255,255,255,.78) 51%,rgba(150,207,240,.28) 58%,transparent 73%),
+      linear-gradient(180deg,rgba(255,255,255,.66),rgba(202,222,233,.40))!important;
+  }
+
+  body.reader-body[data-side="imam"]:before{
+    background-image:
+      url('/assets/site/imam-left.png'),
+      linear-gradient(transparent,transparent),
+      linear-gradient(transparent,transparent),
+      radial-gradient(ellipse at 34% 38%,rgba(34,108,65,.52) 0,rgba(14,57,34,.30) 36%,transparent 69%),
+      linear-gradient(180deg,#031008 0,#07170f 45%,#020604 100%)!important;
+  }
+  body.reader-body[data-side="imam"]:after{
+    background-image:
+      url('/assets/site/imam-right.png'),
+      linear-gradient(transparent,transparent),
+      linear-gradient(transparent,transparent),
+      radial-gradient(ellipse at 64% 40%,rgba(34,108,65,.50) 0,rgba(14,57,34,.28) 36%,transparent 69%),
+      linear-gradient(180deg,#031008 0,#07170f 45%,#020604 100%)!important;
+  }
+}
