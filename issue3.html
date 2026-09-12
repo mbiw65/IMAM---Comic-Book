@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>ÏMAM — Beyond Reincarnation</title>
+  <link rel="icon" href="/assets/site/favicon.svg">
+  <link rel="stylesheet" href="/styles.css?v=11">
+  <link rel="stylesheet" href="/reader-effects.css?v=2">
+  <link rel="stylesheet" href="/reader-no-dots.css?v=1">
+</head>
+<body class="reader-body" data-pages="60">
+  <div class="progress" id="progress"></div>
+  <header class="reader-bar">
+    <div class="left">
+      <a class="icon-btn" id="homeLink" href="/">← Home</a>
+      <div class="reader-title">Beyond Reincarnation<small>ÏMAM · Issue Three</small></div>
+    </div>
+    <div class="right">
+      <button class="icon-btn hide-mobile" id="prevPage">←</button>
+      <span class="page-counter" id="pageCounter">1 / 60</span>
+      <button class="icon-btn hide-mobile" id="nextPage">→</button>
+      <button class="icon-btn" id="fullscreen">⛶</button>
+    </div>
+  </header>
+  <main class="reader-wrap" id="reader"></main>
+  <script>
+    (() => {
+      const params=new URLSearchParams(location.search),requested=params.get('side'),saved=localStorage.getItem('imamverse_side');
+      const side=(requested==='mbiw'||requested==='imam')?requested:((saved==='mbiw'||saved==='imam')?saved:'imam');
+      document.documentElement.dataset.side=side;document.body.dataset.side=side;
+      const reader=document.getElementById('reader');
+      for(let i=1;i<=60;i++){
+        const n=String(i).padStart(2,'0'),fig=document.createElement('figure'),img=document.createElement('img');
+        fig.className='comic-page';fig.id=`page-${i}`;fig.dataset.page=i;fig.dataset.label=`Page ${i}`;
+        img.src=`/assets/issue3/page-${n}.webp`;img.alt=`ÏMAM Issue Three — Page ${i}`;img.loading=i<=2?'eager':'lazy';img.decoding='async';
+        fig.appendChild(img);reader.appendChild(fig);
+      }
+      reader.insertAdjacentHTML('beforeend',`<section class="reader-end"><div class="eyebrow">End of Issue Three</div><h2>Beyond Reincarnation.</h2><p>The story continues.</p><div class="hero-actions"><a class="button" href="/assets/issue3/IMAM_Beyond_Reincarnation_Issue_3.pdf" download>Download PDF</a><a class="button" id="backHome" href="/">Back Home</a></div></section>`);
+      const closeFromFrame=(event)=>{if(window.top!==window.self){event.preventDefault();window.parent.postMessage({type:'imamverse-close-reader'},window.location.origin);}};
+      const home=document.getElementById('homeLink');if(home)home.addEventListener('click',closeFromFrame);
+      const back=document.getElementById('backHome');if(back)back.addEventListener('click',closeFromFrame);
+    })();
+  </script>
+  <script src="/reader-history.js?v=2"></script>
+  <script src="/reader.js?v=12"></script>
+</body>
+</html>
