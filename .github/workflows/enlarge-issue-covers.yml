@@ -17,60 +17,49 @@ jobs:
           fetch-depth: 0
       - name: Make all three covers large and fully visible
         run: |
+          if ! grep -q "v22 — large three-cover gallery" styles.css; then
+            cat >> styles.css <<'EOF'
+
+          /* v22 — large three-cover gallery */
+          @media (min-width:901px){
+            #issues.section{
+              max-width:1680px!important;
+              padding-left:24px!important;
+              padding-right:24px!important;
+            }
+            #issues .issue-grid{
+              grid-template-columns:repeat(3,minmax(0,1fr))!important;
+              gap:28px!important;
+              align-items:start!important;
+            }
+            #issues .issue-card{width:100%!important;}
+            #issues .cover-wrap{
+              width:100%!important;
+              aspect-ratio:2/3!important;
+              background:#050505!important;
+            }
+            #issues .cover-wrap img{
+              width:100%!important;
+              height:100%!important;
+              object-fit:contain!important;
+              object-position:center!important;
+              display:block!important;
+            }
+            #issues .issue-meta{padding:18px!important;}
+            #issues .issue-meta h3{font-size:clamp(24px,2vw,34px)!important;}
+          }
+          @media (min-width:901px) and (max-width:1250px){
+            #issues.section{max-width:1200px!important;}
+            #issues .issue-grid{gap:18px!important;}
+          }
+          EOF
+          fi
           python - <<'PY'
           from pathlib import Path
-
-          css = Path('styles.css')
-          text = css.read_text(encoding='utf-8')
-          marker = '/* v22 — large three-cover gallery */'
-          block = r'''
-
-/* v22 — large three-cover gallery */
-@media (min-width:901px){
-  #issues.section{
-    max-width:1680px!important;
-    padding-left:24px!important;
-    padding-right:24px!important;
-  }
-  #issues .issue-grid{
-    grid-template-columns:repeat(3,minmax(0,1fr))!important;
-    gap:28px!important;
-    align-items:start!important;
-  }
-  #issues .issue-card{
-    width:100%!important;
-  }
-  #issues .cover-wrap{
-    width:100%!important;
-    aspect-ratio:2/3!important;
-    background:#050505!important;
-  }
-  #issues .cover-wrap img{
-    width:100%!important;
-    height:100%!important;
-    object-fit:contain!important;
-    object-position:center!important;
-    display:block!important;
-  }
-  #issues .issue-meta{
-    padding:18px!important;
-  }
-  #issues .issue-meta h3{
-    font-size:clamp(24px,2vw,34px)!important;
-  }
-}
-@media (min-width:901px) and (max-width:1250px){
-  #issues.section{max-width:1200px!important;}
-  #issues .issue-grid{gap:18px!important;}
-}
-'''
-          if marker not in text:
-              css.write_text(text + block, encoding='utf-8')
-
-          home = Path('index.html')
-          html = home.read_text(encoding='utf-8')
-          html = html.replace('styles.css?v=21', 'styles.css?v=22')
-          home.write_text(html, encoding='utf-8')
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('styles.css?v=21','styles.css?v=22')
+          p.write_text(s,encoding='utf-8')
           PY
       - name: Commit cover gallery update
         run: |
