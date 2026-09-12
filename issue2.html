@@ -41,7 +41,7 @@
       const home=document.getElementById('homeLink');if(home)home.addEventListener('click',closeFromFrame);
       const back=document.getElementById('backHome');if(back)back.addEventListener('click',closeFromFrame);
       const next=document.getElementById('nextIssue');
-      if(next){next.href='/issue2/?side='+encodeURIComponent(side);if(window.top!==window.self)next.addEventListener('click',event=>{event.preventDefault();window.parent.postMessage({type:'imamverse-open-reader',issue:'issue2'},window.location.origin);});}
+      if(next){next.href='/issue3/?side='+encodeURIComponent(side);if(window.top!==window.self)next.addEventListener('click',event=>{event.preventDefault();window.parent.postMessage({type:'imamverse-open-reader',issue:'issue3'},window.location.origin);});}
     })();
   </script>
   <script src="/reader-history.js?v=1"></script>
