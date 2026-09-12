@@ -1,115 +1,132 @@
-/* Full-screen ÏMAM corruption transition — v3 */
+/* Full-screen ÏMAM corruption transition — visible v4 */
 .enter-gate .imam-transition-layer,
 .enter-gate .mbiw-transition-layer{
   position:absolute!important;
   inset:0!important;
   width:100%!important;
   height:100%!important;
-  z-index:20!important;
 }
 
-.enter-gate.imam-transition{background:#010201!important}
-.enter-gate.imam-transition .choice-heading{animation:imamHeadingOutV3 .38s ease forwards!important}
-.enter-gate.imam-transition .side-card.mbiw{animation:imamSwallowMbiwV3 .82s cubic-bezier(.4,0,.2,1) forwards!important;pointer-events:none!important}
-.enter-gate.imam-transition .side-card.imam{z-index:21!important;animation:imamCorruptCardV3 1.25s cubic-bezier(.16,.84,.32,1) forwards!important;pointer-events:none!important}
+.enter-gate.imam-transition{background:#000201!important}
+.enter-gate.imam-transition .choice-heading{animation:imamHeadingOutV4 .32s ease forwards!important}
+.enter-gate.imam-transition .side-card.mbiw{animation:imamSwallowMbiwV4 .86s cubic-bezier(.4,0,.2,1) forwards!important;pointer-events:none!important}
+.enter-gate.imam-transition .side-card.imam{animation:imamCorruptCardV4 1.28s cubic-bezier(.16,.84,.32,1) forwards!important;pointer-events:none!important}
 
 .enter-gate.imam-transition .imam-transition-layer{
+  position:absolute!important;
+  inset:0!important;
+  z-index:999!important;
+  display:block!important;
   visibility:visible!important;
   opacity:1!important;
-  display:block!important;
   overflow:hidden!important;
   pointer-events:none!important;
+  isolation:isolate!important;
   background:
-    radial-gradient(circle at 37% 58%,rgba(26,104,62,.34) 0,rgba(10,39,23,.16) 18%,transparent 37%),
-    linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.62))!important;
-  animation:imamLayerInV3 1.45s ease forwards!important;
+    radial-gradient(circle at 37% 58%,rgba(64,200,113,.30) 0,rgba(24,104,61,.20) 18%,rgba(0,0,0,.10) 37%,transparent 58%),
+    linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.72))!important;
+  animation:imamLayerInV4 1.45s ease forwards!important;
 }
 
-/* Black matter grows from the ÏMAM side and eats the screen. */
+/* Black matter: solid black core with a bright poisonous-green leading edge. */
 .enter-gate.imam-transition .imam-transition-layer:before{
   content:""!important;
   position:absolute!important;
-  inset:-22%!important;
+  inset:-34%!important;
+  z-index:2!important;
   opacity:0!important;
-  transform:scale(.38)!important;
+  transform:scale(.14)!important;
   transform-origin:37% 58%!important;
   border-radius:50%!important;
   background:
-    radial-gradient(circle at 37% 58%,#000 0 10%,rgba(0,0,0,.99) 13%,rgba(1,5,3,.98) 18%,rgba(5,17,10,.96) 24%,rgba(10,43,24,.87) 32%,rgba(23,92,54,.52) 41%,rgba(33,128,75,.20) 50%,transparent 62%),
-    radial-gradient(circle at 30% 66%,rgba(0,0,0,.98) 0 9%,rgba(0,0,0,.84) 16%,transparent 31%),
-    radial-gradient(circle at 44% 48%,rgba(0,0,0,.96) 0 8%,rgba(0,0,0,.72) 16%,transparent 29%),
-    radial-gradient(circle at 24% 50%,rgba(0,0,0,.94) 0 7%,transparent 26%),
-    radial-gradient(circle at 52% 62%,rgba(0,0,0,.90) 0 8%,transparent 29%)!important;
-  filter:blur(7px) contrast(1.12)!important;
-  animation:imamMatterEatV3 1.32s cubic-bezier(.12,.82,.22,1) forwards!important;
+    radial-gradient(circle at 37% 58%,
+      #000 0 19%,
+      rgba(0,0,0,1) 27%,
+      rgba(1,7,4,.99) 33%,
+      rgba(10,49,27,.98) 37%,
+      rgba(42,168,91,.88) 40%,
+      rgba(115,255,165,.58) 42%,
+      rgba(29,137,74,.28) 46%,
+      transparent 52%),
+    radial-gradient(circle at 27% 68%,rgba(0,0,0,.99) 0 12%,rgba(22,111,61,.48) 18%,transparent 30%),
+    radial-gradient(circle at 47% 43%,rgba(0,0,0,.98) 0 11%,rgba(18,93,51,.40) 18%,transparent 30%),
+    radial-gradient(circle at 18% 49%,rgba(0,0,0,.96) 0 10%,transparent 27%),
+    radial-gradient(circle at 56% 70%,rgba(0,0,0,.96) 0 10%,transparent 28%)!important;
+  filter:blur(3px) contrast(1.18)!important;
+  animation:imamMatterEatV4 1.36s cubic-bezier(.08,.82,.18,1) forwards!important;
 }
 
-/* Obvious screen cracks, radiating from the ÏMAM card area. */
+/* Full-screen glass fractures, anchored to the ÏMAM side. */
 .enter-gate.imam-transition .imam-transition-layer:after{
   content:""!important;
   position:absolute!important;
-  inset:-2%!important;
+  inset:-3%!important;
+  z-index:4!important;
   opacity:0!important;
-  transform:scale(.54)!important;
+  transform:scale(.46)!important;
   transform-origin:37% 58%!important;
   background-image:url('assets/site/imam-cracks-v3.svg')!important;
   background-repeat:no-repeat!important;
   background-position:center!important;
   background-size:100% 100%!important;
-  mix-blend-mode:screen!important;
-  filter:drop-shadow(0 0 7px rgba(66,190,111,.72)) drop-shadow(0 0 18px rgba(28,118,67,.38))!important;
-  animation:imamCrackExplodeV3 1.18s cubic-bezier(.12,.9,.2,1) forwards!important;
+  mix-blend-mode:normal!important;
+  filter:drop-shadow(0 0 3px rgba(196,255,219,.95)) drop-shadow(0 0 12px rgba(71,232,127,.92)) drop-shadow(0 0 28px rgba(17,126,63,.72))!important;
+  animation:imamCrackExplodeV4 1.18s cubic-bezier(.10,.92,.18,1) forwards!important;
 }
 
 .enter-gate.imam-transition .imam-transition-copy{
   position:absolute!important;
   left:50%!important;
   top:50%!important;
-  transform:translate(-50%,-42%) scale(.96)!important;
-  z-index:23!important;
-  width:min(92vw,1000px)!important;
+  z-index:1005!important;
+  width:min(94vw,1050px)!important;
   opacity:0!important;
-  color:#ecf5ee!important;
+  color:#eff8f1!important;
   text-align:center!important;
-  text-shadow:0 3px 24px rgba(0,0,0,.96),0 0 26px rgba(74,167,105,.28)!important;
-  animation:imamWordsInV3 .72s .62s ease forwards!important;
+  text-shadow:0 4px 30px rgba(0,0,0,1),0 0 30px rgba(77,205,118,.42)!important;
+  animation:imamWordsInV4 .66s .66s ease forwards!important;
 }
-.enter-gate.imam-transition .imam-transition-copy span{color:#94c5a2!important}
+.enter-gate.imam-transition .imam-transition-copy span{color:#a5dcb4!important}
 .enter-gate.imam-transition .imam-transition-copy strong{letter-spacing:.075em!important}
 
-@keyframes imamHeadingOutV3{to{opacity:0;transform:translateY(-12px);filter:blur(5px)}}
-@keyframes imamSwallowMbiwV3{
+@keyframes imamHeadingOutV4{to{opacity:0;transform:translateY(-14px);filter:blur(7px)}}
+@keyframes imamSwallowMbiwV4{
   0%{opacity:1;transform:none;filter:none}
-  45%{opacity:.58;transform:scale(.96) translateX(10px);filter:brightness(.72) blur(2px)}
-  100%{opacity:0;transform:scale(.87) translateX(38px);filter:brightness(.16) blur(15px)}
+  30%{opacity:.78;transform:scale(.98);filter:brightness(.72) saturate(.65)}
+  62%{opacity:.34;transform:scale(.93) translateX(20px);filter:brightness(.36) blur(5px)}
+  100%{opacity:0;transform:scale(.84) translateX(52px);filter:brightness(.08) blur(18px)}
 }
-@keyframes imamCorruptCardV3{
+@keyframes imamCorruptCardV4{
   0%{transform:none;filter:none}
-  18%{transform:scale(1.018)}
-  42%{transform:scale(1.055);filter:brightness(.82) contrast(1.15)}
-  65%{transform:scale(1.035);filter:brightness(.68) contrast(1.22)}
-  100%{transform:scale(1.065);filter:brightness(.58) contrast(1.30);border-color:rgba(71,145,92,.96);box-shadow:0 0 0 1px rgba(35,96,54,.86),0 0 55px rgba(45,151,84,.44),0 0 130px rgba(0,0,0,.98),0 32px 110px rgba(0,0,0,.78)}
+  15%{transform:scale(1.028);filter:brightness(.92)}
+  34%{transform:scale(1.065);filter:brightness(.72) contrast(1.20)}
+  52%{transform:scale(1.035);filter:brightness(.60) contrast(1.28)}
+  72%{transform:scale(1.075);filter:brightness(.78) contrast(1.18)}
+  100%{transform:scale(1.055);filter:brightness(.52) contrast(1.34);border-color:rgba(88,211,123,.98);box-shadow:0 0 0 2px rgba(86,219,124,.64),0 0 36px rgba(83,229,127,.62),0 0 105px rgba(12,89,43,.74),0 34px 120px rgba(0,0,0,.92)}
 }
-@keyframes imamLayerInV3{0%{opacity:0}8%{opacity:1}100%{opacity:1}}
-@keyframes imamMatterEatV3{
-  0%{opacity:0;transform:scale(.38)}
-  12%{opacity:.90}
-  38%{opacity:1;transform:scale(.72)}
-  68%{opacity:1;transform:scale(1.10)}
-  100%{opacity:1;transform:scale(1.58)}
+@keyframes imamLayerInV4{0%{opacity:0}5%{opacity:1}100%{opacity:1}}
+@keyframes imamMatterEatV4{
+  0%{opacity:0;transform:scale(.14)}
+  8%{opacity:1;transform:scale(.24)}
+  26%{opacity:1;transform:scale(.52)}
+  48%{opacity:1;transform:scale(.88)}
+  72%{opacity:1;transform:scale(1.30)}
+  100%{opacity:1;transform:scale(1.92)}
 }
-@keyframes imamCrackExplodeV3{
-  0%{opacity:0;transform:scale(.54)}
-  9%{opacity:1;transform:scale(.70)}
-  19%{opacity:.52}
-  27%{opacity:1;transform:scale(.90)}
-  42%{opacity:.72}
-  58%{opacity:1;transform:scale(1.00)}
-  100%{opacity:.60;transform:scale(1.04)}
+@keyframes imamCrackExplodeV4{
+  0%{opacity:0;transform:scale(.46)}
+  7%{opacity:1;transform:scale(.62)}
+  13%{opacity:.35}
+  20%{opacity:1;transform:scale(.78)}
+  29%{opacity:.58}
+  40%{opacity:1;transform:scale(.92)}
+  55%{opacity:.74}
+  69%{opacity:1;transform:scale(1.01)}
+  100%{opacity:.92;transform:scale(1.08)}
 }
-@keyframes imamWordsInV3{
-  0%{opacity:0;transform:translate(-50%,-32%) scale(.94);filter:blur(3px)}
-  45%{opacity:1}
+@keyframes imamWordsInV4{
+  0%{opacity:0;transform:translate(-50%,-36%) scale(.92);filter:blur(4px)}
+  38%{opacity:1}
   100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}
 }
 
@@ -121,8 +138,8 @@
   .enter-gate.imam-transition .side-card.mbiw,
   .enter-gate.imam-transition .choice-heading,
   .enter-gate.imam-transition .imam-transition-copy{animation:none!important}
-  .enter-gate.imam-transition .imam-transition-layer:before{opacity:1!important;transform:scale(1.42)!important}
-  .enter-gate.imam-transition .imam-transition-layer:after{opacity:.62!important;transform:scale(1)!important}
+  .enter-gate.imam-transition .imam-transition-layer:before{opacity:1!important;transform:scale(1.65)!important}
+  .enter-gate.imam-transition .imam-transition-layer:after{opacity:1!important;transform:scale(1.05)!important}
   .enter-gate.imam-transition .imam-transition-copy{opacity:1!important;transform:translate(-50%,-50%)!important}
   .enter-gate.imam-transition .side-card.mbiw{opacity:0!important}
 }
