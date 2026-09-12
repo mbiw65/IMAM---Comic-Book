@@ -1,5 +1,4 @@
-/* ÏMAM corruption transition — v6: guaranteed visible neon-green cracks */
-
+/* ÏMAM corruption transition — v7: embedded neon crack network */
 .enter-gate .imam-transition-layer,
 .enter-gate .mbiw-transition-layer{
   position:absolute!important;
@@ -9,9 +8,9 @@
 }
 
 .enter-gate.imam-transition{background:#020503!important}
-.enter-gate.imam-transition .choice-heading{animation:imamHeadingOutV6 .34s ease forwards!important}
-.enter-gate.imam-transition .side-card.mbiw{animation:imamSwallowMbiwV6 1.05s cubic-bezier(.4,0,.2,1) forwards!important;pointer-events:none!important}
-.enter-gate.imam-transition .side-card.imam{z-index:62!important;animation:imamCorruptCardV6 1.2s cubic-bezier(.16,.84,.32,1) forwards!important;pointer-events:none!important}
+.enter-gate.imam-transition .choice-heading{animation:imamHeadingOutV7 .34s ease forwards!important}
+.enter-gate.imam-transition .side-card.mbiw{animation:imamSwallowMbiwV7 1.08s cubic-bezier(.4,0,.2,1) forwards!important;pointer-events:none!important}
+.enter-gate.imam-transition .side-card.imam{z-index:62!important;animation:imamCorruptCardV7 1.28s cubic-bezier(.16,.84,.32,1) forwards!important;pointer-events:none!important}
 
 .enter-gate.imam-transition .imam-transition-layer{
   z-index:60!important;
@@ -21,116 +20,77 @@
   overflow:hidden!important;
   pointer-events:none!important;
   background:
-    radial-gradient(circle at 37% 58%,rgba(66,255,164,.18) 0,rgba(25,112,69,.13) 17%,transparent 38%),
-    linear-gradient(180deg,rgba(0,0,0,.06),rgba(0,0,0,.74))!important;
-  animation:imamLayerInV6 1.45s ease forwards!important;
+    radial-gradient(circle at 37% 58%,rgba(62,255,159,.18) 0,rgba(21,107,65,.13) 17%,transparent 38%),
+    linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.76))!important;
+  animation:imamLayerInV7 1.45s ease forwards!important;
 }
 
-/* Black matter: low layer. */
+/* Black corruption matter spreads out from ÏMAM. */
 .enter-gate.imam-transition .imam-transition-layer::before{
   content:""!important;
   position:absolute!important;
   inset:-22%!important;
   z-index:1!important;
   opacity:0!important;
-  transform:scale(.38)!important;
+  transform:scale(.34)!important;
   transform-origin:37% 58%!important;
   border-radius:50%!important;
   background:
-    radial-gradient(circle at 37% 58%,#000 0 10%,rgba(0,0,0,.99) 14%,rgba(3,10,6,.98) 21%,rgba(8,32,19,.95) 29%,rgba(22,82,48,.78) 39%,rgba(47,205,117,.28) 49%,transparent 64%),
-    radial-gradient(circle at 28% 68%,rgba(0,0,0,.97) 0 8%,rgba(0,0,0,.78) 16%,transparent 31%),
-    radial-gradient(circle at 47% 45%,rgba(0,0,0,.94) 0 7%,rgba(0,0,0,.68) 15%,transparent 30%)!important;
-  filter:blur(7px) contrast(1.12)!important;
-  animation:imamMatterEatV6 1.30s cubic-bezier(.12,.82,.22,1) forwards!important;
+    radial-gradient(circle at 37% 58%,#000 0 10%,rgba(0,0,0,.99) 14%,rgba(2,9,5,.98) 21%,rgba(7,31,18,.96) 30%,rgba(20,80,46,.80) 40%,rgba(52,225,128,.32) 50%,transparent 65%),
+    radial-gradient(circle at 28% 68%,rgba(0,0,0,.98) 0 8%,rgba(0,0,0,.78) 16%,transparent 31%),
+    radial-gradient(circle at 48% 44%,rgba(0,0,0,.95) 0 8%,rgba(0,0,0,.70) 16%,transparent 30%)!important;
+  filter:blur(7px) contrast(1.14)!important;
+  animation:imamMatterEatV7 1.34s cubic-bezier(.12,.82,.22,1) forwards!important;
 }
 
-/* Crack artwork: no blend mode, no subtlety — sits above the corruption. */
+/* Embedded crack artwork so there is no external image/loading failure. */
 .enter-gate.imam-transition .imam-transition-layer::after{
   content:""!important;
   position:absolute!important;
-  inset:-2%!important;
-  z-index:10!important;
+  inset:0!important;
+  z-index:12!important;
   opacity:0!important;
-  transform:scale(.52)!important;
+  transform:scale(.70)!important;
   transform-origin:37% 58%!important;
   background-color:transparent!important;
-  background-image:url('assets/site/imam-cracks-v3.svg?v=6')!important;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 900' preserveAspectRatio='none'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg stroke='%23000603' stroke-width='26' opacity='1'%3E%3Cpath d='M590 520L520 448L470 374L394 320L342 246L278 198L208 120L132 54'/%3E%3Cpath d='M590 520L515 535L432 566L350 632L250 682L142 760L42 842'/%3E%3Cpath d='M590 520L650 455L703 376L782 314L856 222L978 128L1120 46'/%3E%3Cpath d='M590 520L664 548L748 590L846 664L930 738L1060 838'/%3E%3Cpath d='M590 520L620 430L608 348L636 268L617 172L646 72L678 10'/%3E%3Cpath d='M590 520L704 514L804 484L916 462L1030 410L1190 388L1370 326L1560 250'/%3E%3Cpath d='M590 520L476 470L380 432L300 382L210 354L82 300L0 260'/%3E%3Cpath d='M590 520L708 566L810 622L938 642L1084 706L1268 748L1510 826L1600 866'/%3E%3C/g%3E%3Cg stroke='%235cff9f' stroke-width='11' opacity='1'%3E%3Cpath d='M590 520L520 448L470 374L394 320L342 246L278 198L208 120L132 54'/%3E%3Cpath d='M590 520L515 535L432 566L350 632L250 682L142 760L42 842'/%3E%3Cpath d='M590 520L650 455L703 376L782 314L856 222L978 128L1120 46'/%3E%3Cpath d='M590 520L664 548L748 590L846 664L930 738L1060 838'/%3E%3Cpath d='M590 520L620 430L608 348L636 268L617 172L646 72L678 10'/%3E%3Cpath d='M590 520L704 514L804 484L916 462L1030 410L1190 388L1370 326L1560 250'/%3E%3Cpath d='M590 520L476 470L380 432L300 382L210 354L82 300L0 260'/%3E%3Cpath d='M590 520L708 566L810 622L938 642L1084 706L1268 748L1510 826L1600 866'/%3E%3Cpath d='M470 374L430 350L414 300L382 254'/%3E%3Cpath d='M350 632L328 680L290 708L248 744'/%3E%3Cpath d='M703 376L748 352L770 312L804 274'/%3E%3Cpath d='M846 664L876 620L930 602L978 572'/%3E%3Cpath d='M804 484L838 430L892 408L946 364'/%3E%3Cpath d='M380 432L356 390L310 368L264 326'/%3E%3C/g%3E%3Cg stroke='%23d9ffe7' stroke-width='3.5' opacity='1'%3E%3Cpath d='M590 520L520 448L470 374L394 320L342 246L278 198L208 120L132 54'/%3E%3Cpath d='M590 520L515 535L432 566L350 632L250 682L142 760L42 842'/%3E%3Cpath d='M590 520L650 455L703 376L782 314L856 222L978 128L1120 46'/%3E%3Cpath d='M590 520L664 548L748 590L846 664L930 738L1060 838'/%3E%3Cpath d='M590 520L620 430L608 348L636 268L617 172L646 72L678 10'/%3E%3Cpath d='M590 520L704 514L804 484L916 462L1030 410L1190 388L1370 326L1560 250'/%3E%3Cpath d='M590 520L476 470L380 432L300 382L210 354L82 300L0 260'/%3E%3Cpath d='M590 520L708 566L810 622L938 642L1084 706L1268 748L1510 826L1600 866'/%3E%3C/g%3E%3Ccircle cx='590' cy='520' r='24' fill='%23000000' stroke='%2378ffb2' stroke-width='8'/%3E%3C/g%3E%3C/svg%3E")!important;
   background-repeat:no-repeat!important;
   background-position:center center!important;
   background-size:100% 100%!important;
   mix-blend-mode:normal!important;
   filter:
-    brightness(1.35)
-    saturate(1.8)
-    drop-shadow(0 0 5px rgba(185,255,216,1))
-    drop-shadow(0 0 14px rgba(75,255,163,1))
-    drop-shadow(0 0 34px rgba(39,235,132,.95))
-    drop-shadow(0 0 58px rgba(21,177,96,.72))!important;
-  animation:imamCrackExplodeV6 1.28s cubic-bezier(.12,.9,.2,1) forwards!important;
+    drop-shadow(0 0 6px rgba(220,255,233,1))
+    drop-shadow(0 0 16px rgba(92,255,170,1))
+    drop-shadow(0 0 38px rgba(54,241,142,.95))
+    drop-shadow(0 0 66px rgba(23,177,95,.82))!important;
+  animation:imamCrackExplodeV7 1.35s cubic-bezier(.12,.9,.2,1) forwards!important;
 }
 
+/* Restore the reveal text and keep it visible long enough to read. */
 .enter-gate.imam-transition .imam-transition-copy{
   position:absolute!important;
   left:50%!important;
   top:50%!important;
-  z-index:80!important;
-  width:min(92vw,1000px)!important;
+  z-index:90!important;
+  width:min(94vw,1100px)!important;
   opacity:0!important;
-  transform:translate(-50%,-38%) scale(.95)!important;
-  color:#f1fff6!important;
+  transform:translate(-50%,-42%) scale(.96)!important;
+  color:#f4fff8!important;
   text-align:center!important;
-  text-shadow:0 0 12px rgba(111,255,187,.72),0 0 30px rgba(63,239,149,.42),0 3px 24px rgba(0,0,0,.98)!important;
-  animation:imamWordsInV6 .68s .72s ease forwards!important;
+  text-shadow:0 0 12px rgba(125,255,194,.85),0 0 34px rgba(67,240,150,.54),0 3px 28px rgba(0,0,0,1)!important;
+  animation:imamWordsInV7 .48s .36s ease forwards!important;
 }
-.enter-gate.imam-transition .imam-transition-copy span{color:#9affca!important}
-.enter-gate.imam-transition .imam-transition-copy strong{letter-spacing:.075em!important}
+.enter-gate.imam-transition .imam-transition-copy span{display:block!important;color:#a7ffd0!important;font-size:11px!important;letter-spacing:.42em!important;text-transform:uppercase!important;margin-bottom:9px!important}
+.enter-gate.imam-transition .imam-transition-copy strong{display:block!important;font-family:Georgia,"Times New Roman",serif!important;font-size:clamp(32px,6.4vw,78px)!important;font-weight:700!important;letter-spacing:.075em!important}
 
-@keyframes imamHeadingOutV6{to{opacity:0;transform:translateY(-12px);filter:blur(6px)}}
-@keyframes imamSwallowMbiwV6{
-  0%{opacity:1;transform:none;filter:none}
-  38%{opacity:.64;transform:scale(.97) translateX(10px);filter:brightness(.72) blur(2px)}
-  100%{opacity:0;transform:scale(.86) translateX(40px);filter:brightness(.12) blur(16px)}
-}
-@keyframes imamCorruptCardV6{
-  0%{transform:none;filter:none}
-  18%{transform:scale(1.02)}
-  46%{transform:scale(1.065);filter:brightness(.82) contrast(1.16)}
-  100%{transform:scale(1.075);filter:brightness(.60) contrast(1.30);border-color:rgba(111,255,183,.98);box-shadow:0 0 0 1px rgba(71,224,136,.92),0 0 30px rgba(94,255,181,.78),0 0 90px rgba(34,173,98,.52),0 0 140px rgba(0,0,0,.98),0 30px 110px rgba(0,0,0,.8)}
-}
-@keyframes imamLayerInV6{0%{opacity:0}7%{opacity:1}100%{opacity:1}}
-@keyframes imamMatterEatV6{
-  0%{opacity:0;transform:scale(.38)}
-  12%{opacity:.94}
-  38%{opacity:1;transform:scale(.72)}
-  68%{opacity:1;transform:scale(1.10)}
-  100%{opacity:1;transform:scale(1.62)}
-}
-@keyframes imamCrackExplodeV6{
-  0%{opacity:0;transform:scale(.52)}
-  5%{opacity:1;transform:scale(.64)}
-  14%{opacity:1;transform:scale(.74)}
-  25%{opacity:.92;transform:scale(.86)}
-  40%{opacity:1;transform:scale(.96)}
-  60%{opacity:1;transform:scale(1.01)}
-  82%{opacity:1;transform:scale(1.035)}
-  100%{opacity:.96;transform:scale(1.06)}
-}
-@keyframes imamWordsInV6{
-  0%{opacity:0;transform:translate(-50%,-32%) scale(.94);filter:blur(3px)}
-  45%{opacity:1}
-  100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}
-}
+@keyframes imamHeadingOutV7{to{opacity:0;transform:translateY(-12px);filter:blur(6px)}}
+@keyframes imamSwallowMbiwV7{0%{opacity:1;transform:none;filter:none}38%{opacity:.62;transform:scale(.97) translateX(10px);filter:brightness(.70) blur(2px)}100%{opacity:0;transform:scale(.85) translateX(44px);filter:brightness(.10) blur(17px)}}
+@keyframes imamCorruptCardV7{0%{transform:none;filter:none}18%{transform:scale(1.02)}46%{transform:scale(1.065);filter:brightness(.82) contrast(1.16)}100%{transform:scale(1.075);filter:brightness(.60) contrast(1.30);border-color:rgba(111,255,183,.98);box-shadow:0 0 0 1px rgba(71,224,136,.92),0 0 34px rgba(94,255,181,.82),0 0 100px rgba(34,173,98,.58),0 0 150px rgba(0,0,0,.98),0 30px 110px rgba(0,0,0,.8)}}
+@keyframes imamLayerInV7{0%{opacity:0}7%{opacity:1}100%{opacity:1}}
+@keyframes imamMatterEatV7{0%{opacity:0;transform:scale(.34)}12%{opacity:.95}38%{opacity:1;transform:scale(.72)}68%{opacity:1;transform:scale(1.10)}100%{opacity:1;transform:scale(1.62)}}
+@keyframes imamCrackExplodeV7{0%{opacity:0;transform:scale(.70)}5%{opacity:1;transform:scale(.76)}18%{opacity:1;transform:scale(.86)}38%{opacity:1;transform:scale(.96)}65%{opacity:1;transform:scale(1.01)}100%{opacity:1;transform:scale(1.04)}}
+@keyframes imamWordsInV7{0%{opacity:0;transform:translate(-50%,-36%) scale(.95);filter:blur(3px)}55%{opacity:1}100%{opacity:1;transform:translate(-50%,-50%) scale(1);filter:none}}
 
-@media(prefers-reduced-motion:reduce){
-  .enter-gate.imam-transition .imam-transition-layer,
-  .enter-gate.imam-transition .imam-transition-layer::before,
-  .enter-gate.imam-transition .imam-transition-layer::after,
-  .enter-gate.imam-transition .side-card.imam,
-  .enter-gate.imam-transition .side-card.mbiw,
-  .enter-gate.imam-transition .choice-heading,
-  .enter-gate.imam-transition .imam-transition-copy{animation:none!important}
-  .enter-gate.imam-transition .imam-transition-layer::before{opacity:1!important;transform:scale(1.45)!important}
-  .enter-gate.imam-transition .imam-transition-layer::after{opacity:1!important;transform:scale(1.02)!important}
-  .enter-gate.imam-transition .imam-transition-copy{opacity:1!important;transform:translate(-50%,-50%)!important}
-  .enter-gate.imam-transition .side-card.mbiw{opacity:0!important}
+@media(max-width:720px){
+  .enter-gate.imam-transition .imam-transition-copy strong{font-size:clamp(28px,9vw,48px)!important}
 }
