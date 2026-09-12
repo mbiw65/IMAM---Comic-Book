@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" preserveAspectRatio="none">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#000" stroke-width="16" opacity=".96">
+      <path d="M590 520 L520 448 L470 374 L394 320 L342 246 L278 198"/>
+      <path d="M590 520 L515 535 L432 566 L350 632 L250 682 L142 760"/>
+      <path d="M590 520 L650 455 L703 376 L782 314 L856 222 L978 128"/>
+      <path d="M590 520 L664 548 L748 590 L846 664 L930 738 L1060 838"/>
+      <path d="M590 520 L620 430 L608 348 L636 268 L617 172 L646 72"/>
+      <path d="M590 520 L704 514 L804 484 L916 462 L1030 410 L1190 388 L1370 326"/>
+      <path d="M590 520 L476 470 L380 432 L300 382 L210 354 L82 300"/>
+      <path d="M590 520 L708 566 L810 622 L938 642 L1084 706 L1268 748 L1510 826"/>
+    </g>
+    <g stroke="#77d69b" stroke-width="4" opacity=".86" filter="url(#glow)">
+      <path d="M590 520 L520 448 L470 374 L394 320 L342 246 L278 198"/>
+      <path d="M590 520 L515 535 L432 566 L350 632 L250 682 L142 760"/>
+      <path d="M590 520 L650 455 L703 376 L782 314 L856 222 L978 128"/>
+      <path d="M590 520 L664 548 L748 590 L846 664 L930 738 L1060 838"/>
+      <path d="M590 520 L620 430 L608 348 L636 268 L617 172 L646 72"/>
+      <path d="M590 520 L704 514 L804 484 L916 462 L1030 410 L1190 388 L1370 326"/>
+      <path d="M590 520 L476 470 L380 432 L300 382 L210 354 L82 300"/>
+      <path d="M590 520 L708 566 L810 622 L938 642 L1084 706 L1268 748 L1510 826"/>
+      <path d="M470 374 L430 350 L414 300"/><path d="M350 632 L328 680 L290 708"/>
+      <path d="M703 376 L748 352 L770 312"/><path d="M846 664 L876 620 L930 602"/>
+      <path d="M804 484 L838 430 L892 408"/><path d="M380 432 L356 390 L310 368"/>
+    </g>
+  </g>
+</svg>
