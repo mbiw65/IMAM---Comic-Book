@@ -62,7 +62,7 @@ body.side-selected .hero:after{z-index:2!important;pointer-events:none!important
 
 /* MBIW — actual Issue One artwork */
 body.side-selected[data-side="mbiw"] .hero:before{
-  background-image:url('assets/issue1/page-01.webp')!important;
+  background-image:url('assets/site/mbiw-hero.png')!important;
   background-repeat:no-repeat!important;
   background-size:auto 230%!important;
   background-position:34% 66%!important;
@@ -88,7 +88,7 @@ body.side-selected[data-side="mbiw"] .hero:after{
 
 /* ÏMAM — actual Issue Two artwork */
 body.side-selected[data-side="imam"] .hero:before{
-  background-image:url('assets/issue2/page-01.webp')!important;
+  background-image:url('assets/site/imam-hero.png')!important;
   background-repeat:no-repeat!important;
   background-size:auto 190%!important;
   background-position:50% 65%!important;
