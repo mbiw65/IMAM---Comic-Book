@@ -18,10 +18,10 @@
 <section class="quote"><blockquote>“You think you are at peace because I exist? You are at peace because I allow it.”</blockquote><cite>ÏMAM</cite></section>
 </main><footer class="footer">ÏMAM · Independent comic project</footer>
 
-<audio id="homeMusic" src="assets/audio/Fennan_II.mp3" preload="auto" loop autoplay></audio>
+<audio id="homeMusic" src="assets/audio/Fennan_II.mp3" preload="auto" autoplay loop playsinline></audio>
 <button class="music-player" id="musicPlayer" type="button" aria-label="Play or pause Fennan II">
   <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-  <span class="music-copy"><span class="music-title">FENNAN II</span><span class="music-status" id="musicStatus">PLAY MUSIC</span></span>
+  <span class="music-copy"><span class="music-title">FENNAN II</span><span class="music-status" id="musicStatus">STARTING…</span></span>
 </button>
 <script>
 (function(){
@@ -29,29 +29,57 @@
   const player=document.getElementById('musicPlayer');
   const status=document.getElementById('musicStatus');
   audio.volume=.6;
+  audio.autoplay=true;
   let userPaused=false;
+
   function sync(){
     const playing=!audio.paused;
     player.classList.toggle('playing',playing);
-    status.textContent=playing?'NOW PLAYING':'PLAY MUSIC';
+    status.textContent=playing?'NOW PLAYING':'CLICK TO PLAY';
   }
+
   function tryPlay(){
-    if(userPaused) return;
+    if(userPaused||!audio.paused) return;
     const p=audio.play();
-    if(p&&p.catch) p.catch(()=>{status.textContent='CLICK TO PLAY';});
+    if(p&&p.then){
+      p.then(sync).catch(()=>{status.textContent='CLICK TO PLAY';});
+    }
   }
+
   player.addEventListener('click',function(e){
     e.stopPropagation();
-    if(audio.paused){userPaused=false;audio.play().catch(()=>{});}else{userPaused=true;audio.pause();}
+    if(audio.paused){
+      userPaused=false;
+      audio.play().catch(()=>{});
+    }else{
+      userPaused=true;
+      audio.pause();
+    }
   });
+
   audio.addEventListener('play',sync);
   audio.addEventListener('pause',sync);
+  audio.addEventListener('canplay',tryPlay,{once:true});
   audio.addEventListener('error',()=>{status.textContent='AUDIO UNAVAILABLE';});
+
+  // Try immediately and again at the main browser lifecycle moments.
+  tryPlay();
+  setTimeout(tryPlay,100);
+  setTimeout(tryPlay,500);
   window.addEventListener('load',tryPlay,{once:true});
-  document.addEventListener('pointerdown',function firstInteraction(){
+  window.addEventListener('pageshow',tryPlay);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)tryPlay();});
+
+  // If the browser blocks audible autoplay, start on the visitor's first interaction.
+  function firstInteraction(){
     if(audio.paused&&!userPaused) audio.play().catch(()=>{});
     document.removeEventListener('pointerdown',firstInteraction);
-  });
+    document.removeEventListener('keydown',firstInteraction);
+    document.removeEventListener('touchstart',firstInteraction);
+  }
+  document.addEventListener('pointerdown',firstInteraction,{passive:true});
+  document.addEventListener('keydown',firstInteraction);
+  document.addEventListener('touchstart',firstInteraction,{passive:true});
   sync();
 })();
 </script>
