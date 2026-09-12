@@ -33,9 +33,9 @@
 <div class="music-player" id="musicPlayer" aria-label="Soundtrack controls">
   <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Pause soundtrack"><span class="music-icon" aria-hidden="true">♪</span><span class="music-copy"><strong id="musicState">Now playing</strong><small id="musicTrack">Soundtrack</small></span><span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
   <div class="volume-control" aria-label="Soundtrack volume controls">
-    <button class="volume-mute" id="volumeMute" type="button" aria-label="Mute soundtrack"><span id="volumeIcon" aria-hidden="true">🔊</span></button>
-    <input class="volume-slider" id="volumeSlider" type="range" min="0" max="100" step="1" value="42" aria-label="Soundtrack volume">
-    <span class="volume-value" id="volumeValue" aria-hidden="true">42%</span>
+    <button class="volume-mute" id="volumeMute" type="button" aria-label="Mute soundtrack"><span id="volumeIcon" aria-hidden="true">🔉</span></button>
+    <input class="volume-slider" id="volumeSlider" type="range" min="0" max="100" step="1" value="3" aria-label="Soundtrack volume">
+    <span class="volume-value" id="volumeValue" aria-hidden="true">3%</span>
   </div>
   <button class="side-switch" id="sideSwitch" type="button">Switch side</button>
 </div>
@@ -72,10 +72,8 @@
   const closeBtn=document.getElementById('readerOverlayClose');
   const siteBrand=document.querySelector('.brand');
   const heroTitle=document.querySelector('.hero h1');
-  let currentSide=null,trackIndex=0,manuallyPaused=false,preloader=null,lastAudibleVolume=.42;
-  const savedVolume=Number(localStorage.getItem('imamverse_volume'));
-  audio.volume=Number.isFinite(savedVolume)&&savedVolume>=0&&savedVolume<=1?savedVolume:.42;
-  if(audio.volume>0)lastAudibleVolume=audio.volume;
+  let currentSide=null,trackIndex=0,manuallyPaused=false,preloader=null,lastAudibleVolume=.03;
+  audio.volume=.03;
 
   const syncVolume=()=>{
     const pct=Math.round(audio.volume*100);
@@ -91,7 +89,7 @@
     audio.volume=next;if(next>0)lastAudibleVolume=next;saveVolume();syncVolume();
   });
   volumeMute.addEventListener('click',()=>{
-    if(audio.volume>0){lastAudibleVolume=audio.volume;audio.volume=0;}else{audio.volume=lastAudibleVolume||.42;}
+    if(audio.volume>0){lastAudibleVolume=audio.volume;audio.volume=0;}else{audio.volume=lastAudibleVolume||.03;}
     saveVolume();syncVolume();
   });
 
