@@ -4,8 +4,8 @@
   try {
     const hostWindow = window.parent;
     const hostDocument = hostWindow.document;
-    const hostFrame = window.frameElement;
-    const issue = location.pathname.includes('issue2') ? 'issue2' : 'issue1';
+    const path = location.pathname;
+    const issue = path.includes('issue3') ? 'issue3' : (path.includes('issue2') ? 'issue2' : 'issue1');
 
     const currentState = hostWindow.history.state || {};
     if (currentState.imamverseReader !== issue) {
@@ -23,20 +23,20 @@
         const frame = hostDocument.getElementById('readerFrame');
         const title = hostDocument.getElementById('readerOverlayTitle');
 
-        if (targetIssue === 'issue1' || targetIssue === 'issue2') {
-          const one = targetIssue === 'issue1';
+        if (targetIssue === 'issue1' || targetIssue === 'issue2' || targetIssue === 'issue3') {
           const side = hostDocument.body.dataset.side || hostWindow.localStorage.getItem('imamverse_side') || 'imam';
-          const expectedPath = one ? '/issue1/' : '/issue2/';
+          const readers = {
+            issue1: { path: '/issue1/', src: 'issue1/', title: 'ÏMAM · Issue One — Days Before Reincarnation' },
+            issue2: { path: '/issue2/', src: 'issue2/', title: 'ÏMAM · Issue Two — The Reincarnation' },
+            issue3: { path: '/issue3/', src: 'issue3/', title: 'ÏMAM · Issue Three — Beyond Reincarnation' }
+          };
+          const selected = readers[targetIssue];
 
-          if (frame && !frame.src.includes(expectedPath)) {
-            frame.src = (one ? 'issue1/' : 'issue2/') + '?side=' + encodeURIComponent(side);
+          if (frame && !frame.src.includes(selected.path)) {
+            frame.src = selected.src + '?side=' + encodeURIComponent(side);
           }
 
-          if (title) {
-            title.textContent = one
-              ? 'ÏMAM · Issue One — Days Before Reincarnation'
-              : 'ÏMAM · Issue Two — The Reincarnation';
-          }
+          if (title) title.textContent = selected.title;
 
           if (overlay) {
             overlay.classList.add('is-open');
