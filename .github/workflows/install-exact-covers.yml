@@ -1,0 +1,44 @@
+name: Install exact chapter covers
+on:
+  push:
+    branches: [cover-fix-final4]
+    paths:
+      - '_cover_stage/ready.txt'
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and install covers
+        run: |
+          set -euo pipefail
+          cat _cover_stage/ch1_*.txt | base64 -d > assets/issue1/cover-final.webp
+          cat _cover_stage/ch2_*.txt | base64 -d > assets/issue2/cover-final.webp
+          cat _cover_stage/ch3_*.txt | base64 -d > assets/issue3/cover-final.webp
+          python - <<'PY'
+          from pathlib import Path
+          expected={
+            'assets/issue1/cover-final.webp':86354,
+            'assets/issue2/cover-final.webp':86130,
+            'assets/issue3/cover-final.webp':83290,
+          }
+          for f,n in expected.items():
+              b=Path(f).read_bytes()
+              assert len(b)==n, (f,len(b),n)
+              assert b[:4]==b'RIFF' and b[8:12]==b'WEBP', f
+          p=Path('index.html')
+          s=p.read_text()
+          import re
+          s=re.sub(r'assets/issue1/(?:cover-final|page-01)\.webp\?v=\d+', 'assets/issue1/cover-final.webp?v=31', s)
+          s=re.sub(r'assets/issue2/(?:cover-final|cover-saga|page-01)\.webp\?v=\d+', 'assets/issue2/cover-final.webp?v=31', s)
+          s=re.sub(r'assets/issue3/(?:cover-final|cover-saga|cover|page-01)\.webp\?v=\d+', 'assets/issue3/cover-final.webp?v=31', s)
+          p.write_text(s)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html assets/issue1/cover-final.webp assets/issue2/cover-final.webp assets/issue3/cover-final.webp
+          git rm -r _cover_stage .github/workflows/install-exact-covers.yml
+          git commit -m 'Install exact official chapter covers'
+          git push origin HEAD:cover-fix-final4
