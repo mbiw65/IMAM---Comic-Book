@@ -26,9 +26,9 @@
         if (targetIssue === 'issue1' || targetIssue === 'issue2' || targetIssue === 'issue3') {
           const side = hostDocument.body.dataset.side || hostWindow.localStorage.getItem('imamverse_side') || 'imam';
           const readers = {
-            issue1: { path: '/issue1/', src: 'issue1/', title: 'ÏMAM · DAYS BEFORE REINCARNATION — Chapter I' },
-            issue2: { path: '/issue2/', src: 'issue2/', title: 'ÏMAM · DAYS BEFORE REINCARNATION — Chapter II' },
-            issue3: { path: '/issue3/', src: 'issue3/', title: 'ÏMAM · DAYS BEFORE REINCARNATION — Chapter III' }
+            issue1: { path: '/issue1/', src: 'issue1/', title: 'ÏMAM · DAYS BEFORE REINCARNATION — Chapter I — The Fall of MBIW' },
+            issue2: { path: '/issue2/', src: 'issue2/', title: 'ÏMAM · DAYS BEFORE REINCARNATION — Chapter II — Birth of ÏMAM' },
+            issue3: { path: '/issue3/', src: 'issue3/', title: 'ÏMAM · DAYS BEFORE REINCARNATION — Chapter III — Point of No Return' }
           };
           const selected = readers[targetIssue];
 
