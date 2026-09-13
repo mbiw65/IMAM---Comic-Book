@@ -1,0 +1,37 @@
+name: Apply integrated chapter covers
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-integrated-covers.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use baked-in cover titles and remove CSS overlay
+        shell: bash
+        run: |
+          python <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('assets/issue2/page-01.webp', 'assets/issue2/cover-saga.webp?v=25')
+          s = s.replace('assets/issue3/cover.webp?v=2', 'assets/issue3/cover-saga.webp?v=25')
+          s = s.replace('styles.css?v=24', 'styles.css?v=25')
+          p.write_text(s, encoding='utf-8')
+
+          # Restore clean site styling. The title is now part of the artwork itself.
+          Path('styles.css').write_text("@import url('styles-original.css?v=23');\n", encoding='utf-8')
+          PY
+
+          rm .github/workflows/apply-integrated-covers.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html styles.css .github/workflows/apply-integrated-covers.yml
+          git commit -m 'Use integrated Days Before Reincarnation cover artwork'
+          git push
