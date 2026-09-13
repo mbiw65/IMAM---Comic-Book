@@ -1,1 +1,12 @@
 @import url('styles-original.css?v=23');
+
+/* Temporary rework state: keep the ÏMAMVERSE shell, remove all published chapters. */
+.nav{display:none!important}
+.hero-actions{display:none!important}
+.hero p{display:none!important}
+.hero-inner::after{content:"The comic is currently being reworked. New chapters will return soon.";display:block;max-width:620px;margin:22px auto 0;color:var(--muted,#a9b0ad);font-size:clamp(15px,2vw,19px);line-height:1.65;text-align:center}
+#issues{min-height:34vh;display:grid;place-items:center;text-align:center}
+#issues .section-head,#issues .issue-grid{display:none!important}
+#issues::before{content:"REWORK IN PROGRESS";display:block;font-family:Georgia,"Times New Roman",serif;font-size:clamp(30px,6vw,68px);letter-spacing:.08em}
+#issues::after{content:"Chapter I, Chapter II and Chapter III have been removed while the story is being rebuilt.";display:block;max-width:680px;margin:14px auto 0;color:var(--muted,#9ca29e);font-size:clamp(14px,1.8vw,18px);line-height:1.65}
+.reader-overlay{display:none!important}
