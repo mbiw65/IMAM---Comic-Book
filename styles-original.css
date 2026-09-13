@@ -1,0 +1,307 @@
+@import url('styles-base.css?v=2');
+
+/* Visible side-atmosphere override */
+@media (min-width:1051px){
+  body.side-selected:before,body.side-selected:after{
+    top:79px!important;
+    bottom:0!important;
+    width:max(180px,calc((100vw - 1080px)/2 + 70px))!important;
+    z-index:3!important;
+    opacity:1!important;
+    pointer-events:none!important;
+    will-change:background-position,opacity,filter!important;
+  }
+  body.side-selected:before{
+    left:0!important;
+    -webkit-mask-image:linear-gradient(90deg,#000 0,#000 52%,rgba(0,0,0,.78) 72%,transparent 100%)!important;
+    mask-image:linear-gradient(90deg,#000 0,#000 52%,rgba(0,0,0,.78) 72%,transparent 100%)!important;
+  }
+  body.side-selected:after{
+    right:0!important;
+    -webkit-mask-image:linear-gradient(270deg,#000 0,#000 52%,rgba(0,0,0,.78) 72%,transparent 100%)!important;
+    mask-image:linear-gradient(270deg,#000 0,#000 52%,rgba(0,0,0,.78) 72%,transparent 100%)!important;
+  }
+  body.side-selected[data-side="mbiw"]:before,body.side-selected[data-side="mbiw"]:after{
+    background-image:
+      radial-gradient(circle,rgba(66,120,158,.48) 0 2px,transparent 3px),
+      radial-gradient(circle,rgba(124,182,219,.44) 0 3px,transparent 4px),
+      linear-gradient(112deg,transparent 18%,rgba(118,183,225,.08) 31%,rgba(118,183,225,.38) 47%,rgba(225,246,255,.72) 52%,rgba(118,183,225,.28) 58%,transparent 74%),
+      radial-gradient(ellipse at 22% 34%,rgba(154,207,238,.34) 0,rgba(196,228,246,.18) 34%,transparent 67%)!important;
+    background-size:86px 112px,144px 178px,230% 100%,100% 100%!important;
+    background-position:0 0,34px 74px,-115% 0,0 0!important;
+    filter:saturate(1.08) contrast(1.02)!important;
+  }
+  body.side-selected[data-side="mbiw"]:before{animation:mbiwVisibleLeft 7s linear infinite,mbiwVisiblePulse 3.4s ease-in-out infinite alternate!important}
+  body.side-selected[data-side="mbiw"]:after{animation:mbiwVisibleRight 7.8s linear infinite,mbiwVisiblePulse 3.8s ease-in-out infinite alternate!important}
+  body.side-selected[data-side="imam"]:before,body.side-selected[data-side="imam"]:after{
+    background-image:
+      radial-gradient(circle,rgba(118,168,135,.42) 0 2px,transparent 3px),
+      radial-gradient(circle,rgba(176,78,48,.25) 0 2px,transparent 3px),
+      linear-gradient(112deg,transparent 16%,rgba(38,87,55,.08) 30%,rgba(38,87,55,.48) 49%,rgba(70,122,86,.3) 55%,transparent 74%),
+      radial-gradient(ellipse at 22% 36%,rgba(20,63,38,.72) 0,rgba(8,30,18,.44) 38%,transparent 70%)!important;
+    background-size:96px 126px,168px 210px,230% 100%,100% 100%!important;
+    background-position:0 0,48px 82px,-115% 0,0 0!important;
+    filter:saturate(1.04) contrast(1.05)!important;
+  }
+  body.side-selected[data-side="imam"]:before{animation:imamVisibleLeft 8.5s linear infinite,imamVisiblePulse 4.2s ease-in-out infinite alternate!important}
+  body.side-selected[data-side="imam"]:after{animation:imamVisibleRight 9.3s linear infinite,imamVisiblePulse 4.8s ease-in-out infinite alternate!important}
+}
+
+@keyframes mbiwVisibleLeft{0%{background-position:0 120px,34px 210px,-115% 0,0 0}50%{background-position:26px -180px,4px -130px,5% 0,0 -18px}100%{background-position:52px -480px,-26px -470px,115% 0,0 0}}
+@keyframes mbiwVisibleRight{0%{background-position:38px 180px,0 250px,115% 0,0 0}50%{background-position:8px -140px,36px -100px,-5% 0,0 20px}100%{background-position:-22px -470px,72px -450px,-115% 0,0 0}}
+@keyframes mbiwVisiblePulse{from{opacity:.72;filter:saturate(.95) brightness(.98)}to{opacity:1;filter:saturate(1.16) brightness(1.06)}}
+@keyframes imamVisibleLeft{0%{background-position:0 150px,48px 240px,-115% 0,0 0}50%{background-position:34px -170px,12px -120px,8% 0,0 24px}100%{background-position:68px -500px,-24px -480px,115% 0,0 0}}
+@keyframes imamVisibleRight{0%{background-position:42px 180px,0 280px,115% 0,0 0}50%{background-position:10px -160px,38px -100px,-8% 0,0 -22px}100%{background-position:-24px -520px,76px -470px,-115% 0,0 0}}
+@keyframes imamVisiblePulse{from{opacity:.62;filter:saturate(.88) brightness(.82)}to{opacity:.92;filter:saturate(1.08) brightness(1.04)}}
+
+/* Cinematic hero close-ups */
+body.side-selected .hero{isolation:isolate;background:var(--side-bg,#020303)}
+body.side-selected .hero-inner{position:relative;z-index:3}
+body.side-selected .hero:before{z-index:0!important;inset:0!important;transform:none!important;transition:background .45s ease,filter .45s ease,opacity .45s ease!important}
+body.side-selected .hero:after{z-index:2!important;pointer-events:none!important;inset:0!important;content:""!important;will-change:opacity,filter!important}
+
+/* MBIW — actual Issue One artwork */
+body.side-selected[data-side="mbiw"] .hero:before{
+  background-image:url('assets/site/mbiw-hero.png')!important;
+  background-repeat:no-repeat!important;
+  background-size:auto 230%!important;
+  background-position:34% 66%!important;
+  filter:grayscale(.08) saturate(.72) contrast(1.12) brightness(.86)!important;
+  opacity:1!important;
+}
+body.side-selected[data-side="mbiw"] .hero:after{
+  background:
+    radial-gradient(ellipse 3.1% 1.5% at 21.4% 37.1%,rgba(255,255,255,1) 0 16%,rgba(236,248,255,1) 26%,rgba(181,222,249,.92) 43%,rgba(116,184,227,.45) 61%,transparent 78%),
+    radial-gradient(ellipse 3.1% 1.5% at 30.4% 40%,rgba(255,255,255,1) 0 16%,rgba(236,248,255,1) 26%,rgba(181,222,249,.92) 43%,rgba(116,184,227,.45) 61%,transparent 78%),
+    radial-gradient(ellipse 18% 13% at 25.8% 39%,rgba(201,235,255,.26) 0,rgba(183,225,250,.11) 40%,transparent 72%),
+    linear-gradient(90deg,rgba(237,244,248,.38) 0%,transparent 34%,transparent 70%,rgba(237,244,248,.48) 100%),
+    linear-gradient(180deg,transparent 0%,rgba(235,242,246,.32) 100%)!important;
+  mix-blend-mode:screen;
+  animation:mbiwHeroEyes 3.15s ease-in-out infinite!important;
+}
+@keyframes mbiwHeroEyes{
+  0%,100%{opacity:.48;filter:brightness(.9) blur(.35px)}
+  38%{opacity:.72;filter:brightness(1.12) blur(.18px)}
+  52%{opacity:1;filter:brightness(1.9) blur(0)}
+  61%{opacity:.83;filter:brightness(1.28) blur(.08px)}
+}
+
+/* ÏMAM — actual Issue Two artwork */
+body.side-selected[data-side="imam"] .hero:before{
+  background-image:url('assets/site/imam-hero.png')!important;
+  background-repeat:no-repeat!important;
+  background-size:auto 190%!important;
+  background-position:50% 65%!important;
+  filter:saturate(.8) contrast(1.18) brightness(.55)!important;
+  opacity:.78!important;
+}
+body.side-selected[data-side="imam"] .hero:after{
+  background:
+    radial-gradient(ellipse 5.5% 2.6% at 47.2% 29.3%,rgba(222,255,229,.98) 0 17%,rgba(89,225,137,.96) 29%,rgba(35,147,78,.58) 48%,transparent 73%),
+    radial-gradient(ellipse 5.5% 2.6% at 52.8% 29.3%,rgba(222,255,229,.98) 0 17%,rgba(89,225,137,.96) 29%,rgba(35,147,78,.58) 48%,transparent 73%),
+    radial-gradient(ellipse at 50% 30%,rgba(45,151,83,.26) 0,rgba(27,98,54,.11) 22%,transparent 46%),
+    linear-gradient(90deg,rgba(2,8,5,.66) 0%,rgba(2,8,5,.08) 32%,rgba(2,8,5,.06) 58%,rgba(2,8,5,.7) 100%),
+    linear-gradient(180deg,rgba(2,9,6,.02),rgba(2,7,5,.45))!important;
+  mix-blend-mode:screen;
+  animation:imamHeroEyes 4s ease-in-out infinite!important;
+}
+@keyframes imamHeroEyes{0%,100%{opacity:.34;filter:brightness(.78) blur(.35px)}40%{opacity:.86;filter:brightness(1.18)}47%{opacity:.5;filter:brightness(.9)}51%{opacity:1;filter:brightness(1.62) blur(0)}59%{opacity:.7;filter:brightness(1.08)}}
+
+@media(max-width:900px){
+  body.side-selected[data-side="mbiw"] .hero:before{background-size:auto 165%!important;background-position:32% 62%!important;opacity:.5!important}
+  body.side-selected[data-side="imam"] .hero:before{background-size:auto 165%!important;background-position:50% 62%!important;opacity:.68!important}
+}
+
+@media(prefers-reduced-motion:reduce){
+  body.side-selected:before,body.side-selected:after,
+  body.side-selected[data-side="mbiw"] .hero:after,
+  body.side-selected[data-side="imam"] .hero:after{animation:none!important}
+}
+
+/* Reader chrome auto-hide — desktop only */
+@keyframes readerChromeFadeAway{
+  0%,58%{opacity:1;transform:translateY(0)}
+  100%{opacity:0;transform:translateY(-8px)}
+}
+@media (hover:hover) and (pointer:fine){
+  .reader-overlay.is-open .reader-overlay-bar,
+  .reader-body .reader-bar{
+    animation:readerChromeFadeAway 1.8s ease forwards;
+    transition:opacity .22s ease,transform .22s ease;
+    will-change:opacity,transform;
+  }
+  .reader-overlay.is-open .reader-overlay-bar:hover,
+  .reader-overlay.is-open .reader-overlay-bar:focus-within,
+  .reader-body .reader-bar:hover,
+  .reader-body .reader-bar:focus-within{
+    animation:none;
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+/* Fullscreen reader = pure comic canvas. Press Esc to leave fullscreen. */
+html:fullscreen .reader-bar,
+html:-webkit-full-screen .reader-bar{
+  opacity:0!important;
+  visibility:hidden!important;
+  pointer-events:none!important;
+  transform:translateY(-100%)!important;
+  animation:none!important;
+}
+@media (hover:none),(pointer:coarse){
+  .reader-overlay-bar,.reader-bar{opacity:1!important;transform:none!important;animation:none!important}
+}
+
+/* Keep the Pick a Side controls centered over the two character worlds. */
+.enter-gate .side-choice{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:min(1100px,calc(100% - 48px))!important;
+  z-index:2!important;
+}
+@media(max-width:720px){
+  .enter-gate .side-choice{width:calc(100% - 24px)!important}
+}
+
+/* Clean side atmosphere — no floating dots */
+@media (min-width:1051px){
+  body.side-selected[data-side="mbiw"]:before,
+  body.side-selected[data-side="mbiw"]:after{
+    background-image:
+      linear-gradient(112deg,transparent 18%,rgba(118,183,225,.08) 31%,rgba(118,183,225,.38) 47%,rgba(225,246,255,.72) 52%,rgba(118,183,225,.28) 58%,transparent 74%),
+      radial-gradient(ellipse at 22% 34%,rgba(154,207,238,.34) 0,rgba(196,228,246,.18) 34%,transparent 67%)!important;
+    background-size:230% 100%,100% 100%!important;
+    background-position:0 0,0 0!important;
+    animation:mbiwVisiblePulse 3.6s ease-in-out infinite alternate!important;
+  }
+  body.side-selected[data-side="imam"]:before,
+  body.side-selected[data-side="imam"]:after{
+    background-image:
+      linear-gradient(112deg,transparent 16%,rgba(38,87,55,.08) 30%,rgba(38,87,55,.48) 49%,rgba(70,122,86,.3) 55%,transparent 74%),
+      radial-gradient(ellipse at 22% 36%,rgba(20,63,38,.72) 0,rgba(8,30,18,.44) 38%,transparent 70%)!important;
+    background-size:230% 100%,100% 100%!important;
+    background-position:0 0,0 0!important;
+    animation:imamVisiblePulse 4.5s ease-in-out infinite alternate!important;
+  }
+}
+
+/* ÏMAM choice — text animation only, no green text panel */
+.enter-gate.imam-transition .imam-transition-layer{
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+.enter-gate.imam-transition .imam-transition-layer:before,
+.enter-gate.imam-transition .imam-transition-layer:after,
+.enter-gate.imam-transition .imam-transition-copy:before,
+.enter-gate.imam-transition .imam-transition-copy:after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  opacity:0!important;
+  animation:none!important;
+  filter:none!important;
+}
+.enter-gate.imam-transition .imam-transition-copy,
+.enter-gate.imam-transition .imam-transition-copy span,
+.enter-gate.imam-transition .imam-transition-copy strong{
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+.enter-gate.imam-transition .imam-transition-copy{
+  animation:imamWords 1.05s .3s ease forwards!important;
+}
+
+/* MBIW choice — text animation only, no light text panel */
+.enter-gate.mbiw-transition .mbiw-transition-layer{
+  background:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+}
+.enter-gate.mbiw-transition .mbiw-transition-layer:before,
+.enter-gate.mbiw-transition .mbiw-transition-layer:after,
+.enter-gate.mbiw-transition .mbiw-transition-copy:before,
+.enter-gate.mbiw-transition .mbiw-transition-copy:after{
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  opacity:0!important;
+  animation:none!important;
+  filter:none!important;
+}
+.enter-gate.mbiw-transition .mbiw-transition-copy,
+.enter-gate.mbiw-transition .mbiw-transition-copy span,
+.enter-gate.mbiw-transition .mbiw-transition-copy strong{
+  background:transparent!important;
+  background-color:transparent!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  border:0!important;
+  padding:0!important;
+}
+.enter-gate.mbiw-transition .mbiw-transition-copy{
+  animation:mbiwWords 1.1s .3s ease forwards!important;
+}
+
+
+/* v21 — three issue cards side by side on desktop */
+@media (min-width:901px){
+  .issue-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:22px!important}
+  .issue-meta{padding:20px!important}
+  .issue-meta h3{font-size:clamp(24px,2.4vw,34px)!important}
+}
+
+/* v22 — large three-cover gallery */
+@media (min-width:901px){
+  #issues.section{
+    max-width:1680px!important;
+    padding-left:24px!important;
+    padding-right:24px!important;
+  }
+  #issues .issue-grid{
+    grid-template-columns:repeat(3,minmax(0,1fr))!important;
+    gap:28px!important;
+    align-items:start!important;
+  }
+  #issues .issue-card{width:100%!important;}
+  #issues .cover-wrap{
+    width:100%!important;
+    aspect-ratio:2/3!important;
+    background:#050505!important;
+  }
+  #issues .cover-wrap img{
+    width:100%!important;
+    height:100%!important;
+    object-fit:contain!important;
+    object-position:center!important;
+    display:block!important;
+  }
+  #issues .issue-meta{padding:18px!important;}
+  #issues .issue-meta h3{font-size:clamp(24px,2vw,34px)!important;}
+}
+@media (min-width:901px) and (max-width:1250px){
+  #issues.section{max-width:1200px!important;}
+  #issues .issue-grid{gap:18px!important;}
+}
+
+/* v23 — DAYS BEFORE REINCARNATION chapter subtitles */
+#issues .issue-meta h3::after{
+  display:block;
+  margin-top:8px;
+  font-family:inherit;
+  font-size:clamp(12px,1.05vw,15px);
+  font-weight:500;
+  line-height:1.35;
+  letter-spacing:.04em;
+  text-transform:none;
+  opacity:.72;
+}
+#issues .issue-card:nth-child(1) .issue-meta h3::after{content:"Chapter I — The Fall of MBIW";}
+#issues .issue-card:nth-child(2) .issue-meta h3::after{content:"Chapter II — Birth of ÏMAM";}
+#issues .issue-card:nth-child(3) .issue-meta h3::after{content:"Chapter III — Point of No Return";}
