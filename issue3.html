@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ÏMAM — DAYS BEFORE REINCARNATION · Chapter III</title>
+  <title>ÏMAM — DAYS BEFORE REINCARNATION · Chapter III — Point of No Return</title>
   <link rel="icon" href="/assets/site/favicon.svg">
   <link rel="stylesheet" href="/styles.css?v=11">
   <link rel="stylesheet" href="/reader-effects.css?v=2">
@@ -14,7 +14,7 @@
   <header class="reader-bar">
     <div class="left">
       <a class="icon-btn" id="homeLink" href="/">← Home</a>
-      <div class="reader-title">DAYS BEFORE REINCARNATION<small>Chapter III</small></div>
+      <div class="reader-title">DAYS BEFORE REINCARNATION<small>Chapter III — Point of No Return</small></div>
     </div>
     <div class="right">
       <button class="icon-btn hide-mobile" id="prevPage">←</button>
@@ -33,10 +33,10 @@
       for(let i=1;i<=60;i++){
         const n=String(i).padStart(2,'0'),fig=document.createElement('figure'),img=document.createElement('img');
         fig.className='comic-page';fig.id=`page-${i}`;fig.dataset.page=i;fig.dataset.label=`Page ${i}`;
-        img.src=`/assets/issue3/page-${n}.webp`;img.alt=`ÏMAM Chapter III — Page ${i}`;img.loading=i<=2?'eager':'lazy';img.decoding='async';
+        img.src=`/assets/issue3/page-${n}.webp`;img.alt=`ÏMAM Chapter III — Point of No Return — Page ${i}`;img.loading=i<=2?'eager':'lazy';img.decoding='async';
         fig.appendChild(img);reader.appendChild(fig);
       }
-      reader.insertAdjacentHTML('beforeend',`<section class="reader-end"><div class="eyebrow">End of Chapter III</div><h2>Reincarnation awaits.</h2><p>The story continues.</p><div class="hero-actions"><a class="button" href="/assets/issue3/IMAM_Beyond_Reincarnation_Issue_3.pdf" download>Download PDF</a><a class="button" id="backHome" href="/">Back Home</a></div></section>`);
+      reader.insertAdjacentHTML('beforeend',`<section class="reader-end"><div class="eyebrow">End of Chapter III — Point of No Return</div><h2>Reincarnation awaits.</h2><p>The story continues.</p><div class="hero-actions"><a class="button" href="/assets/issue3/IMAM_Beyond_Reincarnation_Issue_3.pdf" download>Download PDF</a><a class="button" id="backHome" href="/">Back Home</a></div></section>`);
       const closeFromFrame=(event)=>{if(window.top!==window.self){event.preventDefault();window.parent.postMessage({type:'imamverse-close-reader'},window.location.origin);}};
       const home=document.getElementById('homeLink');if(home)home.addEventListener('click',closeFromFrame);
       const back=document.getElementById('backHome');if(back)back.addEventListener('click',closeFromFrame);
