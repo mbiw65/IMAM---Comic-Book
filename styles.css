@@ -289,3 +289,19 @@ html:-webkit-full-screen .reader-bar{
   #issues.section{max-width:1200px!important;}
   #issues .issue-grid{gap:18px!important;}
 }
+
+/* v23 — DAYS BEFORE REINCARNATION chapter subtitles */
+#issues .issue-meta h3::after{
+  display:block;
+  margin-top:8px;
+  font-family:inherit;
+  font-size:clamp(12px,1.05vw,15px);
+  font-weight:500;
+  line-height:1.35;
+  letter-spacing:.04em;
+  text-transform:none;
+  opacity:.72;
+}
+#issues .issue-card:nth-child(1) .issue-meta h3::after{content:"Chapter I — The Fall of MBIW";}
+#issues .issue-card:nth-child(2) .issue-meta h3::after{content:"Chapter II — Birth of ÏMAM";}
+#issues .issue-card:nth-child(3) .issue-meta h3::after{content:"Chapter III — Point of No Return";}
