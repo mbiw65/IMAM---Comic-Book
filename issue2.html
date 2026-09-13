@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>ÏMAM — The Reincarnation</title>
+  <title>ÏMAM — DAYS BEFORE REINCARNATION · Chapter II</title>
   <link rel="icon" href="/assets/site/favicon.svg">
   <link rel="stylesheet" href="/styles.css?v=11">
   <link rel="stylesheet" href="/reader-effects.css?v=2">
@@ -14,7 +14,7 @@
   <header class="reader-bar">
     <div class="left">
       <a class="icon-btn" id="homeLink" href="/">← Home</a>
-      <div class="reader-title">The Reincarnation<small>ÏMAM · Issue Two</small></div>
+      <div class="reader-title">DAYS BEFORE REINCARNATION<small>Chapter II</small></div>
     </div>
     <div class="right">
       <button class="icon-btn hide-mobile" id="prevPage">←</button>
@@ -33,10 +33,10 @@
       for(let i=1;i<=36;i++){
         const n=String(i).padStart(2,'0'),fig=document.createElement('figure'),img=document.createElement('img');
         fig.className='comic-page';fig.id=`page-${i}`;fig.dataset.page=i;fig.dataset.label=`Page ${i}`;
-        img.src=`/assets/issue2/page-${n}.webp`;img.alt=`ÏMAM Issue Two — Page ${i}`;img.loading=i<=2?'eager':'lazy';img.decoding='async';
+        img.src=`/assets/issue2/page-${n}.webp`;img.alt=`ÏMAM Chapter II — Page ${i}`;img.loading=i<=2?'eager':'lazy';img.decoding='async';
         fig.appendChild(img);reader.appendChild(fig);
       }
-      reader.insertAdjacentHTML('beforeend',`<section class="reader-end"><div class="eyebrow">End of Issue Two</div><h2>Beyond Reincarnation.</h2><p>Continue directly into Issue Three.</p><div class="hero-actions"><a class="button primary" id="nextIssue" href="/issue3/">Read Issue Three</a><a class="button" href="/assets/issue2/IMAM_Issue_Two.pdf" download>Download PDF</a><a class="button" id="backHome" href="/">Back Home</a></div></section>`);
+      reader.insertAdjacentHTML('beforeend',`<section class="reader-end"><div class="eyebrow">End of Chapter II</div><h2>Chapter III awaits.</h2><p>Continue directly into Chapter III.</p><div class="hero-actions"><a class="button primary" id="nextIssue" href="/issue3/">Read Chapter III</a><a class="button" href="/assets/issue2/IMAM_Issue_Two.pdf" download>Download PDF</a><a class="button" id="backHome" href="/">Back Home</a></div></section>`);
       const closeFromFrame=(event)=>{if(window.top!==window.self){event.preventDefault();window.parent.postMessage({type:'imamverse-close-reader'},window.location.origin);}};
       const home=document.getElementById('homeLink');if(home)home.addEventListener('click',closeFromFrame);
       const back=document.getElementById('backHome');if(back)back.addEventListener('click',closeFromFrame);
