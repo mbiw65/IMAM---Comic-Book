@@ -20,9 +20,9 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           expected={
-            'assets/issue1/cover-final.webp':328916,
-            'assets/issue2/cover-final.webp':317990,
-            'assets/issue3/cover-final.webp':305036,
+            'assets/issue1/cover-final.webp':140576,
+            'assets/issue2/cover-final.webp':138882,
+            'assets/issue3/cover-final.webp':134204,
           }
           for f,n in expected.items():
               b=Path(f).read_bytes()
