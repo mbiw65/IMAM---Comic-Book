@@ -20,9 +20,9 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           expected={
-            'assets/issue1/cover-final.webp':140576,
-            'assets/issue2/cover-final.webp':138882,
-            'assets/issue3/cover-final.webp':134204,
+            'assets/issue1/cover-final.webp':86354,
+            'assets/issue2/cover-final.webp':86130,
+            'assets/issue3/cover-final.webp':83290,
           }
           for f,n in expected.items():
               b=Path(f).read_bytes()
@@ -40,5 +40,6 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html assets/issue1/cover-final.webp assets/issue2/cover-final.webp assets/issue3/cover-final.webp
           git rm -r _cover_stage .github/workflows/exact-cover-upload.yml
+          git rm -f .github/workflows/restore-cover-cards.yml || true
           git commit -m 'Install exact official chapter covers'
           git push origin HEAD:exact-cover-upload
