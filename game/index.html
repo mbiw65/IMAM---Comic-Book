@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ÏMAMVERSE — Playable Demo</title>
+<style>
+:root{--bg:#040706;--ink:#eef4ef;--muted:#8a9a90;--green:#76d39a;--red:#c94f46;--glass:rgba(5,10,7,.78)}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#020403;color:var(--ink);font-family:Inter,system-ui,Arial,sans-serif;overflow:hidden}
+body{display:grid;place-items:center}
+#wrap{position:relative;width:100vw;height:100vh;overflow:hidden;background:radial-gradient(circle at 50% 20%,#101913 0,#040706 45%,#010201 100%)}
+canvas{display:block;width:100%;height:100%}
+.hud{position:absolute;inset:0;pointer-events:none;padding:18px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.brand{font-weight:900;letter-spacing:.28em;font-size:12px;text-transform:uppercase;text-shadow:0 2px 14px #000}
+.brand b{display:block;font-family:Georgia,serif;font-size:23px;letter-spacing:.08em;margin-bottom:3px}.brand span{color:var(--muted);font-size:9px}
+.stats{width:min(360px,52vw);display:grid;gap:8px}.row{display:flex;align-items:center;gap:8px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#cfd8d2}.bar{height:8px;flex:1;border:1px solid rgba(255,255,255,.2);border-radius:999px;overflow:hidden;background:rgba(0,0,0,.35)}.fill{height:100%;width:100%;background:linear-gradient(90deg,#a5c8b2,#eef7f0)}.fill.rage{width:0;background:linear-gradient(90deg,#274936,#7fe0a2)}
+.message{position:absolute;left:50%;top:14%;transform:translateX(-50%);width:min(760px,88vw);text-align:center;pointer-events:none;text-shadow:0 4px 26px #000}.message h1{font-family:Georgia,serif;font-size:clamp(30px,6vw,72px);margin:0 0 8px;letter-spacing:.06em}.message p{margin:0;color:#bdc9c0;font-size:clamp(12px,1.6vw,18px)}
+.overlay{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(circle at 50% 40%,rgba(22,54,34,.55),rgba(0,0,0,.88));z-index:10;padding:24px}.panel{width:min(760px,94vw);padding:30px;border:1px solid rgba(126,185,146,.28);background:rgba(3,8,5,.86);backdrop-filter:blur(14px);box-shadow:0 24px 90px rgba(0,0,0,.6);text-align:center}.panel h1{font-family:Georgia,serif;font-size:clamp(38px,8vw,86px);margin:0;letter-spacing:.06em}.panel h1 span{display:block;font-family:Inter,system-ui;font-size:11px;letter-spacing:.45em;color:#80a88e;margin-bottom:10px}.panel p{color:#b6c2ba;line-height:1.6;max-width:620px;margin:16px auto}.controls{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:18px 0 22px}.key{border:1px solid rgba(255,255,255,.17);padding:7px 10px;border-radius:7px;color:#dbe3dd;background:rgba(255,255,255,.03);font-size:11px}.btn{pointer-events:auto;border:1px solid rgba(151,220,173,.45);background:#173523;color:#eaf5ed;padding:13px 22px;border-radius:999px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}.btn:hover{background:#214a31}.small{margin-top:14px;font-size:10px;color:#708078;letter-spacing:.08em}
+#mobile{position:absolute;left:0;right:0;bottom:14px;display:none;justify-content:space-between;padding:0 16px;z-index:5;pointer-events:none}.pad,.acts{display:flex;gap:10px;pointer-events:auto}.touch{width:58px;height:58px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(7,14,9,.6);color:#e8f0ea;font-size:22px;touch-action:none;user-select:none}.touch.attack{width:70px;height:70px;border-color:rgba(129,212,156,.36)}
+.corner{position:absolute;right:16px;bottom:14px;color:#718079;font-size:9px;letter-spacing:.08em;pointer-events:none}
+@media(max-width:850px),(pointer:coarse){#mobile{display:flex}.corner{display:none}.hud{padding:12px}.stats{width:55vw}.message{top:12%}}
+</style>
+</head>
+<body>
+<div id="wrap">
+<canvas id="game"></canvas>
+<div class="hud">
+  <div class="brand"><b id="identity">MBIW</b><span>ÏMAMVERSE · DEMO</span></div>
+  <div class="stats">
+    <div class="row"><span>Life</span><div class="bar"><div class="fill" id="hp"></div></div></div>
+    <div class="row"><span>Reincarnation</span><div class="bar"><div class="fill rage" id="rage"></div></div></div>
+  </div>
+</div>
+<div class="message" id="message"></div>
+<div id="mobile">
+  <div class="pad"><button class="touch" data-k="left">◀</button><button class="touch" data-k="right">▶</button></div>
+  <div class="acts"><button class="touch" data-k="jump">↑</button><button class="touch attack" data-k="attack">✦</button></div>
+</div>
+<div class="corner">MOVE: A/D or ←/→ · JUMP: SPACE/W/↑ · ATTACK: J/K</div>
+<div class="overlay" id="start">
+  <div class="panel">
+    <h1><span>PLAYABLE PROTOTYPE</span>ÏMAMVERSE</h1>
+    <p>You begin as <b>MBIW</b>. Survive the attack, fill the Reincarnation meter, and discover what wakes up when MBIW can no longer continue.</p>
+    <div class="controls"><div class="key">A / D · Move</div><div class="key">SPACE · Jump</div><div class="key">J · Attack</div></div>
+    <button class="btn" id="startBtn">Enter the story</button>
+    <div class="small">Prototype build · no save data · desktop + mobile</div>
+  </div>
+</div>
+</div>
+<script>
+const c=document.getElementById('game'),x=c.getContext('2d');
+let W=0,H=0,DPR=1,last=0,time=0,started=false,won=false,dead=false,phase=0,shake=0;
+const keys={left:false,right:false,jump:false,attack:false};
+const hpEl=document.getElementById('hp'),rageEl=document.getElementById('rage'),idEl=document.getElementById('identity'),msg=document.getElementById('message');
+const demise=new Audio('../assets/audio/3%20-%20DEMISE%20OF%20MBIW.mp3'); demise.loop=true; demise.volume=.12;
+const taliban=new Audio('../assets/audio/5%20-%20Taliban.mp3'); taliban.loop=true; taliban.volume=.14;
+function resize(){DPR=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;c.width=W*DPR;c.height=H*DPR;x.setTransform(DPR,0,0,DPR,0,0)} addEventListener('resize',resize);resize();
+const ground=()=>H*.78;
+const p={x:120,y:0,w:34,h:64,vx:0,vy:0,speed:330,jump:650,on:false,hp:100,rage:0,imam:false,face:1,atk:0,inv:0};
+let enemies=[],particles=[];
+function reset(){p.x=110;p.y=ground()-p.h;p.vx=p.vy=0;p.hp=100;p.rage=0;p.imam=false;p.atk=0;p.inv=0;won=dead=false;phase=0;enemies=[];particles=[];spawnWave();idEl.textContent='MBIW';show('CASABLANCA · NIGHT','They came for MBIW. Keep moving.');}
+function spawnWave(){enemies=[{x:W*.52,y:ground()-58,w:32,h:58,hp:3,vx:0,hit:0},{x:W*.70,y:ground()-58,w:32,h:58,hp:3,vx:0,hit:0},{x:W*.86,y:ground()-58,w:32,h:58,hp:4,vx:0,hit:0}]}
+function spawnImamWave(){enemies=[{x:W*.60,y:ground()-60,w:34,h:60,hp:4,vx:0,hit:0},{x:W*.76,y:ground()-60,w:34,h:60,hp:4,vx:0,hit:0},{x:W*.88,y:ground()-68,w:38,h:68,hp:6,vx:0,hit:0,boss:true}]}
+function show(a,b,d=2400){msg.innerHTML='<h1>'+a+'</h1><p>'+b+'</p>';clearTimeout(show.t);show.t=setTimeout(()=>msg.innerHTML='',d)}
+function spark(px,py,n=9,green=false){for(let i=0;i<n;i++)particles.push({x:px,y:py,vx:(Math.random()-.5)*260,vy:(Math.random()-.8)*260,l:1,g:green})}
+function collide(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+function attack(){if(p.atk>0||dead||won)return;p.atk=p.imam?.28:.20;shake=p.imam?7:3}
+function transform(){if(p.imam)return;p.imam=true;p.hp=100;p.rage=100;idEl.textContent='ÏMAM';phase=1;shake=22;demise.pause();taliban.currentTime=0;taliban.play().catch(()=>{});for(let i=0;i<65;i++)spark(p.x+p.w/2,p.y+p.h/2,1,true);show('ÏMAM','MBIW is gone. Now make them understand.',3200);setTimeout(spawnImamWave,900)}
+function update(dt){if(!started||dead||won)return;time+=dt;p.inv=Math.max(0,p.inv-dt);p.atk=Math.max(0,p.atk-dt);
+  const dir=(keys.right?1:0)-(keys.left?1:0);p.vx=dir*(p.imam?390:p.speed);if(dir)p.face=dir;
+  if(keys.jump&&p.on){p.vy=-(p.imam?720:p.jump);p.on=false;keys.jump=false}
+  p.vy+=1800*dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.x=Math.max(16,Math.min(W-p.w-16,p.x));if(p.y+p.h>=ground()){p.y=ground()-p.h;p.vy=0;p.on=true}
+  const attackBox={x:p.face>0?p.x+p.w:p.x-(p.imam?78:56),y:p.y+8,w:p.imam?78:56,h:p.h-12};
+  for(const e of enemies){if(e.hp<=0)continue;e.hit=Math.max(0,e.hit-dt);const dx=p.x-e.x;e.vx=Math.sign(dx)*(e.boss?100:75)*(p.imam?.72:1);if(Math.abs(dx)<42)e.vx=0;e.x+=e.vx*dt;
+    if(p.atk>0&&collide(attackBox,e)&&e.hit<=0){e.hp-=p.imam?2:1;e.hit=.23;e.x+=p.face*(p.imam?52:28);spark(e.x+e.w/2,e.y+20,p.imam?16:8,p.imam);p.rage=Math.min(100,p.rage+(p.imam?2:16));shake=Math.max(shake,p.imam?10:4)}
+    if(collide(p,e)&&p.inv<=0){p.hp-=p.imam?7:14;p.inv=.72;p.vy=-260;p.x+=Math.sign(p.x-e.x)*38;shake=10;spark(p.x+p.w/2,p.y+30,8,false);if(!p.imam)p.rage=Math.min(100,p.rage+12)}
+  }
+  enemies=enemies.filter(e=>e.hp>0);
+  if(!p.imam&&p.rage>=100)transform();
+  if(p.hp<=0){if(!p.imam){p.rage=100;transform();p.hp=100}else{dead=true;taliban.pause();show('YOU FELL','Press R or tap the screen to restart.',999999)}}
+  if(p.imam&&phase===1&&enemies.length===0){won=true;taliban.pause();show('DEMO COMPLETE','This is the core direction: MBIW falls, ÏMAM awakens, and the gameplay changes with him.',999999)}
+  hpEl.style.width=p.hp+'%';rageEl.style.width=p.rage+'%';
+  for(const q of particles){q.x+=q.vx*dt;q.y+=q.vy*dt;q.vy+=700*dt;q.l-=dt*1.6}particles=particles.filter(q=>q.l>0);shake*=.88;
+}
+function bg(){
+  x.fillStyle='#050807';x.fillRect(0,0,W,H);const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,p.imam?'#07140d':'#07100d');g.addColorStop(.65,'#050807');g.addColorStop(1,'#010201');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.globalAlpha=.45;for(let i=0;i<18;i++){let bx=(i*113+time*8)% (W+160)-80, bh=80+(i%5)*34;x.fillStyle=i%3?'#0a0f0c':'#0d1410';x.fillRect(bx,ground()-bh-50,72,bh);for(let j=0;j<4;j++){x.fillStyle=(i+j)%4===0?'#2f4637':'#101914';x.fillRect(bx+11+j*14,ground()-bh-36,5,10)}}x.globalAlpha=1;
+  x.fillStyle='#121714';x.fillRect(0,ground(),W,H-ground());x.fillStyle='#29332d';x.fillRect(0,ground(),W,3);x.globalAlpha=.14;x.fillStyle=p.imam?'#4dd77d':'#dce9df';for(let i=0;i<50;i++){const sx=(i*97+time*22)%(W+20),sy=(i*61)%ground();x.fillRect(sx,sy,1.3,1.3)}x.globalAlpha=1;
+}
+function drawChar(px,py,w,h,imam=false,enemy=false,flash=false){x.save();x.translate(px+w/2,py+h/2);if(enemy){x.fillStyle=flash?'#f0f3f1':'#641f20';x.fillRect(-w*.35,-h*.34,w*.7,h*.6);x.fillStyle='#171918';x.beginPath();x.arc(0,-h*.36,w*.25,0,Math.PI*2);x.fill();x.fillStyle='#111';x.fillRect(-w*.22,h*.25,w*.16,h*.28);x.fillRect(w*.06,h*.25,w*.16,h*.28)}else{if(imam){x.shadowColor='#54dc83';x.shadowBlur=18;x.fillStyle='#102c1b'}else{x.shadowColor='#e8f0ea';x.shadowBlur=8;x.fillStyle='#dce5df'}x.fillRect(-w*.3,-h*.32,w*.6,h*.58);x.fillStyle=imam?'#0b160f':'#1d2721';x.beginPath();x.arc(0,-h*.38,w*.28,0,Math.PI*2);x.fill();x.shadowBlur=0;x.fillStyle=imam?'#92ffb3':'#c9fff0';x.fillRect((p.face>0?4:-10),-h*.43,6,2);x.fillStyle=imam?'#0a150e':'#cfd8d2';x.fillRect(-w*.23,h*.24,w*.17,h*.3);x.fillRect(w*.06,h*.24,w*.17,h*.3)}x.restore()}
+function render(){x.save();x.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);bg();
+  for(const e of enemies)drawChar(e.x,e.y,e.w,e.h,false,true,e.hit>0);
+  if(p.inv<=0||Math.floor(time*16)%2===0)drawChar(p.x,p.y,p.w,p.h,p.imam,false,false);
+  if(p.atk>0){x.save();x.globalAlpha=.72;x.strokeStyle=p.imam?'#80f0a6':'#e7f0e9';x.lineWidth=p.imam?7:4;x.beginPath();const cx=p.x+p.w/2,cy=p.y+p.h*.48;x.arc(cx,cy,p.imam?58:42,p.face>0?-.8:Math.PI-.8,p.face>0?.8:Math.PI+.8);x.stroke();x.restore()}
+  for(const q of particles){x.globalAlpha=Math.max(0,q.l);x.fillStyle=q.g?'#77e39c':'#e7eee9';x.fillRect(q.x,q.y,q.g?4:3,q.g?4:3)}x.globalAlpha=1;x.restore();
+  if(won||dead){x.fillStyle='rgba(0,0,0,.28)';x.fillRect(0,0,W,H)}
+}
+function loop(t){const dt=Math.min(.033,(t-last)/1000||0);last=t;update(dt);render();requestAnimationFrame(loop)}requestAnimationFrame(loop);
+const map={ArrowLeft:'left',a:'left',A:'left',ArrowRight:'right',d:'right',D:'right',ArrowUp:'jump',w:'jump',W:'jump',' ':'jump',j:'attack',J:'attack',k:'attack',K:'attack'};
+addEventListener('keydown',e=>{if(map[e.key]){keys[map[e.key]]=true;if(map[e.key]==='attack')attack();e.preventDefault()}if((e.key==='r'||e.key==='R')&&(dead||won)){demise.currentTime=0;demise.play().catch(()=>{});reset()}});addEventListener('keyup',e=>{if(map[e.key])keys[map[e.key]]=false});
+for(const b of document.querySelectorAll('.touch')){const k=b.dataset.k;const on=e=>{e.preventDefault();keys[k]=true;if(k==='attack')attack()};const off=e=>{e.preventDefault();keys[k]=false};b.addEventListener('pointerdown',on);b.addEventListener('pointerup',off);b.addEventListener('pointercancel',off);b.addEventListener('pointerleave',off)}
+document.getElementById('startBtn').onclick=()=>{document.getElementById('start').style.display='none';started=true;demise.play().catch(()=>{});reset()};
+c.addEventListener('pointerdown',()=>{if(dead||won){demise.currentTime=0;demise.play().catch(()=>{});reset()}});
+</script>
+</body>
+</html>
