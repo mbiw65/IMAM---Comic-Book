@@ -1,0 +1,34 @@
+name: Bootstrap corrected chapters
+on:
+  push:
+    paths:
+      - '.github/workflows/bootstrap-corrected-chapters.yml'
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download supplied chapter archives
+        run: |
+          mkdir -p .chapter_uploads
+          curl --fail --location --retry 3 'https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-6858-8210-956d-9da866b9246b/raw?se=2026-09-20T01%3A34%3A35Z&sp=r&sv=2026-02-06&sr=b&scid=99c2ba48-5533-57c0-a94d-07e71e1ad548&skoid=c30e7ce7-1f51-4051-a377-288cdba21c02&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-19T18%3A20%3A34Z&ske=2026-09-20T18%3A20%3A34Z&sks=b&skv=2026-02-06&sig=TH1r7ZbC2OUhjtnhIc8Ry4XJdOJu95zLpcdVL%2BWJ%2BdI%3D' -o .chapter_uploads/issue1.zip
+          curl --fail --location --retry 3 'https://sdmntprnortheu.oaiusercontent.com/files/00000000-8468-81f4-9a4d-e85b27996f64/raw?se=2026-09-20T01%3A34%3A45Z&sp=r&sv=2026-02-06&sr=b&scid=45775ff3-f21a-5003-b551-49b72109d70d&skoid=c30e7ce7-1f51-4051-a377-288cdba21c02&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-19T07%3A38%3A52Z&ske=2026-09-20T07%3A38%3A52Z&sks=b&skv=2026-02-06&sig=1ENAAgaiEf0NQYwYTQRKM12omZqIwZ0FVrvLXBvFp8s%3D' -o .chapter_uploads/issue2.zip
+          curl --fail --location --retry 3 'https://sdmntprnortheu.oaiusercontent.com/files/00000000-a92c-81f4-b90a-d9aea68ba494/raw?se=2026-09-20T01%3A34%3A56Z&sp=r&sv=2026-02-06&sr=b&scid=2b85588d-2401-5c34-9409-a99246e059d6&skoid=c30e7ce7-1f51-4051-a377-288cdba21c02&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-19T19%3A14%3A03Z&ske=2026-09-20T19%3A14%3A03Z&sks=b&skv=2026-02-06&sig=d7ZHXLrysZGiOfc5uJy9/GiSaI1pw40Slq/CW1eMRo8%3D' -o .chapter_uploads/issue3.zip
+          ls -lh .chapter_uploads/*.zip
+      - run: python -m pip install --quiet pillow img2pdf
+      - run: python tools/publish_corrected_chapters.py
+      - name: Publish corrected chapters
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html issue1.html issue2.html issue3.html assets/issue1 assets/issue2 assets/issue3
+          git rm -f .github/workflows/bootstrap-corrected-chapters.yml
+          git commit -m "Publish corrected chapters I, II and III"
+          git push
