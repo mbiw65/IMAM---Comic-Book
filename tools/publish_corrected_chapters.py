@@ -97,6 +97,9 @@ tpl='''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="vi
 for i in (1,2,3):
     s=SPECS[i];nxt=i+1
     nextbtn=f'<a class="button primary" id="nextIssue" href="/issue{nxt}/">Read Chapter {SPECS[nxt]["roman"]}</a>' if i<3 else ''
-    out=tpl.format(roman=s['roman'],title=s['title'],count=counts[i],num=i,ending='Continue the story.' if i<3 else 'The story continues.',nextbtn=nextbtn,nextnum=min(nxt,3))
+    out=tpl
+    vals={'roman':s['roman'],'title':s['title'],'count':counts[i],'num':i,'ending':'Continue the story.' if i<3 else 'The story continues.','nextbtn':nextbtn,'nextnum':min(nxt,3)}
+    for k,v in vals.items(): out=out.replace('{'+k+'}',str(v))
+    out=out.replace('{{','{').replace('}}','}')
     (ROOT/f'issue{i}.html').write_text(out,encoding='utf-8')
 print('Prepared corrected chapters',counts)
