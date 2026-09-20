@@ -90,6 +90,37 @@ body.side-selected[data-side="imam"]:after{background-image:radial-gradient(circ
 
 @media(max-width:1050px){body.side-selected:before,body.side-selected:after{display:none}}
 @media(max-width:720px){.music-player{left:10px;right:10px;bottom:10px;flex-wrap:wrap}.music-toggle{flex:1 1 178px;min-width:0}.volume-control{flex:0 1 116px;padding:0 8px;gap:5px}.volume-slider{width:58px}.volume-value{display:none}.side-switch{flex:1 0 100%;height:38px}.mbiw-transition-copy strong,.imam-transition-copy strong{font-size:clamp(28px,9vw,48px)}.mbiw-transition-copy span,.imam-transition-copy span{font-size:9px;letter-spacing:.32em}}
+
+/* Clear, unmistakable change when a visitor chooses ÏMAM or MBIW. */
+.hero-inner{width:min(920px,100%);padding:clamp(20px,4vw,42px);border-radius:28px;transition:background .45s ease,border-color .45s ease,box-shadow .45s ease}
+body.side-selected .hero-inner{background:linear-gradient(135deg,rgba(0,0,0,.70),rgba(0,0,0,.32));border:1px solid rgba(255,255,255,.13);backdrop-filter:blur(5px)}
+.mode-indicator{display:none;align-items:center;justify-content:center;gap:12px;width:max-content;max-width:100%;margin:14px auto 20px;padding:11px 19px;border-radius:999px;border:1px solid rgba(68,255,141,.54);background:rgba(3,22,10,.87);color:#bdffca;box-shadow:0 0 32px rgba(20,218,95,.30),inset 0 0 16px rgba(46,184,91,.16);font-weight:800;font-size:clamp(11px,1.8vw,15px);letter-spacing:.17em}
+.mode-indicator-dot{width:10px;height:10px;flex:0 0 10px;border-radius:50%;background:#64ff91;box-shadow:0 0 14px 5px rgba(58,255,128,.55);animation:imamModePulse 1.7s ease-in-out infinite}
+body.side-selected .mode-indicator{display:flex}
+.side-manifesto{display:none;flex-direction:column;align-items:center;gap:7px;margin:24px auto 0;padding:17px 22px;border-top:1px solid rgba(96,255,148,.46);border-bottom:1px solid rgba(96,255,148,.22);background:linear-gradient(90deg,transparent,rgba(8,47,24,.61),transparent);color:#d7ffe0}
+body.side-selected .side-manifesto{display:flex}
+.side-manifesto>span{font-size:12px;letter-spacing:.40em;font-weight:900;color:#86ffab}
+.side-manifesto>strong{font-family:Georgia,"Times New Roman",serif;font-size:clamp(19px,3.6vw,37px);letter-spacing:.075em;text-shadow:0 0 22px rgba(41,255,105,.42)}
+.side-manifesto>small{font-size:clamp(12px,1.6vw,16px);font-style:italic;color:#d7e6d9}
+body.side-selected[data-side="imam"] .hero-inner{box-shadow:0 0 75px rgba(14,173,68,.21),inset 0 0 50px rgba(8,63,31,.29);border-color:rgba(79,255,135,.35)}
+body.side-selected[data-side="imam"] .hero h1{color:#f4fff5;text-shadow:0 0 28px rgba(78,255,128,.65),0 0 85px rgba(33,193,79,.32)}
+body.side-selected[data-side="imam"] .hero h1 span{color:#7cff9b}
+body.side-selected[data-side="imam"] .hero .eyebrow{color:#7fff9f}
+body.side-selected[data-side="mbiw"] .hero-inner{background:linear-gradient(135deg,rgba(240,249,255,.90),rgba(227,241,250,.67));border-color:rgba(92,171,226,.8);box-shadow:0 0 65px rgba(180,227,255,.45)}
+body.side-selected[data-side="mbiw"] .mode-indicator{color:#194663;background:rgba(234,248,255,.94);border-color:#5d9dc2;box-shadow:0 0 30px rgba(151,213,253,.42)}
+body.side-selected[data-side="mbiw"] .mode-indicator-dot{background:#7ac9fa;box-shadow:0 0 13px 4px rgba(115,200,255,.44)}
+body.side-selected[data-side="mbiw"] .side-manifesto{color:#153b56;background:linear-gradient(90deg,transparent,rgba(212,238,254,.7),transparent);border-top-color:rgba(58,145,207,.5);border-bottom-color:rgba(58,145,207,.25)}
+body.side-selected[data-side="mbiw"] .side-manifesto>span{color:#215984}
+body.side-selected[data-side="mbiw"] .side-manifesto>strong{text-shadow:0 0 24px rgba(165,223,255,.56)}
+body.side-selected[data-side="mbiw"] .side-manifesto>small{color:#355469}
+body.side-selected.mode-reveal .mode-indicator{animation:imamModeArrival .9s ease both}
+body.side-selected.mode-reveal .hero-inner{animation:imamHeroArrival .9s ease both}
+@keyframes imamModePulse{50%{transform:scale(1.2);box-shadow:0 0 18px 7px rgba(58,255,128,.76)}}
+@keyframes imamModeArrival{from{opacity:0;transform:translateY(15px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes imamHeroArrival{from{filter:brightness(.4);transform:scale(.985)}to{filter:brightness(1);transform:scale(1)}}
+@media(max-width:720px){.hero-inner{padding:22px 15px}.mode-indicator{font-size:11px;letter-spacing:.10em;padding:10px 12px}.side-manifesto{padding:13px 7px;margin-top:18px}.side-manifesto>strong{font-size:21px}}
+@media(prefers-reduced-motion:reduce){.mode-indicator-dot,body.side-selected.mode-reveal .mode-indicator,body.side-selected.mode-reveal .hero-inner{animation:none}}
+
 </style>
 </head><body class="gate-open">
 <div class="enter-gate" id="enterGate">
@@ -102,7 +133,7 @@ body.side-selected[data-side="imam"]:after{background-image:radial-gradient(circ
   </div>
 </div>
 <header class="site-header"><a class="brand" href="./">ÏMAM<span>OFFICIAL COMIC</span></a><nav class="nav"><a href="#issues">Chapters</a><a href="issue1/" data-reader="issue1">Chapter I</a><a href="issue2/" data-reader="issue2">Chapter II</a><a href="issue3/" data-reader="issue3">Chapter III</a></nav></header>
-<main><section class="hero"><div class="hero-inner"><div class="eyebrow">A dark superhero saga</div><h1>ÏMAM<span>THE REINCARNATION</span></h1><p>MBIW gave everything to protect his city. When the city turned on him, something colder woke inside. Discover the updated chapters.</p><div class="hero-actions"><a class="button primary" href="issue1/" data-reader="issue1">Start Chapter I</a><a class="button" href="issue2/" data-reader="issue2">Read Chapter II</a><a class="button" href="issue3/" data-reader="issue3">Read Chapter III</a></div></div></section><section class="section" id="issues"><div class="section-head"><div><div class="eyebrow">Read online</div><h2>The Chapters</h2></div><p>Updated corrected editions.</p></div><div class="issue-grid"><article class="issue-card"><a class="cover-wrap" href="issue1/" data-reader="issue1"><img src="assets/issue1/page-01.webp?v=corrected" alt="ÏMAM Chapter I cover" loading="lazy"></a><div class="issue-meta"><div class="issue-no">Chapter I · 25 pages including cover</div><h3>DAYS BEFORE REINCARNATION</h3><p>The fall of MBIW and the awakening of ÏMAM.</p><div class="issue-actions"><a class="button primary" href="issue1/" data-reader="issue1">Read online</a><a class="button" href="assets/issue1/IMAM_Issue_1.pdf" download>PDF</a></div></div></article><article class="issue-card"><a class="cover-wrap" href="issue2/" data-reader="issue2"><img src="assets/issue2/page-01.webp?v=corrected" alt="ÏMAM Chapter II cover" loading="lazy"></a><div class="issue-meta"><div class="issue-no">Chapter II · 42 pages including cover</div><h3>DAYS BEFORE REINCARNATION</h3><p>The birth of ÏMAM and the transformation of Casablanca.</p><div class="issue-actions"><a class="button primary" href="issue2/" data-reader="issue2">Read online</a><a class="button" href="assets/issue2/IMAM_Issue_2.pdf" download>PDF</a></div></div></article><article class="issue-card"><a class="cover-wrap" href="issue3/" data-reader="issue3"><img src="assets/issue3/page-01.webp?v=corrected" alt="ÏMAM Chapter III cover" loading="lazy"></a><div class="issue-meta"><div class="issue-no">Chapter III · 57 pages including cover</div><h3>DAYS BEFORE REINCARNATION</h3><p>Point of No Return.</p><div class="issue-actions"><a class="button primary" href="issue3/" data-reader="issue3">Read online</a><a class="button" href="assets/issue3/IMAM_Issue_3.pdf" download>PDF</a></div></div></article></div></section><section class="quote"><blockquote>“You think you are at peace because I exist? You are at peace because I allow it.”</blockquote><cite>ÏMAM</cite></section>
+<main><section class="hero"><div class="hero-inner"><div class="eyebrow" id="heroEyebrow">YOUR CHOICE SHAPES THE WORLD</div><div class="mode-indicator" id="modeIndicator" role="status" aria-live="polite"><span class="mode-indicator-dot" aria-hidden="true"></span><span id="modeIndicatorLabel">SIDE SELECTED</span></div><h1>ÏMAM<span>THE REINCARNATION</span></h1><p id="heroDescription">The world changes with the side you choose.</p><div class="side-manifesto" id="sideManifesto"><span id="manifestoLabel">ÏMAM</span><strong id="manifestoQuote">YOU CHOSE REINCARNATION</strong><small id="manifestoCaption">The world answers to you.</small></div><div class="hero-actions"><a class="button primary" href="issue1/" data-reader="issue1">Start Chapter I</a><a class="button" href="issue2/" data-reader="issue2">Read Chapter II</a><a class="button" href="issue3/" data-reader="issue3">Read Chapter III</a></div></div></section><section class="section" id="issues"><div class="section-head"><div><div class="eyebrow">Read online</div><h2>The Chapters</h2></div><p>Updated corrected editions.</p></div><div class="issue-grid"><article class="issue-card"><a class="cover-wrap" href="issue1/" data-reader="issue1"><img src="assets/issue1/page-01.webp?v=corrected" alt="ÏMAM Chapter I cover" loading="lazy"></a><div class="issue-meta"><div class="issue-no">Chapter I · 25 pages including cover</div><h3>DAYS BEFORE REINCARNATION</h3><p>The fall of MBIW and the awakening of ÏMAM.</p><div class="issue-actions"><a class="button primary" href="issue1/" data-reader="issue1">Read online</a><a class="button" href="assets/issue1/IMAM_Issue_1.pdf" download>PDF</a></div></div></article><article class="issue-card"><a class="cover-wrap" href="issue2/" data-reader="issue2"><img src="assets/issue2/page-01.webp?v=corrected" alt="ÏMAM Chapter II cover" loading="lazy"></a><div class="issue-meta"><div class="issue-no">Chapter II · 42 pages including cover</div><h3>DAYS BEFORE REINCARNATION</h3><p>The birth of ÏMAM and the transformation of Casablanca.</p><div class="issue-actions"><a class="button primary" href="issue2/" data-reader="issue2">Read online</a><a class="button" href="assets/issue2/IMAM_Issue_2.pdf" download>PDF</a></div></div></article><article class="issue-card"><a class="cover-wrap" href="issue3/" data-reader="issue3"><img src="assets/issue3/page-01.webp?v=corrected" alt="ÏMAM Chapter III cover" loading="lazy"></a><div class="issue-meta"><div class="issue-no">Chapter III · 57 pages including cover</div><h3>DAYS BEFORE REINCARNATION</h3><p>Point of No Return.</p><div class="issue-actions"><a class="button primary" href="issue3/" data-reader="issue3">Read online</a><a class="button" href="assets/issue3/IMAM_Issue_3.pdf" download>PDF</a></div></div></article></div></section><section class="quote"><blockquote>“You think you are at peace because I exist? You are at peace because I allow it.”</blockquote><cite>ÏMAM</cite></section>
 </main><footer class="footer">ÏMAM · Independent comic project</footer>
 <div class="music-player" id="musicPlayer" aria-label="Soundtrack controls">
   <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false" aria-label="Pause soundtrack"><span class="music-icon" aria-hidden="true">♪</span><span class="music-copy"><strong id="musicState">Now playing</strong><small id="musicTrack">Soundtrack</small></span><span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span></button>
@@ -175,11 +206,21 @@ body.side-selected[data-side="imam"]:after{background-image:radial-gradient(circ
     if(heroTitle&&heroTitle.firstChild)heroTitle.firstChild.nodeValue=name;
     const subtitle=heroTitle?heroTitle.querySelector('span'):null;
     if(subtitle)subtitle.textContent=isMbiw?'DAYS BEFORE REINCARNATION':'THE REINCARNATION';
+    const setText=(id,value)=>{const el=document.getElementById(id);if(el)el.textContent=value;};
+    setText('heroEyebrow',isMbiw?'THE LIGHT LIVES ON':'THE REINCARNATION BEGINS');
+    setText('modeIndicatorLabel',isMbiw?'MBIW MODE ACTIVATED':'ÏMAM MODE ACTIVATED');
+    setText('heroDescription',isMbiw?'You chose hope, sacrifice, and the hero who protects Casablanca.':'You chose ÏMAM. The world is no longer the same.');
+    setText('manifestoLabel',name);
+    setText('manifestoQuote',isMbiw?'YOU CHOSE THE LIGHT':'YOU CHOSE REINCARNATION');
+    setText('manifestoCaption',isMbiw?'The story begins with MBIW.':'You are at peace because I allow it.');
     document.title=name+' — Official Comic';
   };
   const setTheme=(side)=>{
     currentSide=side;document.body.dataset.side=side;document.documentElement.dataset.side=side;
     document.body.classList.add('side-selected');localStorage.setItem('imamverse_side',side);updateIdentity(side);
+    document.body.classList.remove('mode-reveal');
+    void document.body.offsetWidth;
+    document.body.classList.add('mode-reveal');
   };
   const sync=()=>{
     const playing=!audio.paused&&!!currentSide;
