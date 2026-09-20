@@ -1,4 +1,5 @@
 name: Bootstrap corrected chapters
+# retry after reader template fix
 on:
   push:
     paths:
