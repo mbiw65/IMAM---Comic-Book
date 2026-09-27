@@ -1,0 +1,35 @@
+name: Test Canva asset fetch
+on:
+  push:
+    paths:
+      - '.github/workflows/test-canva-download.yml'
+permissions:
+  contents: write
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Test signed Canva media URL
+        shell: bash
+        run: |
+          set -euxo pipefail
+          curl -L --fail --retry 2 'https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:ifs%3A%2F%2FM%2F7a7bbf14-7ea0-4c6e-b27b-c943d2c19ad7/watermark:F/width:133?csig=AAAAAAAAAAAAAAAAAAAAAIGPhteuIMzBe1J3ev9mNPask4sDNnslG-eGf5zsYx2y&exp=1790523462&osig=AAAAAAAAAAAAAAAAAAAAALDcJw3EFkhJhTWumovTjxtZZ9kXmUwe654uMJ2wvSKJ&signer=media-rpc&x-canva-quality=thumbnail' -o /tmp/thumb.jpg
+          curl -L --fail --retry 2 'https://media.canva.com/v2/image-resize/format:WEBP/height:960/quality:90/uri:ifs%3A%2F%2FM%2F7a7bbf14-7ea0-4c6e-b27b-c943d2c19ad7/watermark:F/width:640?csig=AAAAAAAAAAAAAAAAAAAAAIGPhteuIMzBe1J3ev9mNPask4sDNnslG-eGf5zsYx2y&exp=1790523462&osig=AAAAAAAAAAAAAAAAAAAAALDcJw3EFkhJhTWumovTjxtZZ9kXmUwe654uMJ2wvSKJ&signer=media-rpc&x-canva-quality=thumbnail' -o /tmp/full.webp
+          python - <<'PY'
+          from PIL import Image
+          for p in ['/tmp/thumb.jpg','/tmp/full.webp']:
+              im=Image.open(p)
+              print(p, im.size, im.format)
+          PY
+      - name: Remove temporary workflow
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm .github/workflows/test-canva-download.yml
+          git commit -m "Remove temporary Canva transfer test" || exit 0
+          git push
