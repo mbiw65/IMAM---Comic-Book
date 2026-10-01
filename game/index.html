@@ -8,7 +8,7 @@
 *{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#020609;color:#fff;font-family:Arial,sans-serif}
 body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff05 4px);mix-blend-mode:soft-light;opacity:.38}
 button{font:inherit}canvas{width:100%;height:100%;display:block}
-.ui{position:fixed;inset:0;pointer-events:none}
+.ui{position:fixed;inset:0;pointer-events:none;opacity:1;transition:opacity .28s ease}body.cinematicMode .ui{opacity:0}
 .top{display:flex;justify-content:space-between;gap:18px;padding:16px 18px;filter:drop-shadow(0 8px 18px #000)}
 .brandWrap{padding:10px 13px 9px;border-left:3px solid #64ff87;background:linear-gradient(90deg,#06110ee8,#06110e77,transparent);min-width:240px}
 .brand{font:700 22px Georgia,serif;letter-spacing:.22em;text-shadow:0 0 20px #67ff8a44}.chapter{font-size:9px;letter-spacing:.2em;color:#9fb3aa;margin-top:5px}
@@ -51,7 +51,7 @@ button{font:inherit}canvas{width:100%;height:100%;display:block}
 }
 </style>
 </head>
-<body>
+<body class="cinematicMode">
 <canvas id="c"></canvas>
 <div class="flash" id="flash"></div>
 
@@ -144,7 +144,18 @@ const tracks={
   finale:new Audio('../assets/audio/7erek%20ras%20x%20haqqi.mp3')
 };
 Object.values(tracks).forEach(a=>{a.loop=true;a.volume=.11});
-let currentTrack=null;
+let currentTrack=null,audioCtx=null;
+function cinematic(on){document.body.classList.toggle('cinematicMode',!!on)}
+function sfx(type){
+  try{
+    audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();
+    const now=audioCtx.currentTime,o=audioCtx.createOscillator(),gain=audioCtx.createGain();
+    o.connect(gain);gain.connect(audioCtx.destination);
+    const cfg=type==='hit'?[90,48,.08,.08]:type==='dash'?[180,70,.12,.045]:type==='power'?[420,95,.22,.07]:[240,120,.07,.035];
+    o.type=type==='power'?'sawtooth':'triangle';o.frequency.setValueAtTime(cfg[0],now);o.frequency.exponentialRampToValueAtTime(cfg[1],now+cfg[2]);
+    gain.gain.setValueAtTime(cfg[3],now);gain.gain.exponentialRampToValueAtTime(.0001,now+cfg[2]);o.start(now);o.stop(now+cfg[2]);
+  }catch(e){}
+}
 
 function music(name){
   if(currentTrack===tracks[name])return;
@@ -163,20 +174,20 @@ function updateContinue(){const s=loadSave();continueGame.disabled=!s||s.complet
 function roman(n){return n===1?'I':n===2?'II':'III'}
 function setScene(mode,label){sceneMode=mode;SCENETAG.textContent=label}
 function showTitle(eye,main,sub,cb){
-  run=0;titleEye.textContent=eye;titleMain.textContent=main;titleSub.textContent=sub;TITLECARD.classList.add('on');
+  run=0;cinematic(true);titleEye.textContent=eye;titleMain.textContent=main;titleSub.textContent=sub;TITLECARD.classList.add('on');
   titleButton.onclick=()=>{TITLECARD.classList.remove('on');cb&&cb()}
 }
 function showDialogue(name,text,who,cb){
-  run=0;speechName.textContent=name;speechText.textContent=text;
+  run=0;cinematic(true);speechName.textContent=name;speechText.textContent=text;
   portrait.style.backgroundImage="url('assets/"+(who==='mbiw'?'mbiw':'imam')+".webp')";
-  DIALOGUE.classList.add('on');speechNext.onclick=()=>{DIALOGUE.classList.remove('on');cb&&cb()}
+  DIALOGUE.classList.add('on');speechNext.onclick=()=>{DIALOGUE.classList.remove('on');cinematic(false);cb&&cb()}
 }
 function showBoss(name,text,cb){
-  run=0;bossName.textContent=name;bossText.textContent=text;BOSSINTRO.classList.add('on');
-  bossButton.onclick=()=>{BOSSINTRO.classList.remove('on');cb&&cb()}
+  run=0;cinematic(true);bossName.textContent=name;bossText.textContent=text;BOSSINTRO.classList.add('on');sfx('power');
+  bossButton.onclick=()=>{BOSSINTRO.classList.remove('on');cinematic(false);cb&&cb()}
 }
 function showCredits(){
-  STATUS.classList.remove('on');creditsEnding.textContent='ENDING · '+ending;CREDITS.classList.add('on')
+  cinematic(true);STATUS.classList.remove('on');creditsEnding.textContent='ENDING · '+ending;CREDITS.classList.add('on')
 }
 
 function enemy(x,type=0){
@@ -204,7 +215,7 @@ function startChapter1(){
   hideAll();setChapter(1);phase=0;path='';ending='';clearCombat();playerBase(0);spawn([[.55,0],[.72,0],[.86,0]]);
   setScene('rooftop','ROOFTOPS · CASABLANCA');PATHBADGE.classList.remove('on');PATHBADGE.textContent='';
   OBJ.textContent='Survive the rooftop ambush.';music('demise');syncHUD();
-  showTitle('DAYS BEFORE REINCARNATION','CHAPTER I','THE FALL OF MBIW',()=>showDialogue('MBIW','The city feels different tonight. Like something is waiting for me to break.','mbiw',()=>{run=1}))
+  showTitle('DAYS BEFORE REINCARNATION','CHAPTER I','THE FALL OF MBIW',()=>showDialogue('MBIW','The city feels different tonight. Like something is waiting for me to break.','mbiw',()=>{cinematic(false);run=1}))
 }
 function startChapter2(chosen){
   hideAll();setChapter(2);phase=10;path=chosen||path||'resist';clearCombat();playerBase(1);p.pow=path==='embrace'?85:60;
@@ -225,17 +236,17 @@ function continueSaved(){
   const s=loadSave();if(!s){startChapter1();return}path=s.path||'resist';s.chapter===3?startChapter3():s.chapter===2?startChapter2(path):startChapter1();
 }
 function hideAll(){START.classList.remove('on');START.style.display='none';TRANS.classList.remove('on');CHOICE.classList.remove('on');INTER.classList.remove('on');STATUS.classList.remove('on');TITLECARD.classList.remove('on');DIALOGUE.classList.remove('on');BOSSINTRO.classList.remove('on');CREDITS.classList.remove('on')}
-function menu(){run=0;stopMusic();hideAll();START.style.display='grid';START.classList.add('on');updateContinue()}
+function menu(){run=0;stopMusic();cinematic(true);hideAll();START.style.display='grid';START.classList.add('on');updateContinue()}
 
 function spark(x,y,green,count=8){for(let i=0;i<count;i++)particles.push({x,y,vx:(Math.random()-.5)*280,vy:(Math.random()-.8)*230,l:.65,green})}
 function hit(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
-function attack(){if(run&&p.atk<=0){p.atk=p.imam?.3:.23;shake=p.imam?7:4}}
-function dash(){if(run&&p.dash<=0){p.dash=.5;p.vx=p.face*(p.imam?760:640);p.inv=Math.max(p.inv,.14)}}
+function attack(){if(run&&p.atk<=0){p.atk=p.imam?.3:.23;shake=p.imam?7:4;sfx('swing')}}
+function dash(){if(run&&p.dash<=0){p.dash=.5;p.vx=p.face*(p.imam?760:640);p.inv=Math.max(p.inv,.14);sfx('dash')}}
 function special(){
   if(!run||!p.imam||p.special>0)return;
   const cost=path==='embrace'?20:25;
   if(p.pow<cost)return;
-  p.pow-=cost;p.special=.38;shake=7;FLASH.classList.remove('on');void FLASH.offsetWidth;FLASH.classList.add('on');
+  p.pow-=cost;p.special=.38;shake=7;sfx('power');FLASH.classList.remove('on');void FLASH.offsetWidth;FLASH.classList.add('on');
   shots.push({x:p.x+p.w/2+p.face*20,y:p.y+34,vx:p.face*760,w:30,h:10,dmg:path==='embrace'?6:5,l:1.2});
 }
 function syncHUD(){HP.style.width=Math.max(0,p.hp)+'%';POWER.style.width=Math.max(0,p.pow)+'%'}
@@ -243,14 +254,14 @@ function syncHUD(){HP.style.width=Math.max(0,p.hp)+'%';POWER.style.width=Math.ma
 function transform(){
   run=0;TRANS.classList.add('on');tracks.demise.pause();
   setTimeout(()=>{p.imam=1;p.hp=100;p.pow=70;NAME.textContent='ÏMAM';music('taliban')},600);
-  setTimeout(()=>{TRANS.classList.remove('on');phase=1;OBJ.textContent='Defeat the Corrupted Warden.';showBoss('CORRUPTED WARDEN','The first thing standing between ÏMAM and the city.',()=>{spawn([[.76,1]]);run=1})},1750);
+  setTimeout(()=>{TRANS.classList.remove('on');phase=1;OBJ.textContent='Defeat the Corrupted Warden.';showBoss('CORRUPTED WARDEN','The first thing standing between ÏMAM and the city.',()=>{spawn([[.76,1]]);cinematic(false);run=1})},1750);
 }
 function governmentWave(){
   phase=2;p.hp=Math.max(p.hp,70);OBJ.textContent='Government forces have arrived. Hold the rooftop.';shake=12;
-  showDialogue('ÏMAM','They blame MBIW for not saving everyone. Fine. Let them blame me instead.','imam',()=>{spawn([[.32,0],[.48,2],[.64,0],[.82,2]]);run=1})
+  showDialogue('ÏMAM','They blame MBIW for not saving everyone. Fine. Let them blame me instead.','imam',()=>{spawn([[.32,0],[.48,2],[.64,0],[.82,2]]);cinematic(false);run=1})
 }
 function firstChoice(){
-  run=0;tracks.taliban.pause();
+  run=0;cinematic(true);tracks.taliban.pause();
   choiceEye.textContent='CHAPTER I COMPLETE';choiceTitle.textContent='WHO ARE YOU?';
   choiceText.textContent='Casablanca is watching. MBIW is still inside you — but ÏMAM now controls the body.';
   choiceLeft.textContent='RESIST ÏMAM';choiceRight.textContent='EMBRACE ÏMAM';choiceNote.textContent='This choice changes combat and the ending.';
@@ -260,15 +271,15 @@ function choosePath(v){
   path=v;CHOICE.classList.remove('on');save({chapter:2,path,complete:false});
   showInterlude('CHAPTER II','BIRTH OF ÏMAM',v==='resist'?'MBIW refuses to disappear. Every use of ÏMAM’s power becomes a fight for control.':'ÏMAM stops asking for permission. The city sees a new force moving through Casablanca.','BEGIN CHAPTER II',()=>startChapter2(v));
 }
-function chapter2Boss(){phase=11;p.hp=Math.max(p.hp,55);p.pow=Math.max(p.pow,55);OBJ.textContent='Defeat the Commander.';showBoss('THE COMMANDER','Containment failed. Elimination protocol authorized.',()=>{spawn([[.74,3]]);run=1})}
+function chapter2Boss(){phase=11;p.hp=Math.max(p.hp,55);p.pow=Math.max(p.pow,55);OBJ.textContent='Defeat the Commander.';showBoss('THE COMMANDER','Containment failed. Elimination protocol authorized.',()=>{spawn([[.74,3]]);cinematic(false);run=1})}
 function chapter2End(){
   run=0;stopMusic();save({chapter:3,path,complete:false});
   showInterlude('CHAPTER II COMPLETE','NO WAY BACK',path==='resist'?'You kept MBIW alive inside the storm — but the city is closing in.':'You chose ÏMAM, and the city answered with everything it has.','BEGIN CHAPTER III',startChapter3);
 }
 function chapter3Wave2(){phase=21;p.hp=Math.max(p.hp,60);p.pow=100;spawn([[.34,2],[.5,2],[.68,2],[.84,2]]);OBJ.textContent='Destroy the elite guard.'}
-function finalBoss(){phase=22;p.hp=Math.max(p.hp,70);p.pow=100;OBJ.textContent='Defeat the RECLAIMER.';shake=15;showBoss('THE RECLAIMER','Built for one purpose: erase ÏMAM before dawn.',()=>{spawn([[.74,4]]);run=1})}
+function finalBoss(){phase=22;p.hp=Math.max(p.hp,70);p.pow=100;OBJ.textContent='Defeat the RECLAIMER.';shake=15;showBoss('THE RECLAIMER','Built for one purpose: erase ÏMAM before dawn.',()=>{spawn([[.74,4]]);cinematic(false);run=1})}
 function finalChoice(){
-  run=0;stopMusic();
+  run=0;cinematic(true);stopMusic();
   choiceEye.textContent='THE POINT OF NO RETURN';choiceTitle.textContent='ONE BODY. TWO NAMES.';
   choiceText.textContent=path==='resist'?'MBIW is still there. ÏMAM has the power, but you decide whether the last voice inside survives.':'You embraced ÏMAM. One final decision remains: keep a boundary, or erase the old identity completely.';
   choiceLeft.textContent='KEEP THE BALANCE';choiceRight.textContent='CROSS THE LINE';choiceNote.textContent='This determines your ending.';
@@ -286,7 +297,7 @@ function showEnding(title,text){
   statusMain.textContent='VIEW CREDITS';statusMain.onclick=showCredits;statusMenu.style.display='inline-block';STATUS.classList.add('on');
 }
 function showInterlude(eye,title,text,button,cb){
-  run=0;interEye.textContent=eye;interTitle.textContent=title;interText.textContent=text;interButton.textContent=button;interButton.onclick=cb;INTER.classList.add('on');
+  run=0;cinematic(true);interEye.textContent=eye;interTitle.textContent=title;interText.textContent=text;interButton.textContent=button;interButton.onclick=()=>{INTER.classList.remove('on');cb&&cb()};INTER.classList.add('on');
 }
 function die(){
   run=0;stopMusic();statusMode='retry';statusEye.textContent='CHECKPOINT';statusTitle.textContent='YOU FELL';statusText.textContent='The story is not over. Restart from the beginning of this chapter.';
@@ -308,7 +319,7 @@ function update(dt){
     const dx=p.x-e.x,dist=Math.abs(dx);if(dist>62)e.x+=Math.sign(dx)*e.speed*dt;
     if(e.fire&&e.shot<=0&&dist<520){e.shot=e.type>=4?1.0:e.type>=3?1.25:1.65;enemyShots.push({x:e.x+e.w/2,y:e.y+35,vx:Math.sign(dx)*-1*0,w:10,h:6,l:2.2});const q=enemyShots[enemyShots.length-1];q.vx=Math.sign(p.x-e.x)*(e.type>=4?440:360);q.dmg=e.type>=4?14:10}
     if(p.atk>0&&hit(ab,e)&&e.hit<=0){
-      const dmg=p.imam?(e.type>=3?2:3):1;e.hp-=dmg;e.hit=.2;hitStop=p.imam?.045:.028;shake=Math.max(shake,p.imam?8:5);spark(e.x+e.w/2,e.y+30,p.imam,14);p.pow=Math.min(100,p.pow+(p.imam?4:12));
+      const dmg=p.imam?(e.type>=3?2:3):1;e.hp-=dmg;e.hit=.2;hitStop=p.imam?.045:.028;shake=Math.max(shake,p.imam?8:5);sfx('hit');spark(e.x+e.w/2,e.y+30,p.imam,14);p.pow=Math.min(100,p.pow+(p.imam?4:12));
     }
     if(hit(p,e)&&p.inv<=0){p.hp-=e.dmg;p.inv=.58;spark(p.x,p.y+30,p.imam);shake=8;if(!p.imam)p.pow=Math.min(100,p.pow+13)}
   }
@@ -367,12 +378,14 @@ function hero(){
   const cx=p.x+p.w/2,feet=p.y+p.h;
   if(img.complete&&img.naturalWidth){
     const dh=p.imam?170:160,dw=dh*(img.naturalWidth/img.naturalHeight),dx=-dw/2,dy=-dh;
+    if(p.dash>.34){for(let i=2;i>=1;i--){g.save();g.globalAlpha=.1*i;g.translate(cx-p.face*i*22,feet);g.scale(p.face,1);g.drawImage(img,dx,dy,dw,dh);g.restore()}}
     g.save();const bob=p.on?Math.sin(time*7)*1.5:-5;g.translate(cx,feet+bob);g.rotate(Math.max(-.07,Math.min(.07,p.vx/5000)));const squash=p.atk>0?1.07:1;g.scale(p.face*squash,p.atk>0?.94:1);
     if(p.inv>0&&Math.floor(time*18)%2===0)g.globalAlpha=.45;
     if(p.imam){g.shadowColor='#56ff7b';g.shadowBlur=24;g.globalAlpha*=.98}else{g.shadowColor='#b9eaff';g.shadowBlur=15}
     g.drawImage(img,dx,dy,dw,dh);g.restore();
   }else{
-    g.save();g.translate(cx,0);g.scale(p.face,1);g.fillStyle=p.imam?'#07100b':'#eef3f5';rect(-20,feet-100,40,100,g.fillStyle);g.restore();
+    g.save();g.translate(cx,feet);g.scale(p.face,1);g.shadowColor=p.imam?'#63ff85':'#bfeaff';g.shadowBlur=18;g.fillStyle=p.imam?'#08100b':'#dfe9ec';
+    g.beginPath();g.arc(0,-116,18,0,Math.PI*2);g.fill();g.beginPath();g.moveTo(-22,-98);g.lineTo(22,-98);g.lineTo(17,-30);g.lineTo(10,0);g.lineTo(-9,0);g.lineTo(-17,-30);g.closePath();g.fill();g.restore();
   }
   if(p.imam){
     g.save();g.globalAlpha=.28+.08*Math.sin(time*5);g.strokeStyle='#66ff88';g.lineWidth=2;g.shadowColor='#66ff88';g.shadowBlur=18;g.beginPath();g.ellipse(cx,p.y+44,44,68,0,0,Math.PI*2);g.stroke();g.restore();
@@ -412,6 +425,12 @@ function loop(n){const dt=Math.min(.033,(n-last)/1000||0);last=n;update(dt);rend
 
 onkeydown=e=>{
   const k=e.key.toLowerCase();
+  if(k==='enter'){
+    if(TITLECARD.classList.contains('on')){titleButton.click();return}
+    if(DIALOGUE.classList.contains('on')){speechNext.click();return}
+    if(BOSSINTRO.classList.contains('on')){bossButton.click();return}
+    if(INTER.classList.contains('on')){interButton.click();return}
+  }
   if(k==='a'||k==='arrowleft')keys.l=1;if(k==='d'||k==='arrowright')keys.r=1;
   if(k==='w'||k==='arrowup'||k===' '){keys.j=1;e.preventDefault()}
   if(k==='j'||k==='k'||k==='x')attack();if(k==='q'||k==='c')special();if(k==='shift')dash();
@@ -422,7 +441,7 @@ document.querySelectorAll('.k').forEach(b=>{
   b.onpointerup=b.onpointercancel=()=>{const k=b.dataset.k;if(k!=='a'&&k!=='d'&&k!=='s')keys[k]=0};
 });
 
-newGame.onclick=()=>{localStorage.removeItem(SAVE_KEY);startChapter1()};
+newGame.onclick=()=>{sfx('swing');localStorage.removeItem(SAVE_KEY);startChapter1()};
 continueGame.onclick=continueSaved;
 statusMain.onclick=retry;statusMenu.onclick=menu;creditsAgain.onclick=()=>{CREDITS.classList.remove('on');localStorage.removeItem(SAVE_KEY);startChapter1()};creditsMenu.onclick=menu;
 
