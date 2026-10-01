@@ -40,6 +40,11 @@ button{font:inherit}canvas{width:100%;height:100%;display:block}
 .mob{position:absolute;left:0;right:0;bottom:12px;display:none;justify-content:space-between;padding:0 12px}.grp{display:flex;gap:8px;pointer-events:auto}
 .k{width:60px;height:60px;border-radius:14px;border:1px solid #ffffff26;background:linear-gradient(145deg,#071512e8,#020706e8);color:#fff;font-size:19px;box-shadow:0 10px 25px #0009,inset 0 0 18px #ffffff05}.k:active{transform:scale(.96);background:#102219}.atk{width:72px;height:72px;border-color:#69ff8c55;box-shadow:0 0 20px #51ff7614}.pow{border-color:#6cff8c99;color:#8fffaa}
 .flash{position:fixed;inset:0;background:#6bff8b;opacity:0;pointer-events:none;z-index:12}.flash.on{animation:flash .4s ease-out}@keyframes flash{0%{opacity:.28}100%{opacity:0}}
+.sceneTag{margin-top:5px;font-size:7px;letter-spacing:.2em;color:#6f8179}
+.titlecard{z-index:24;background:#010304f7}.titlecard .box{border:none;background:transparent;box-shadow:none;max-width:900px}.titlecard h1{font-size:clamp(50px,10vw,110px);line-height:.9}.titlecard h2{color:#78ff98;font-size:clamp(17px,3vw,26px);letter-spacing:.28em}.titleRule{width:min(420px,75vw);height:1px;background:linear-gradient(90deg,transparent,#6cff8b,transparent);margin:20px auto}
+.dialogue{z-index:23;background:linear-gradient(90deg,#010304f2 0 34%,#020609c9 68%,#020609ed)}.dialogue .box{display:grid;grid-template-columns:180px 1fr;gap:24px;text-align:left;align-items:end;width:min(820px,94vw);border-left:3px solid #6cff8b}.portrait{height:240px;background-position:center bottom;background-repeat:no-repeat;background-size:contain;filter:drop-shadow(0 0 20px #000)}.speechName{font-size:10px;letter-spacing:.24em;color:#72ff93;margin-bottom:10px}.speechText{font:22px/1.45 Georgia,serif;color:#eef4f1}.dialogue .btns{justify-content:flex-start}
+.bossintro{z-index:25;background:#010203f3}.bossintro .box{border-color:#ff526655;background:linear-gradient(145deg,#150709f1,#030506f3);box-shadow:0 0 80px #ff3e5516}.bossintro h1{color:#fff;text-shadow:0 0 22px #ff4558}.bossMark{font-size:9px;letter-spacing:.42em;color:#ff6172;margin-bottom:12px}
+.credits{z-index:26;background:linear-gradient(#010304c9,#010304f5),url('assets/casablanca.webp') center/cover no-repeat}.credits .box{width:min(760px,92vw)}.creditsLogo{height:220px;background:url('assets/imam.webp') center bottom/contain no-repeat;filter:drop-shadow(0 0 28px #5cff7938);margin:-25px auto 5px}.creditsText{font-size:11px;letter-spacing:.15em;line-height:2;color:#9eafa8}
 @media(max-width:820px),(pointer:coarse){
   .mob{display:flex}.hint{display:none}.obj{bottom:92px;max-width:78vw;left:10px}.bars{width:50vw;padding:8px}.top{padding:9px}.brandWrap{min-width:0;padding:8px 10px}.brand{font-size:17px}.chapter{font-size:7px}
   .start:after{right:-24vw;width:85vw;opacity:.38}.start .box{margin-right:0;text-align:center;background:#020806e8}.start .btns{justify-content:center}.box{padding:27px 20px}
@@ -52,7 +57,7 @@ button{font:inherit}canvas{width:100%;height:100%;display:block}
 
 <div class="ui">
   <div class="top">
-    <div class="brandWrap"><div class="brand" id="name">MBIW</div><div class="chapter" id="chapterLabel">CHAPTER I · THE FALL OF MBIW</div><div class="pathBadge" id="pathBadge"></div></div>
+    <div class="brandWrap"><div class="brand" id="name">MBIW</div><div class="chapter" id="chapterLabel">CHAPTER I · THE FALL OF MBIW</div><div class="sceneTag" id="sceneTag">ROOFTOPS · CASABLANCA</div><div class="pathBadge" id="pathBadge"></div></div>
     <div class="bars">
       <div class="label">LIFE</div><div class="b"><div class="f" id="hp"></div></div>
       <div class="label">POWER</div><div class="b"><div class="f r" id="power"></div></div>
@@ -96,13 +101,30 @@ button{font:inherit}canvas{width:100%;height:100%;display:block}
   <div class="box"><div class="eyebrow" id="statusEye"></div><h2 id="statusTitle"></h2><p id="statusText"></p><div class="btns"><button class="btn green" id="statusMain">RETRY</button><button class="btn ghost" id="statusMenu">MAIN MENU</button></div></div>
 </div>
 
+<div class="overlay titlecard" id="titlecard">
+  <div class="box"><div class="eyebrow" id="titleEye"></div><h1 id="titleMain"></h1><div class="titleRule"></div><h2 id="titleSub"></h2><div class="btns"><button class="btn green" id="titleButton">ENTER</button></div></div>
+</div>
+
+<div class="overlay dialogue" id="dialogue">
+  <div class="box"><div class="portrait" id="portrait"></div><div><div class="speechName" id="speechName"></div><div class="speechText" id="speechText"></div><div class="btns"><button class="btn green" id="speechNext">CONTINUE</button></div></div></div>
+</div>
+
+<div class="overlay bossintro" id="bossintro">
+  <div class="box"><div class="bossMark">THREAT DETECTED</div><h1 id="bossName"></h1><p id="bossText"></p><div class="btns"><button class="btn green" id="bossButton">FIGHT</button></div></div>
+</div>
+
+<div class="overlay credits" id="credits">
+  <div class="box"><div class="eyebrow">DAYS BEFORE REINCARNATION</div><div class="creditsLogo"></div><h2 id="creditsTitle">ÏMAMVERSE</h2><p id="creditsEnding"></p><div class="creditsText">STORY · MUSIC · WORLD — ÏMAM<br>CASABLANCA · CHAPTERS I—III<br>THE STORY CONTINUES</div><div class="btns"><button class="btn green" id="creditsAgain">PLAY AGAIN</button><button class="btn ghost" id="creditsMenu">MAIN MENU</button></div></div>
+</div>
+
 <script>
 (()=>{
 const C=document.getElementById('c'),g=C.getContext('2d');
 const HP=document.getElementById('hp'),POWER=document.getElementById('power'),NAME=document.getElementById('name'),OBJ=document.getElementById('obj'),CHLABEL=document.getElementById('chapterLabel');
 const START=document.getElementById('start'),TRANS=document.getElementById('trans'),CHOICE=document.getElementById('choice'),INTER=document.getElementById('interlude'),STATUS=document.getElementById('status'),FLASH=document.getElementById('flash');
+const TITLECARD=document.getElementById('titlecard'),DIALOGUE=document.getElementById('dialogue'),BOSSINTRO=document.getElementById('bossintro'),CREDITS=document.getElementById('credits'),SCENETAG=document.getElementById('sceneTag');
 const SAVE_KEY='IMAMVERSE_FULL_SAVE_V1';
-let W=0,H=0,D=1,last=0,run=0,chapter=1,phase=0,path='',shake=0,time=0,ending='',statusMode='retry';
+let W=0,H=0,D=1,last=0,run=0,chapter=1,phase=0,path='',shake=0,time=0,ending='',statusMode='retry',hitStop=0,sceneMode='rooftop';
 let keys={l:0,r:0,j:0};
 let p={x:90,y:0,w:42,h:90,vx:0,vy:0,on:1,hp:100,pow:0,imam:0,atk:0,inv:0,dash:0,face:1,special:0};
 let enemies=[],particles=[],shots=[],enemyShots=[];
@@ -139,6 +161,23 @@ function save(data){localStorage.setItem(SAVE_KEY,JSON.stringify(data))}
 function loadSave(){try{return JSON.parse(localStorage.getItem(SAVE_KEY)||'null')}catch(e){return null}}
 function updateContinue(){const s=loadSave();continueGame.disabled=!s||s.complete;continueGame.textContent=s&&s.chapter?'CONTINUE CHAPTER '+roman(s.chapter):'CONTINUE'}
 function roman(n){return n===1?'I':n===2?'II':'III'}
+function setScene(mode,label){sceneMode=mode;SCENETAG.textContent=label}
+function showTitle(eye,main,sub,cb){
+  run=0;titleEye.textContent=eye;titleMain.textContent=main;titleSub.textContent=sub;TITLECARD.classList.add('on');
+  titleButton.onclick=()=>{TITLECARD.classList.remove('on');cb&&cb()}
+}
+function showDialogue(name,text,who,cb){
+  run=0;speechName.textContent=name;speechText.textContent=text;
+  portrait.style.backgroundImage="url('assets/"+(who==='mbiw'?'mbiw':'imam')+".webp')";
+  DIALOGUE.classList.add('on');speechNext.onclick=()=>{DIALOGUE.classList.remove('on');cb&&cb()}
+}
+function showBoss(name,text,cb){
+  run=0;bossName.textContent=name;bossText.textContent=text;BOSSINTRO.classList.add('on');
+  bossButton.onclick=()=>{BOSSINTRO.classList.remove('on');cb&&cb()}
+}
+function showCredits(){
+  STATUS.classList.remove('on');creditsEnding.textContent='ENDING · '+ending;CREDITS.classList.add('on')
+}
 
 function enemy(x,type=0){
   const cfg=[
@@ -163,26 +202,29 @@ function setChapter(n){
 }
 function startChapter1(){
   hideAll();setChapter(1);phase=0;path='';ending='';clearCombat();playerBase(0);spawn([[.55,0],[.72,0],[.86,0]]);
-  PATHBADGE.classList.remove('on');PATHBADGE.textContent='';
-  OBJ.textContent='Survive the rooftop ambush.';music('demise');run=1;syncHUD();
+  setScene('rooftop','ROOFTOPS · CASABLANCA');PATHBADGE.classList.remove('on');PATHBADGE.textContent='';
+  OBJ.textContent='Survive the rooftop ambush.';music('demise');syncHUD();
+  showTitle('DAYS BEFORE REINCARNATION','CHAPTER I','THE FALL OF MBIW',()=>showDialogue('MBIW','The city feels different tonight. Like something is waiting for me to break.','mbiw',()=>{run=1}))
 }
 function startChapter2(chosen){
   hideAll();setChapter(2);phase=10;path=chosen||path||'resist';clearCombat();playerBase(1);p.pow=path==='embrace'?85:60;
-  PATHBADGE.textContent=path==='embrace'?'PATH · EMBRACE':'PATH · RESIST';PATHBADGE.classList.add('on');
+  setScene('containment','CONTAINMENT ZONE · CASABLANCA');PATHBADGE.textContent=path==='embrace'?'PATH · EMBRACE':'PATH · RESIST';PATHBADGE.classList.add('on');
   spawn(path==='embrace'?[[.38,2],[.54,0],[.7,2],[.86,0]]:[[.4,0],[.56,2],[.72,0],[.86,2]]);
   OBJ.textContent=path==='embrace'?'Break the government containment line.':'Keep control while escaping the containment line.';
-  music('iconic');save({chapter:2,path,complete:false});run=1;syncHUD();
+  music('iconic');save({chapter:2,path,complete:false});syncHUD();
+  showTitle('REINCARNATION','CHAPTER II','BIRTH OF ÏMAM',()=>showDialogue('ÏMAM',path==='embrace'?'They wanted control. Now they get to see what control looks like.':'Stay quiet, MBIW. I will get us through this.','imam',()=>{run=1}))
 }
 function startChapter3(){
   hideAll();setChapter(3);phase=20;clearCombat();playerBase(1);p.pow=100;
-  PATHBADGE.textContent=path==='embrace'?'PATH · EMBRACE':'PATH · RESIST';PATHBADGE.classList.add('on');
+  setScene('final','FINAL BLOCKADE · CASABLANCA');PATHBADGE.textContent=path==='embrace'?'PATH · EMBRACE':'PATH · RESIST';PATHBADGE.classList.add('on');
   spawn([[.3,2],[.44,0],[.58,2],[.72,0],[.86,2]]);
-  OBJ.textContent='Cross the final blockade.';music('finale');save({chapter:3,path:path||'resist',complete:false});run=1;syncHUD();
+  OBJ.textContent='Cross the final blockade.';music('finale');save({chapter:3,path:path||'resist',complete:false});syncHUD();
+  showTitle('NO RETURN','CHAPTER III','POINT OF NO RETURN',()=>showDialogue('ÏMAM','After tonight, they will never say the old name the same way again.','imam',()=>{run=1}))
 }
 function continueSaved(){
   const s=loadSave();if(!s){startChapter1();return}path=s.path||'resist';s.chapter===3?startChapter3():s.chapter===2?startChapter2(path):startChapter1();
 }
-function hideAll(){START.classList.remove('on');START.style.display='none';TRANS.classList.remove('on');CHOICE.classList.remove('on');INTER.classList.remove('on');STATUS.classList.remove('on')}
+function hideAll(){START.classList.remove('on');START.style.display='none';TRANS.classList.remove('on');CHOICE.classList.remove('on');INTER.classList.remove('on');STATUS.classList.remove('on');TITLECARD.classList.remove('on');DIALOGUE.classList.remove('on');BOSSINTRO.classList.remove('on');CREDITS.classList.remove('on')}
 function menu(){run=0;stopMusic();hideAll();START.style.display='grid';START.classList.add('on');updateContinue()}
 
 function spark(x,y,green,count=8){for(let i=0;i<count;i++)particles.push({x,y,vx:(Math.random()-.5)*280,vy:(Math.random()-.8)*230,l:.65,green})}
@@ -201,11 +243,11 @@ function syncHUD(){HP.style.width=Math.max(0,p.hp)+'%';POWER.style.width=Math.ma
 function transform(){
   run=0;TRANS.classList.add('on');tracks.demise.pause();
   setTimeout(()=>{p.imam=1;p.hp=100;p.pow=70;NAME.textContent='ÏMAM';music('taliban')},600);
-  setTimeout(()=>{TRANS.classList.remove('on');phase=1;spawn([[.76,1]]);OBJ.textContent='Defeat the Corrupted Warden.';run=1},1750);
+  setTimeout(()=>{TRANS.classList.remove('on');phase=1;OBJ.textContent='Defeat the Corrupted Warden.';showBoss('CORRUPTED WARDEN','The first thing standing between ÏMAM and the city.',()=>{spawn([[.76,1]]);run=1})},1750);
 }
 function governmentWave(){
-  phase=2;p.hp=Math.max(p.hp,70);spawn([[.32,0],[.48,2],[.64,0],[.82,2]]);
-  OBJ.textContent='Government forces have arrived. Hold the rooftop.';shake=12;
+  phase=2;p.hp=Math.max(p.hp,70);OBJ.textContent='Government forces have arrived. Hold the rooftop.';shake=12;
+  showDialogue('ÏMAM','They blame MBIW for not saving everyone. Fine. Let them blame me instead.','imam',()=>{spawn([[.32,0],[.48,2],[.64,0],[.82,2]]);run=1})
 }
 function firstChoice(){
   run=0;tracks.taliban.pause();
@@ -218,13 +260,13 @@ function choosePath(v){
   path=v;CHOICE.classList.remove('on');save({chapter:2,path,complete:false});
   showInterlude('CHAPTER II','BIRTH OF ÏMAM',v==='resist'?'MBIW refuses to disappear. Every use of ÏMAM’s power becomes a fight for control.':'ÏMAM stops asking for permission. The city sees a new force moving through Casablanca.','BEGIN CHAPTER II',()=>startChapter2(v));
 }
-function chapter2Boss(){phase=11;p.hp=Math.max(p.hp,55);p.pow=Math.max(p.pow,55);spawn([[.74,3]]);OBJ.textContent='Defeat the Commander.'}
+function chapter2Boss(){phase=11;p.hp=Math.max(p.hp,55);p.pow=Math.max(p.pow,55);OBJ.textContent='Defeat the Commander.';showBoss('THE COMMANDER','Containment failed. Elimination protocol authorized.',()=>{spawn([[.74,3]]);run=1})}
 function chapter2End(){
   run=0;stopMusic();save({chapter:3,path,complete:false});
   showInterlude('CHAPTER II COMPLETE','NO WAY BACK',path==='resist'?'You kept MBIW alive inside the storm — but the city is closing in.':'You chose ÏMAM, and the city answered with everything it has.','BEGIN CHAPTER III',startChapter3);
 }
 function chapter3Wave2(){phase=21;p.hp=Math.max(p.hp,60);p.pow=100;spawn([[.34,2],[.5,2],[.68,2],[.84,2]]);OBJ.textContent='Destroy the elite guard.'}
-function finalBoss(){phase=22;p.hp=Math.max(p.hp,70);p.pow=100;spawn([[.74,4]]);OBJ.textContent='Defeat the RECLAIMER.';shake=15}
+function finalBoss(){phase=22;p.hp=Math.max(p.hp,70);p.pow=100;OBJ.textContent='Defeat the RECLAIMER.';shake=15;showBoss('THE RECLAIMER','Built for one purpose: erase ÏMAM before dawn.',()=>{spawn([[.74,4]]);run=1})}
 function finalChoice(){
   run=0;stopMusic();
   choiceEye.textContent='THE POINT OF NO RETURN';choiceTitle.textContent='ONE BODY. TWO NAMES.';
@@ -241,19 +283,19 @@ function finish(v){
 }
 function showEnding(title,text){
   save({chapter:3,path,complete:true,ending});statusMode='again';statusEye.textContent='ÏMAMVERSE COMPLETE';statusTitle.textContent=title;statusText.textContent=text+' — END OF DAYS BEFORE REINCARNATION.';
-  statusMain.textContent='PLAY AGAIN';statusMenu.style.display='inline-block';STATUS.classList.add('on');
+  statusMain.textContent='VIEW CREDITS';statusMain.onclick=showCredits;statusMenu.style.display='inline-block';STATUS.classList.add('on');
 }
 function showInterlude(eye,title,text,button,cb){
   run=0;interEye.textContent=eye;interTitle.textContent=title;interText.textContent=text;interButton.textContent=button;interButton.onclick=cb;INTER.classList.add('on');
 }
 function die(){
   run=0;stopMusic();statusMode='retry';statusEye.textContent='CHECKPOINT';statusTitle.textContent='YOU FELL';statusText.textContent='The story is not over. Restart from the beginning of this chapter.';
-  statusMain.textContent='RETRY CHAPTER '+roman(chapter);statusMenu.style.display='inline-block';STATUS.classList.add('on');
+  statusMain.textContent='RETRY CHAPTER '+roman(chapter);statusMain.onclick=retry;statusMenu.style.display='inline-block';STATUS.classList.add('on');
 }
 function retry(){STATUS.classList.remove('on');statusMode==='again'?startChapter1():chapter===1?startChapter1():chapter===2?startChapter2(path):startChapter3()}
 
 function update(dt){
-  if(!run)return;time+=dt;p.inv=Math.max(0,p.inv-dt);p.atk=Math.max(0,p.atk-dt);p.dash=Math.max(0,p.dash-dt);p.special=Math.max(0,p.special-dt);
+  if(!run)return;if(hitStop>0){hitStop-=dt;shake*=.9;return}time+=dt;p.inv=Math.max(0,p.inv-dt);p.atk=Math.max(0,p.atk-dt);p.dash=Math.max(0,p.dash-dt);p.special=Math.max(0,p.special-dt);
   if(p.imam)p.pow=Math.min(100,p.pow+3.5*dt);
   const m=(keys.r?1:0)-(keys.l?1:0);if(m)p.face=m;if(p.dash<.34)p.vx=m*(p.imam?370:320);
   if(keys.j&&p.on){p.vy=-(p.imam?710:650);p.on=0;keys.j=0}
@@ -266,12 +308,12 @@ function update(dt){
     const dx=p.x-e.x,dist=Math.abs(dx);if(dist>62)e.x+=Math.sign(dx)*e.speed*dt;
     if(e.fire&&e.shot<=0&&dist<520){e.shot=e.type>=4?1.0:e.type>=3?1.25:1.65;enemyShots.push({x:e.x+e.w/2,y:e.y+35,vx:Math.sign(dx)*-1*0,w:10,h:6,l:2.2});const q=enemyShots[enemyShots.length-1];q.vx=Math.sign(p.x-e.x)*(e.type>=4?440:360);q.dmg=e.type>=4?14:10}
     if(p.atk>0&&hit(ab,e)&&e.hit<=0){
-      const dmg=p.imam?(e.type>=3?2:3):1;e.hp-=dmg;e.hit=.2;spark(e.x+e.w/2,e.y+30,p.imam);p.pow=Math.min(100,p.pow+(p.imam?4:12));
+      const dmg=p.imam?(e.type>=3?2:3):1;e.hp-=dmg;e.hit=.2;hitStop=p.imam?.045:.028;shake=Math.max(shake,p.imam?8:5);spark(e.x+e.w/2,e.y+30,p.imam,14);p.pow=Math.min(100,p.pow+(p.imam?4:12));
     }
     if(hit(p,e)&&p.inv<=0){p.hp-=e.dmg;p.inv=.58;spark(p.x,p.y+30,p.imam);shake=8;if(!p.imam)p.pow=Math.min(100,p.pow+13)}
   }
 
-  for(const s of shots){s.x+=s.vx*dt;s.l-=dt;for(const e of enemies){if(e.hp>0&&hit(s,e)){e.hp-=s.dmg;s.l=0;e.hit=.18;spark(e.x+e.w/2,e.y+30,1,12)}}}
+  for(const s of shots){s.x+=s.vx*dt;s.l-=dt;for(const e of enemies){if(e.hp>0&&hit(s,e)){e.hp-=s.dmg;s.l=0;e.hit=.18;hitStop=.04;shake=Math.max(shake,9);spark(e.x+e.w/2,e.y+30,1,18)}}}
   for(const q of enemyShots){q.x+=q.vx*dt;q.l-=dt;if(p.inv<=0&&hit(q,p)){p.hp-=q.dmg;p.inv=.5;q.l=0;shake=7;spark(p.x,p.y+30,p.imam)}}
   shots=shots.filter(s=>s.l>0&&s.x>-50&&s.x<W+50);enemyShots=enemyShots.filter(s=>s.l>0&&s.x>-50&&s.x<W+50);
   enemies=enemies.filter(e=>e.hp>0);
@@ -303,6 +345,15 @@ function background(){
     g.drawImage(cityImg,dx,dy,dw,dh);g.restore();
   }
   const fog=g.createLinearGradient(0,H*.35,0,H*.82);fog.addColorStop(0,'transparent');fog.addColorStop(1,p.imam?'#07150ed9':'#06101bdc');g.fillStyle=fog;g.fillRect(0,H*.25,W,H*.6);
+  if(sceneMode==='containment'){
+    g.save();g.fillStyle='#13090bd0';g.fillRect(0,H*.62,W,H*.19);g.strokeStyle='#ef435622';g.lineWidth=2;
+    for(let x=30;x<W;x+=120){g.beginPath();g.moveTo(x,H*.52);g.lineTo(x,H*.81);g.stroke();g.beginPath();g.moveTo(x-35,H*.58);g.lineTo(x+35,H*.58);g.stroke()}
+    for(let x=80;x<W;x+=240){g.shadowColor='#ff4358';g.shadowBlur=20;g.fillStyle='#ff4358aa';g.fillRect(x,H*.55,7,7)}g.restore();
+  }else if(sceneMode==='final'){
+    g.save();const storm=g.createRadialGradient(W*.5,H*.25,20,W*.5,H*.25,W*.7);storm.addColorStop(0,'#1d5b2b44');storm.addColorStop(1,'#0000');g.fillStyle=storm;g.fillRect(0,0,W,H*.8);
+    g.fillStyle='#08100bd9';for(let x=-20;x<W+80;x+=150){g.fillRect(x,H*.47,58,H*.34);g.fillRect(x+18,H*.39,22,H*.08)}
+    g.strokeStyle='#6cff8b25';for(let i=0;i<7;i++){let x=(i*191+Math.sin(time*.7+i)*80)%W;g.beginPath();g.moveTo(x,H*.05);g.lineTo(x-25,H*.17);g.lineTo(x+8,H*.27);g.stroke()}g.restore();
+  }
   g.save();g.shadowColor=p.imam?'#74ff91':'#bce9ff';g.shadowBlur=38;g.fillStyle=p.imam?'#aeeeba':'#e2f3ff';g.globalAlpha=.58;g.beginPath();g.arc(W*.82,H*.16,Math.max(26,Math.min(W,H)*.045),0,7);g.fill();g.restore();
   for(let i=-1;i<W/85+2;i++){const x=i*85-(p.x*.035%85),hh=55+Math.abs((i*47)%120);rect(x,H*.7-hh,66,hh,'#061017aa')}
   const mx=W*.24,my=H*.7;rect(mx-15,my-175,30,175,'#061017cc');rect(mx-21,my-135,42,12,'#061017cc');g.fillStyle='#061017cc';g.beginPath();g.moveTo(mx,my-220);g.lineTo(mx-11,my-175);g.lineTo(mx+11,my-175);g.fill();
@@ -316,7 +367,7 @@ function hero(){
   const cx=p.x+p.w/2,feet=p.y+p.h;
   if(img.complete&&img.naturalWidth){
     const dh=p.imam?170:160,dw=dh*(img.naturalWidth/img.naturalHeight),dx=-dw/2,dy=-dh;
-    g.save();g.translate(cx,feet);g.scale(p.face,1);
+    g.save();const bob=p.on?Math.sin(time*7)*1.5:-5;g.translate(cx,feet+bob);g.rotate(Math.max(-.07,Math.min(.07,p.vx/5000)));const squash=p.atk>0?1.07:1;g.scale(p.face*squash,p.atk>0?.94:1);
     if(p.inv>0&&Math.floor(time*18)%2===0)g.globalAlpha=.45;
     if(p.imam){g.shadowColor='#56ff7b';g.shadowBlur=24;g.globalAlpha*=.98}else{g.shadowColor='#b9eaff';g.shadowBlur=15}
     g.drawImage(img,dx,dy,dw,dh);g.restore();
@@ -334,7 +385,7 @@ function foe(e){
   if(img.complete&&img.naturalWidth){
     let dh=e.type===4?190:e.type===3?178:e.type===1?165:e.type===2?122:102;
     let dw=dh*(img.naturalWidth/img.naturalHeight);
-    g.save();g.translate(cx,feet);
+    g.save();const ebob=Math.sin(time*5+e.x*.01)*(e.type>=1?1.5:2.5);g.translate(cx,feet+ebob);if(e.hit>0)g.scale(1.06,.96);
     if(e.type>=3){g.shadowColor='#ff4358';g.shadowBlur=18}
     else if(e.type>=1){g.shadowColor='#70ff91';g.shadowBlur=14}
     else{g.shadowColor='#d85562';g.shadowBlur=8}
@@ -373,7 +424,7 @@ document.querySelectorAll('.k').forEach(b=>{
 
 newGame.onclick=()=>{localStorage.removeItem(SAVE_KEY);startChapter1()};
 continueGame.onclick=continueSaved;
-statusMain.onclick=retry;statusMenu.onclick=menu;
+statusMain.onclick=retry;statusMenu.onclick=menu;creditsAgain.onclick=()=>{CREDITS.classList.remove('on');localStorage.removeItem(SAVE_KEY);startChapter1()};creditsMenu.onclick=menu;
 
 updateContinue();syncHUD();requestAnimationFrame(loop);
 })();
