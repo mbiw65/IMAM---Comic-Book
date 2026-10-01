@@ -123,6 +123,9 @@ const C=document.getElementById('c'),g=C.getContext('2d');
 const HP=document.getElementById('hp'),POWER=document.getElementById('power'),NAME=document.getElementById('name'),OBJ=document.getElementById('obj'),CHLABEL=document.getElementById('chapterLabel');
 const START=document.getElementById('start'),TRANS=document.getElementById('trans'),CHOICE=document.getElementById('choice'),INTER=document.getElementById('interlude'),STATUS=document.getElementById('status'),FLASH=document.getElementById('flash');
 const TITLECARD=document.getElementById('titlecard'),DIALOGUE=document.getElementById('dialogue'),BOSSINTRO=document.getElementById('bossintro'),CREDITS=document.getElementById('credits'),SCENETAG=document.getElementById('sceneTag');
+const TITLEEYE=document.getElementById('titleEye'),TITLEMAIN=document.getElementById('titleMain'),TITLESUB=document.getElementById('titleSub'),TITLEBUTTON=document.getElementById('titleButton');
+const PORTRAIT=document.getElementById('portrait'),SPEECHNAME=document.getElementById('speechName'),SPEECHTEXT=document.getElementById('speechText'),SPEECHNEXT=document.getElementById('speechNext');
+const BOSSNAME=document.getElementById('bossName'),BOSSTEXT=document.getElementById('bossText'),BOSSBUTTON=document.getElementById('bossButton');
 const SAVE_KEY='IMAMVERSE_FULL_SAVE_V1';
 let W=0,H=0,D=1,last=0,run=0,chapter=1,phase=0,path='',shake=0,time=0,ending='',statusMode='retry',hitStop=0,sceneMode='rooftop';
 let keys={l:0,r:0,j:0};
@@ -174,17 +177,19 @@ function updateContinue(){const s=loadSave();continueGame.disabled=!s||s.complet
 function roman(n){return n===1?'I':n===2?'II':'III'}
 function setScene(mode,label){sceneMode=mode;SCENETAG.textContent=label}
 function showTitle(eye,main,sub,cb){
-  run=0;cinematic(true);titleEye.textContent=eye;titleMain.textContent=main;titleSub.textContent=sub;TITLECARD.classList.add('on');
-  titleButton.onclick=()=>{TITLECARD.classList.remove('on');cb&&cb()}
+  run=0;cinematic(true);TITLEEYE.textContent=eye;TITLEMAIN.textContent=main;TITLESUB.textContent=sub;TITLECARD.classList.add('on');
+  TITLEBUTTON.onclick=()=>{TITLECARD.classList.remove('on');cb&&cb()}
 }
 function showDialogue(name,text,who,cb){
-  run=0;cinematic(true);speechName.textContent=name;speechText.textContent=text;
-  portrait.style.backgroundImage="url('assets/"+(who==='mbiw'?'mbiw':'imam')+".webp')";
-  DIALOGUE.classList.add('on');speechNext.onclick=()=>{DIALOGUE.classList.remove('on');cinematic(false);cb&&cb()}
+  run=0;cinematic(true);SPEECHNAME.textContent=name;SPEECHTEXT.textContent=text;
+  PORTRAIT.style.backgroundImage="url('assets/"+(who==='mbiw'?'mbiw':'imam')+".webp')";
+  SPEECHNEXT.disabled=true;DIALOGUE.classList.add('on');
+  setTimeout(()=>{SPEECHNEXT.disabled=false},700);
+  SPEECHNEXT.onclick=()=>{if(SPEECHNEXT.disabled)return;DIALOGUE.classList.remove('on');cinematic(false);cb&&cb()}
 }
 function showBoss(name,text,cb){
-  run=0;cinematic(true);bossName.textContent=name;bossText.textContent=text;BOSSINTRO.classList.add('on');sfx('power');
-  bossButton.onclick=()=>{BOSSINTRO.classList.remove('on');cinematic(false);cb&&cb()}
+  run=0;cinematic(true);BOSSNAME.textContent=name;BOSSTEXT.textContent=text;BOSSINTRO.classList.add('on');sfx('power');
+  BOSSBUTTON.onclick=()=>{BOSSINTRO.classList.remove('on');cinematic(false);cb&&cb()}
 }
 function showCredits(){
   cinematic(true);STATUS.classList.remove('on');creditsEnding.textContent='ENDING · '+ending;CREDITS.classList.add('on')
@@ -426,9 +431,9 @@ function loop(n){const dt=Math.min(.033,(n-last)/1000||0);last=n;update(dt);rend
 onkeydown=e=>{
   const k=e.key.toLowerCase();
   if(k==='enter'){
-    if(TITLECARD.classList.contains('on')){titleButton.click();return}
-    if(DIALOGUE.classList.contains('on')){speechNext.click();return}
-    if(BOSSINTRO.classList.contains('on')){bossButton.click();return}
+    if(TITLECARD.classList.contains('on')){TITLEBUTTON.click();return}
+    if(DIALOGUE.classList.contains('on')){SPEECHNEXT.click();return}
+    if(BOSSINTRO.classList.contains('on')){BOSSBUTTON.click();return}
     if(INTER.classList.contains('on')){interButton.click();return}
   }
   if(k==='a'||k==='arrowleft')keys.l=1;if(k==='d'||k==='arrowright')keys.r=1;
