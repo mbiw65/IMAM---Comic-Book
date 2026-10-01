@@ -6,25 +6,44 @@
 <title>ÏMAMVERSE — Days Before Reincarnation</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#020609;color:#fff;font-family:Arial,sans-serif}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;background:repeating-linear-gradient(0deg,transparent 0 3px,#ffffff05 4px);mix-blend-mode:soft-light;opacity:.38}
 button{font:inherit}canvas{width:100%;height:100%;display:block}
-.ui{position:fixed;inset:0;pointer-events:none}.top{display:flex;justify-content:space-between;gap:14px;padding:12px 14px}
-.brand{font:20px Georgia,serif;letter-spacing:.15em}.chapter{font-size:10px;letter-spacing:.16em;color:#9db2aa;margin-top:3px}
-.bars{width:min(390px,56vw)}.label{font-size:9px;letter-spacing:.14em;color:#87998f}.b{height:10px;border:1px solid #fff3;margin:3px 0 7px;background:#0009;overflow:hidden}
-.f{height:100%;background:#e8f7ff;transition:width .1s}.r{background:#69ee88;width:0}
-.obj{position:absolute;left:14px;bottom:14px;max-width:min(540px,72vw);background:#06100ed9;border:1px solid #72ef8f55;padding:10px 12px;font-size:13px;line-height:1.4}
-.hint{position:absolute;right:14px;bottom:14px;font-size:10px;color:#8da09a}
-.overlay{position:fixed;inset:0;display:none;place-items:center;background:#020609ed;z-index:18;padding:18px}.overlay.on{display:grid}.start{display:grid;z-index:20}
-.box{width:min(680px,92vw);text-align:center;padding:28px;border:1px solid #9ed8ff55;background:#041019f2;box-shadow:0 0 50px #000}
-.box h1{font:clamp(38px,8vw,78px) Georgia,serif;margin:0 0 8px;letter-spacing:.08em}.box h2{font:clamp(25px,5vw,42px) Georgia,serif;margin:0 0 8px;letter-spacing:.08em}
-.box p{line-height:1.55;color:#c7d4d0}.eyebrow{font-size:10px;letter-spacing:.22em;color:#7ded99;margin-bottom:10px}.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
-.btn{pointer-events:auto;border:1px solid #8dd5ff;background:#10304b;color:#fff;padding:12px 20px;font-weight:700;letter-spacing:.12em;cursor:pointer;min-width:170px}
-.btn.green{border-color:#70ff91;background:#153d22}.btn.ghost{background:#0b1419;border-color:#ffffff35}.btn:disabled{opacity:.38;cursor:default}
-.note{font-size:11px;color:#83968f;margin-top:16px}.trans{z-index:17;background:radial-gradient(circle,#59ee7830,#000e)}.choice{z-index:19;background:radial-gradient(circle at 50% 40%,#12311d,#020609f2 58%)}
-.choice .box{border-color:#63ef8655;box-shadow:0 0 45px #3bff6a18}.status{z-index:19}.interlude{z-index:18;background:radial-gradient(circle at 50% 45%,#0d2515,#020609f3 62%)}
+.ui{position:fixed;inset:0;pointer-events:none}
+.top{display:flex;justify-content:space-between;gap:18px;padding:16px 18px;filter:drop-shadow(0 8px 18px #000)}
+.brandWrap{padding:10px 13px 9px;border-left:3px solid #64ff87;background:linear-gradient(90deg,#06110ee8,#06110e77,transparent);min-width:240px}
+.brand{font:700 22px Georgia,serif;letter-spacing:.22em;text-shadow:0 0 20px #67ff8a44}.chapter{font-size:9px;letter-spacing:.2em;color:#9fb3aa;margin-top:5px}
+.pathBadge{display:inline-block;margin-top:7px;padding:4px 7px;border:1px solid #67ff8a44;background:#07140dd8;font-size:8px;letter-spacing:.18em;color:#8dffa7;opacity:0;transition:.2s}.pathBadge.on{opacity:1}
+.bars{width:min(400px,54vw);padding:10px 12px;background:linear-gradient(135deg,#06110ee8,#030807b8);border:1px solid #ffffff14;box-shadow:0 12px 35px #0008, inset 0 0 25px #67ff8a08}
+.label{font-size:8px;letter-spacing:.2em;color:#87998f}.b{height:9px;border:1px solid #fff2;margin:4px 0 8px;background:#000b;overflow:hidden;box-shadow:inset 0 0 10px #000}
+.f{height:100%;background:linear-gradient(90deg,#dff4ff,#fff);transition:width .1s;box-shadow:0 0 14px #dff4ff55}.r{background:linear-gradient(90deg,#24763a,#6cff8b,#d8ffe1);width:0;box-shadow:0 0 16px #6cff8b99}
+.obj{position:absolute;left:18px;bottom:18px;max-width:min(560px,72vw);background:linear-gradient(100deg,#04100de8,#061714c7);border:1px solid #72ef8f44;border-left:3px solid #64ff87;padding:19px 16px 12px;font-size:13px;line-height:1.45;box-shadow:0 12px 35px #000a}
+.obj:before{content:"OBJECTIVE";position:absolute;top:5px;left:16px;font-size:7px;letter-spacing:.24em;color:#66f48a}
+.hint{position:absolute;right:18px;bottom:18px;font-size:9px;letter-spacing:.08em;color:#93a59e;background:#030706b8;padding:9px 11px;border:1px solid #ffffff12}
+.overlay{position:fixed;inset:0;display:none;place-items:center;background:#020609ed;z-index:18;padding:18px;overflow:hidden}.overlay.on{display:grid}
+.overlay:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000d 0%,transparent 35%,transparent 65%,#000d 100%),linear-gradient(0deg,#000c,transparent 45%,#000b);pointer-events:none}
+.start{display:grid;z-index:20;background:linear-gradient(#0206098c,#020609de),url('assets/casablanca.webp') center/cover no-repeat}
+.start:after{content:"";position:absolute;right:-3vw;bottom:-8vh;width:min(48vw,620px);height:86vh;background:url('assets/imam.webp') center bottom/contain no-repeat;filter:drop-shadow(0 0 28px #4cff742e);opacity:.8;pointer-events:none}
+.box{position:relative;z-index:2;width:min(680px,92vw);text-align:center;padding:34px 32px;border:1px solid #9ed8ff30;background:linear-gradient(145deg,#041019f0,#020806ed);box-shadow:0 22px 80px #000, inset 0 0 60px #6cff8708;backdrop-filter:blur(8px)}
+.start .box{margin-right:min(25vw,260px);text-align:left;border-left:3px solid #6cff8b}.start .btns{justify-content:flex-start}
+.box:after{content:"";position:absolute;inset:7px;border:1px solid #ffffff07;pointer-events:none}
+.box h1{font:700 clamp(42px,8vw,82px) Georgia,serif;margin:0 0 10px;letter-spacing:.12em;text-shadow:0 0 28px #7cff9740}.box h2{font:700 clamp(27px,5vw,44px) Georgia,serif;margin:0 0 9px;letter-spacing:.1em}
+.box p{line-height:1.65;color:#c7d4d0;max-width:590px}.eyebrow{font-size:9px;letter-spacing:.28em;color:#7ded99;margin-bottom:12px}
+.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.btn{pointer-events:auto;position:relative;border:1px solid #8dd5ff66;background:linear-gradient(180deg,#13344d,#0a1d2b);color:#fff;padding:13px 21px;font-weight:800;letter-spacing:.13em;cursor:pointer;min-width:170px;box-shadow:0 8px 24px #0007;transition:transform .15s,box-shadow .15s,border-color .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px #0009,0 0 20px #76e8ff16;border-color:#aeeaff}.btn.green{border-color:#70ff9188;background:linear-gradient(180deg,#194c2a,#0d2817);box-shadow:0 8px 24px #0007,0 0 20px #54ff7a12}.btn.green:hover{box-shadow:0 12px 30px #0009,0 0 26px #54ff7a2d}
+.btn.ghost{background:#0b1419;border-color:#ffffff28}.btn:disabled{opacity:.38;cursor:default;transform:none}
+.note{font-size:10px;letter-spacing:.05em;color:#83968f;margin-top:16px}
+.trans{z-index:17;background:linear-gradient(#0008,#000d),url('assets/transform.webp') center/cover no-repeat}.trans .box{background:#020704b8;border-color:#61ff8470}
+.choice{z-index:19;background:linear-gradient(90deg,#020609e8,#07150de8),url('assets/imam.webp') 82% 55%/auto 80% no-repeat}.choice .box{border-color:#63ef8655;box-shadow:0 0 65px #3bff6a14}
+.status{z-index:19;background:radial-gradient(circle at 50% 42%,#10251a,#020609 68%)}
+.interlude{z-index:18;background:linear-gradient(#06150ea8,#020609f2),url('assets/casablanca.webp') center/cover no-repeat}
 .mob{position:absolute;left:0;right:0;bottom:12px;display:none;justify-content:space-between;padding:0 12px}.grp{display:flex;gap:8px;pointer-events:auto}
-.k{width:58px;height:58px;border-radius:50%;border:1px solid #fff4;background:#06131ddd;color:#fff;font-size:20px}.atk{width:70px;height:70px}.pow{border-color:#6cff8c99;color:#8fffaa}
+.k{width:60px;height:60px;border-radius:14px;border:1px solid #ffffff26;background:linear-gradient(145deg,#071512e8,#020706e8);color:#fff;font-size:19px;box-shadow:0 10px 25px #0009,inset 0 0 18px #ffffff05}.k:active{transform:scale(.96);background:#102219}.atk{width:72px;height:72px;border-color:#69ff8c55;box-shadow:0 0 20px #51ff7614}.pow{border-color:#6cff8c99;color:#8fffaa}
 .flash{position:fixed;inset:0;background:#6bff8b;opacity:0;pointer-events:none;z-index:12}.flash.on{animation:flash .4s ease-out}@keyframes flash{0%{opacity:.28}100%{opacity:0}}
-@media(max-width:820px),(pointer:coarse){.mob{display:flex}.hint{display:none}.obj{bottom:90px;max-width:78vw}.bars{width:50vw}.top{padding:10px}.brand{font-size:17px}}
+@media(max-width:820px),(pointer:coarse){
+  .mob{display:flex}.hint{display:none}.obj{bottom:92px;max-width:78vw;left:10px}.bars{width:50vw;padding:8px}.top{padding:9px}.brandWrap{min-width:0;padding:8px 10px}.brand{font-size:17px}.chapter{font-size:7px}
+  .start:after{right:-24vw;width:85vw;opacity:.38}.start .box{margin-right:0;text-align:center;background:#020806e8}.start .btns{justify-content:center}.box{padding:27px 20px}
+}
 </style>
 </head>
 <body>
@@ -33,7 +52,7 @@ button{font:inherit}canvas{width:100%;height:100%;display:block}
 
 <div class="ui">
   <div class="top">
-    <div><div class="brand" id="name">MBIW</div><div class="chapter" id="chapterLabel">CHAPTER I · THE FALL OF MBIW</div></div>
+    <div class="brandWrap"><div class="brand" id="name">MBIW</div><div class="chapter" id="chapterLabel">CHAPTER I · THE FALL OF MBIW</div><div class="pathBadge" id="pathBadge"></div></div>
     <div class="bars">
       <div class="label">LIFE</div><div class="b"><div class="f" id="hp"></div></div>
       <div class="label">POWER</div><div class="b"><div class="f r" id="power"></div></div>
@@ -88,6 +107,13 @@ let keys={l:0,r:0,j:0};
 let p={x:90,y:0,w:42,h:90,vx:0,vy:0,on:1,hp:100,pow:0,imam:0,atk:0,inv:0,dash:0,face:1,special:0};
 let enemies=[],particles=[],shots=[],enemyShots=[];
 const cityImg=new Image();cityImg.src='assets/casablanca.webp';
+const art={
+  mbiw:Object.assign(new Image(),{src:'assets/mbiw.webp'}),
+  imam:Object.assign(new Image(),{src:'assets/imam.webp'}),
+  enemy:Object.assign(new Image(),{src:'assets/enemy.webp'}),
+  boss:Object.assign(new Image(),{src:'assets/boss.webp'})
+};
+const PATHBADGE=document.getElementById('pathBadge');
 
 const tracks={
   demise:new Audio('../assets/audio/3%20-%20DEMISE%20OF%20MBIW.mp3'),
@@ -137,16 +163,19 @@ function setChapter(n){
 }
 function startChapter1(){
   hideAll();setChapter(1);phase=0;path='';ending='';clearCombat();playerBase(0);spawn([[.55,0],[.72,0],[.86,0]]);
+  PATHBADGE.classList.remove('on');PATHBADGE.textContent='';
   OBJ.textContent='Survive the rooftop ambush.';music('demise');run=1;syncHUD();
 }
 function startChapter2(chosen){
   hideAll();setChapter(2);phase=10;path=chosen||path||'resist';clearCombat();playerBase(1);p.pow=path==='embrace'?85:60;
+  PATHBADGE.textContent=path==='embrace'?'PATH · EMBRACE':'PATH · RESIST';PATHBADGE.classList.add('on');
   spawn(path==='embrace'?[[.38,2],[.54,0],[.7,2],[.86,0]]:[[.4,0],[.56,2],[.72,0],[.86,2]]);
   OBJ.textContent=path==='embrace'?'Break the government containment line.':'Keep control while escaping the containment line.';
   music('iconic');save({chapter:2,path,complete:false});run=1;syncHUD();
 }
 function startChapter3(){
   hideAll();setChapter(3);phase=20;clearCombat();playerBase(1);p.pow=100;
+  PATHBADGE.textContent=path==='embrace'?'PATH · EMBRACE':'PATH · RESIST';PATHBADGE.classList.add('on');
   spawn([[.3,2],[.44,0],[.58,2],[.72,0],[.86,2]]);
   OBJ.textContent='Cross the final blockade.';music('finale');save({chapter:3,path:path||'resist',complete:false});run=1;syncHUD();
 }
@@ -266,36 +295,61 @@ function update(dt){
 function rect(x,y,w,h,c){g.fillStyle=c;g.fillRect(x,y,w,h)}
 function background(){
   const grad=g.createLinearGradient(0,0,0,H);
-  grad.addColorStop(0,p.imam?'#06170c':'#071c2d');grad.addColorStop(1,'#020609');g.fillStyle=grad;g.fillRect(0,0,W,H);
-  if(cityImg.complete&&cityImg.naturalWidth){g.save();g.globalAlpha=.16;g.drawImage(cityImg,0,0,W,H);g.restore()}
-  g.save();g.shadowColor=p.imam?'#74ff91':'#bce9ff';g.shadowBlur=32;g.fillStyle=p.imam?'#b9f4c5':'#e2f3ff';g.beginPath();g.arc(W*.8,H*.17,Math.max(28,Math.min(W,H)*.05),0,7);g.fill();g.restore();
-  for(let i=-1;i<W/75+2;i++){const x=i*75-(p.x*.04%75),hh=50+((i*43)%110);rect(x,H*.69-hh,58,hh,'#08141d')}
-  const mx=W*.24,my=H*.69;rect(mx-15,my-175,30,175,'#07131a');rect(mx-21,my-135,42,12,'#07131a');g.fillStyle='#07131a';g.beginPath();g.moveTo(mx,my-220);g.lineTo(mx-11,my-175);g.lineTo(mx+11,my-175);g.fill();
-  rect(0,ground(),W,H-ground(),'#050b0f');rect(0,ground()-5,W,5,p.imam?'#2a6339':'#293f4d');
+  grad.addColorStop(0,p.imam?'#06170c':'#071c2d');grad.addColorStop(.6,p.imam?'#03100a':'#061019');grad.addColorStop(1,'#010304');g.fillStyle=grad;g.fillRect(0,0,W,H);
+  if(cityImg.complete&&cityImg.naturalWidth){
+    g.save();g.globalAlpha=p.imam?.36:.3;g.filter=p.imam?'contrast(1.15) saturate(.85) hue-rotate(35deg)':'contrast(1.05) saturate(.75)';
+    const ar=cityImg.naturalWidth/cityImg.naturalHeight,tar=W/H;let dw,dh,dx,dy;
+    if(ar>tar){dh=H;dw=H*ar;dx=(W-dw)/2;dy=0}else{dw=W;dh=W/ar;dx=0;dy=(H-dh)/2}
+    g.drawImage(cityImg,dx,dy,dw,dh);g.restore();
+  }
+  const fog=g.createLinearGradient(0,H*.35,0,H*.82);fog.addColorStop(0,'transparent');fog.addColorStop(1,p.imam?'#07150ed9':'#06101bdc');g.fillStyle=fog;g.fillRect(0,H*.25,W,H*.6);
+  g.save();g.shadowColor=p.imam?'#74ff91':'#bce9ff';g.shadowBlur=38;g.fillStyle=p.imam?'#aeeeba':'#e2f3ff';g.globalAlpha=.58;g.beginPath();g.arc(W*.82,H*.16,Math.max(26,Math.min(W,H)*.045),0,7);g.fill();g.restore();
+  for(let i=-1;i<W/85+2;i++){const x=i*85-(p.x*.035%85),hh=55+Math.abs((i*47)%120);rect(x,H*.7-hh,66,hh,'#061017aa')}
+  const mx=W*.24,my=H*.7;rect(mx-15,my-175,30,175,'#061017cc');rect(mx-21,my-135,42,12,'#061017cc');g.fillStyle='#061017cc';g.beginPath();g.moveTo(mx,my-220);g.lineTo(mx-11,my-175);g.lineTo(mx+11,my-175);g.fill();
+  rect(0,ground(),W,H-ground(),'#030708');rect(0,ground()-6,W,6,p.imam?'#204c2d':'#263d4a');
+  g.fillStyle='#ffffff0b';for(let x=20;x<W;x+=96)g.fillRect(x,ground()+18,56,2);
+  g.save();g.strokeStyle=p.imam?'#76ff9318':'#b5eaff12';g.lineWidth=1;
+  for(let i=0;i<26;i++){const rx=(i*173+time*80)% (W+160)-80,ry=(i*97+time*220)%H;g.beginPath();g.moveTo(rx,ry);g.lineTo(rx-8,ry+22);g.stroke()}g.restore();
 }
 function hero(){
-  const cx=p.x+p.w/2,fy=p.y+p.h;g.save();g.translate(cx,0);g.scale(p.face,1);
-  if(p.inv>0&&Math.floor(time*18)%2===0)g.globalAlpha=.4;
-  if(p.imam){
-    g.shadowColor='#57f079';g.shadowBlur=22;g.fillStyle='#07100b';g.beginPath();g.moveTo(-32,fy-3);g.lineTo(-25,fy-83);g.lineTo(-14,fy-120);g.lineTo(0,fy-142);g.lineTo(17,fy-117);g.lineTo(29,fy-72);g.lineTo(34,fy-6);g.lineTo(13,fy-22);g.lineTo(5,fy-3);g.lineTo(-7,fy-3);g.lineTo(-16,fy-24);g.fill();g.shadowBlur=0;
-    g.fillStyle='#111713';g.beginPath();g.arc(0,fy-128,23,0,7);g.fill();g.beginPath();g.moveTo(-28,fy-129);g.quadraticCurveTo(0,fy-166,29,fy-129);g.lineTo(20,fy-105);g.lineTo(-20,fy-105);g.fill();
-    g.shadowColor='#75ff94';g.shadowBlur=12;rect(-11,fy-132,7,3,'#75ff94');rect(5,fy-132,7,3,'#75ff94');
+  const img=p.imam?art.imam:art.mbiw;
+  const cx=p.x+p.w/2,feet=p.y+p.h;
+  if(img.complete&&img.naturalWidth){
+    const dh=p.imam?170:160,dw=dh*(img.naturalWidth/img.naturalHeight),dx=-dw/2,dy=-dh;
+    g.save();g.translate(cx,feet);g.scale(p.face,1);
+    if(p.inv>0&&Math.floor(time*18)%2===0)g.globalAlpha=.45;
+    if(p.imam){g.shadowColor='#56ff7b';g.shadowBlur=24;g.globalAlpha*=.98}else{g.shadowColor='#b9eaff';g.shadowBlur=15}
+    g.drawImage(img,dx,dy,dw,dh);g.restore();
   }else{
-    g.shadowColor='#90dcff';g.shadowBlur=18;rect(-15,fy-53,12,50,'#12191f');rect(5,fy-53,12,50,'#12191f');
-    g.fillStyle='#eef3f5';g.beginPath();g.moveTo(-24,fy-58);g.lineTo(-21,fy-111);g.quadraticCurveTo(0,fy-124,22,fy-110);g.lineTo(25,fy-58);g.lineTo(10,fy-50);g.lineTo(-10,fy-50);g.fill();g.shadowBlur=0;
-    g.fillStyle='#8d5b3d';g.beginPath();g.arc(0,fy-127,21,0,7);g.fill();g.fillStyle='#111518';g.beginPath();g.arc(-4,fy-140,22,3,6.5);g.quadraticCurveTo(8,fy-156,20,fy-136);g.quadraticCurveTo(7,fy-144,-3,fy-138);g.quadraticCurveTo(-11,fy-148,-21,fy-135);g.fill();
+    g.save();g.translate(cx,0);g.scale(p.face,1);g.fillStyle=p.imam?'#07100b':'#eef3f5';rect(-20,feet-100,40,100,g.fillStyle);g.restore();
   }
-  g.restore();
-  if(p.atk>0){g.strokeStyle=p.imam?'#67f28a':'#c9edff';g.lineWidth=p.imam?11:7;g.shadowColor=g.strokeStyle;g.shadowBlur=20;g.beginPath();const x=p.x+p.w/2,y=p.y+40,r=p.imam?68:52;p.face>0?g.arc(x+20,y,r,-1.1,1.05):g.arc(x-20,y,r,2.1,4.2);g.stroke();g.shadowBlur=0}
+  if(p.imam){
+    g.save();g.globalAlpha=.28+.08*Math.sin(time*5);g.strokeStyle='#66ff88';g.lineWidth=2;g.shadowColor='#66ff88';g.shadowBlur=18;g.beginPath();g.ellipse(cx,p.y+44,44,68,0,0,Math.PI*2);g.stroke();g.restore();
+  }
+  if(p.atk>0){g.strokeStyle=p.imam?'#67f28a':'#c9edff';g.lineWidth=p.imam?11:7;g.shadowColor=g.strokeStyle;g.shadowBlur=22;g.beginPath();const x=p.x+p.w/2,y=p.y+40,r=p.imam?68:52;p.face>0?g.arc(x+20,y,r,-1.1,1.05):g.arc(x-20,y,r,2.1,4.2);g.stroke();g.shadowBlur=0}
 }
 function foe(e){
-  g.save();g.translate(e.x+e.w/2,0);
-  const body=e.type===4?'#1d171e':e.type===3?'#1a2029':e.type===2?'#17231c':e.type===1?'#14251a':'#1c242a';
-  rect(-e.w/2,e.y+15,e.w,e.h-15,body);
-  const eye=e.type>=3?'#ff4358':e.type>=1?'#78ed91':'#d25c5c';rect(-11,e.y+18,22,4,eye);
-  if(e.type>=2){rect(-e.w*.32,e.y+e.h*.48,e.w*.64,5,e.type>=3?'#802937':'#315c3b')}
-  g.restore();
-  if(e.type>=1){const bw=e.type>=4?190:e.type>=3?170:150,bx=e.x+e.w/2-bw/2;rect(bx,e.y-18,bw,8,'#18080a');rect(bx,e.y-18,bw*(e.hp/e.max),8,e.type>=3?'#ef4356':'#d34552');g.fillStyle='#cbd5d1';g.font='10px Arial';g.textAlign='center';g.fillText(e.name,e.x+e.w/2,e.y-24)}
+  const img=e.type>=1?art.boss:art.enemy;
+  const cx=e.x+e.w/2,feet=e.y+e.h;
+  if(img.complete&&img.naturalWidth){
+    let dh=e.type===4?190:e.type===3?178:e.type===1?165:e.type===2?122:102;
+    let dw=dh*(img.naturalWidth/img.naturalHeight);
+    g.save();g.translate(cx,feet);
+    if(e.type>=3){g.shadowColor='#ff4358';g.shadowBlur=18}
+    else if(e.type>=1){g.shadowColor='#70ff91';g.shadowBlur=14}
+    else{g.shadowColor='#d85562';g.shadowBlur=8}
+    if(e.hit>0)g.globalAlpha=.58;
+    g.drawImage(img,-dw/2,-dh,dw,dh);g.restore();
+  }else{
+    const body=e.type>=1?'#14251a':'#1c242a';rect(e.x,e.y,e.w,e.h,body);
+  }
+  const glow=e.type>=3?'#ff4358':e.type>=1?'#78ed91':'#d25c5c';
+  g.save();g.shadowColor=glow;g.shadowBlur=14;rect(cx-10,e.y+18,20,3,glow);g.restore();
+  if(e.type>=1){
+    const bw=e.type>=4?200:e.type>=3?176:154,bx=cx-bw/2;
+    rect(bx,e.y-24,bw,7,'#15090cdd');rect(bx,e.y-24,bw*(e.hp/e.max),7,e.type>=3?'#ef4356':'#63e681');
+    g.fillStyle='#d7e0dc';g.font='700 9px Arial';g.textAlign='center';g.fillText(e.name.toUpperCase(),cx,e.y-31);
+  }
 }
 function render(){
   g.save();if(shake>1)g.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);background();enemies.forEach(foe);hero();
