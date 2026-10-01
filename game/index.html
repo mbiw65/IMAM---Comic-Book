@@ -1,1 +1,328 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ÏMAMVERSE</title><style>*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#020609;color:#fff;font-family:Arial}canvas{width:100%;height:100%;display:block}.ui{position:fixed;inset:0;pointer-events:none}.top{display:flex;justify-content:space-between;padding:12px}.n{font:20px Georgia;letter-spacing:.15em}.bars{width:min(360px,55vw)}.b{height:10px;border:1px solid #fff3;margin:6px 0;background:#0008}.f{height:100%;background:#dff3ff}.r{background:#69ee88;width:0}.obj{position:absolute;left:14px;bottom:14px;background:#06101ad9;border:1px solid #8bd4ff55;padding:10px 12px}.start,.status,.trans,.choice{position:fixed;inset:0;display:grid;place-items:center;background:#020609e8}.start{z-index:20}.status{display:none;z-index:18}.status.on{display:grid}.choice{display:none;z-index:19;background:radial-gradient(circle at 50% 40%,#12311d,#020609f2 58%)}.choice.on{display:grid}.choice .box{border-color:#63ef8655;box-shadow:0 0 45px #3bff6a18}.choices{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}.choiceBtn{min-width:180px}.embrace{border-color:#70ff91;background:#153d22}.resist{border-color:#b8e8ff;background:#132a38}.choiceNote{color:#9fb1aa;font-size:12px;line-height:1.5}.trans{display:none;z-index:16;background:radial-gradient(circle,#59ee782b,#000c)}.trans.on{display:grid}.box{width:min(620px,90vw);text-align:center;padding:26px;border:1px solid #9ed8ff55;background:#041019ee}.box h1{font:clamp(42px,8vw,82px) Georgia;margin:0;letter-spacing:.1em}.btn{pointer-events:auto;border:1px solid #8dd5ff;background:#10304b;color:#fff;padding:12px 20px;font-weight:700;letter-spacing:.12em}.hint{position:absolute;right:14px;bottom:14px;font-size:10px;color:#8da0aa}.mob{position:absolute;left:0;right:0;bottom:12px;display:none;justify-content:space-between;padding:0 12px}.grp{display:flex;gap:8px;pointer-events:auto}.k{width:58px;height:58px;border-radius:50%;border:1px solid #fff4;background:#06131ddd;color:#fff;font-size:20px}.atk{width:70px;height:70px}@media(max-width:820px),(pointer:coarse){.mob{display:flex}.hint{display:none}.obj{bottom:86px}.bars{width:52vw}}</style><canvas id="c"></canvas><div class="ui"><div class="top"><div><div class="n" id="name">MBIW</div><small>ÏMAMVERSE · CHAPTER I</small></div><div class="bars"><div class="b"><div class="f" id="hp"></div></div><div class="b"><div class="f r" id="rage"></div></div></div></div><div class="obj" id="obj">Survive the rooftop ambush.</div><div class="hint">A/D move · Space jump · J attack · Shift dash</div><div class="mob"><div class="grp"><button class="k" data-k="l">◀</button><button class="k" data-k="r">▶</button></div><div class="grp"><button class="k" data-k="d">↠</button><button class="k" data-k="j">↑</button><button class="k atk" data-k="a">✦</button></div></div></div><div class="trans" id="tr"><div class="box"><h1>ÏMAM</h1><p>REINCARNATION</p></div></div><div class="status" id="st"><div class="box"><h1 id="stt"></h1><p id="sts"></p><button class="btn" id="restart">Restart</button></div></div><div class="choice" id="choice"><div class="box"><h1>WHO ARE YOU?</h1><p>Casablanca is watching. MBIW is still inside you — but ÏMAM is now in control.</p><div class="choices"><button class="btn choiceBtn resist" id="resist">RESIST ÏMAM</button><button class="btn choiceBtn embrace" id="embrace">EMBRACE ÏMAM</button></div><p class="choiceNote">Your decision is saved and will shape the next chapter.</p></div></div><div class="start" id="start"><div class="box"><h1>ÏMAMVERSE</h1><p>MBIW fights through Casablanca. Clear the ambush and awaken ÏMAM.</p><button class="btn" id="play">Start Chapter I</button></div></div><script>(()=>{const C=document.getElementById('c'),g=C.getContext('2d'),H=document.getElementById('hp'),R=document.getElementById('rage'),N=document.getElementById('name'),O=document.getElementById('obj'),TR=document.getElementById('tr'),ST=document.getElementById('st'),CHOICE=document.getElementById('choice');let W=0,h=0,d=1,last=0,run=0,phase=0,shake=0,t=0,keys={l:0,r:0,j:0},p={x:90,y:0,w:42,h:90,vx:0,vy:0,on:1,hp:100,r:0,imam:0,atk:0,inv:0,cd:0},E=[],P=[];const ground=()=>h*.81,demise=new Audio('../assets/audio/3%20-%20DEMISE%20OF%20MBIW.mp3'),taliban=new Audio('../assets/audio/5%20-%20Taliban.mp3');demise.loop=taliban.loop=1;demise.volume=.1;taliban.volume=.11;function rs(){d=Math.min(2,devicePixelRatio||1);W=innerWidth;h=innerHeight;C.width=W*d;C.height=h*d;g.setTransform(d,0,0,d,0,0)}onresize=rs;rs();const en=(x,b=0)=>({x,y:ground()-(b?145:70),w:b?76:40,h:b?145:70,hp:b?18:4,max:b?18:4,b,hit:0});function reset(){Object.assign(p,{x:Math.max(70,W*.09),y:ground()-90,vx:0,vy:0,on:1,hp:100,r:0,imam:0,atk:0,inv:0,cd:0});phase=0;E=[en(W*.55),en(W*.72),en(W*.86)];P=[];CHOICE.classList.remove('on');N.textContent='MBIW';O.textContent='Survive the rooftop ambush.';ST.classList.remove('on');H.style.width='100%';R.style.width='0%'}function spark(x,y,green){for(let i=0;i<8;i++)P.push({x,y,vx:(Math.random()-.5)*260,vy:(Math.random()-.8)*220,l:.6,green})}function hit(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}function attack(){if(run&&p.atk<=0){p.atk=p.imam?.3:.23;shake=p.imam?7:4}}function dash(){if(run&&p.cd<=0){p.cd=.5;p.vx=(p.face||1)*(p.imam?700:620)}}function transform(){run=0;TR.classList.add('on');demise.pause();setTimeout(()=>{p.imam=1;p.hp=100;N.textContent='ÏMAM';taliban.currentTime=0;taliban.play().catch(()=>{})},600);setTimeout(()=>{TR.classList.remove('on');phase=1;E=[en(W*.76,1)];O.textContent='Defeat the Corrupted Warden.';run=1},1750)}function governmentResponse(){phase=2;p.hp=Math.max(p.hp,65);E=[en(W*.34),en(W*.5),en(W*.66),en(W*.82)];for(const e of E){e.hp=6;e.max=6}O.textContent='Government forces have arrived. Hold the rooftop.';shake=12}function showChoice(){run=0;taliban.pause();O.textContent='The city waits for your decision.';CHOICE.classList.add('on')}function update(dt){if(!run)return;t+=dt;p.inv=Math.max(0,p.inv-dt);p.atk=Math.max(0,p.atk-dt);p.cd=Math.max(0,p.cd-dt);let m=(keys.r?1:0)-(keys.l?1:0);if(m)p.face=m;if(p.cd<.35)p.vx=m*(p.imam?350:315);if(keys.j&&p.on){p.vy=-(p.imam?690:645);p.on=0;keys.j=0}p.vy+=1750*dt;p.x=Math.max(16,Math.min(W-p.w-16,p.x+p.vx*dt));p.y+=p.vy*dt;if(p.y+p.h>=ground()){p.y=ground()-p.h;p.vy=0;p.on=1}let ab={x:(p.face||1)>0?p.x+p.w-2:p.x-(p.imam?90:70),y:p.y+8,w:p.imam?94:74,h:78};for(const e of E){e.hit=Math.max(0,e.hit-dt);let dx=p.x-e.x,dist=Math.abs(dx);e.x+=dist>58?Math.sign(dx)*(e.b?60:80)*dt:0;if(p.atk>0&&hit(ab,e)&&e.hit<=0){e.hp-=p.imam?(e.b?2:3):1;e.hit=.22;spark(e.x+e.w/2,e.y+30,p.imam);if(!p.imam)p.r=Math.min(100,p.r+12)}if(hit(p,e)&&p.inv<=0){p.hp-=e.b?18:(p.imam?8:13);p.inv=.6;spark(p.x,p.y+30,p.imam);shake=8;if(!p.imam)p.r=Math.min(100,p.r+12)}}E=E.filter(e=>e.hp>0);if(!E.length&&phase===0){p.r=100;transform()}else if(!E.length&&phase===1){governmentResponse()}else if(!E.length&&phase===2){showChoice()}if(p.hp<=0){run=0;demise.pause();taliban.pause();document.getElementById('stt').textContent='YOU FELL';document.getElementById('sts').textContent='Restart and try again.';ST.classList.add('on')}H.style.width=Math.max(0,p.hp)+'%';R.style.width=p.r+'%';for(const q of P){q.x+=q.vx*dt;q.y+=q.vy*dt;q.vy+=480*dt;q.l-=dt}P=P.filter(q=>q.l>0);shake*=.84}function rect(x,y,w,hh,c){g.fillStyle=c;g.fillRect(x,y,w,hh)}function bg(){let s=g.createLinearGradient(0,0,0,h);s.addColorStop(0,p.imam?'#06170c':'#071c2d');s.addColorStop(1,'#020609');g.fillStyle=s;g.fillRect(0,0,W,h);g.save();g.shadowColor=p.imam?'#74ff91':'#bce9ff';g.shadowBlur=32;g.fillStyle=p.imam?'#b9f4c5':'#e2f3ff';g.beginPath();g.arc(W*.8,h*.17,Math.max(28,Math.min(W,h)*.05),0,7);g.fill();g.restore();g.fillStyle='#08141d';for(let i=-1;i<W/75+2;i++){let x=i*75-(p.x*.04%75),hh=50+(i*43%110);rect(x,h*.69-hh,58,hh,'#08141d')}let mx=W*.24,my=h*.69;rect(mx-15,my-175,30,175,'#07131a');rect(mx-21,my-135,42,12,'#07131a');g.beginPath();g.moveTo(mx,my-220);g.lineTo(mx-11,my-175);g.lineTo(mx+11,my-175);g.fill();rect(0,ground(),W,h-ground(),'#050b0f');rect(0,ground()-5,W,5,p.imam?'#2a6339':'#293f4d')}function hero(){let cx=p.x+p.w/2,fy=p.y+p.h;g.save();g.translate(cx,0);g.scale(p.face||1,1);if(p.inv>0&&Math.floor(t*18)%2===0)g.globalAlpha=.4;if(p.imam){g.shadowColor='#57f079';g.shadowBlur=22;g.fillStyle='#07100b';g.beginPath();g.moveTo(-32,fy-3);g.lineTo(-25,fy-83);g.lineTo(-14,fy-120);g.lineTo(0,fy-142);g.lineTo(17,fy-117);g.lineTo(29,fy-72);g.lineTo(34,fy-6);g.lineTo(13,fy-22);g.lineTo(5,fy-3);g.lineTo(-7,fy-3);g.lineTo(-16,fy-24);g.fill();g.shadowBlur=0;g.fillStyle='#111713';g.beginPath();g.arc(0,fy-128,23,0,7);g.fill();g.beginPath();g.moveTo(-28,fy-129);g.quadraticCurveTo(0,fy-166,29,fy-129);g.lineTo(20,fy-105);g.lineTo(-20,fy-105);g.fill();g.shadowColor='#75ff94';g.shadowBlur=12;rect(-11,fy-132,7,3,'#75ff94');rect(5,fy-132,7,3,'#75ff94')}else{g.shadowColor='#90dcff';g.shadowBlur=18;rect(-15,fy-53,12,50,'#12191f');rect(5,fy-53,12,50,'#12191f');g.fillStyle='#eef3f5';g.beginPath();g.moveTo(-24,fy-58);g.lineTo(-21,fy-111);g.quadraticCurveTo(0,fy-124,22,fy-110);g.lineTo(25,fy-58);g.lineTo(10,fy-50);g.lineTo(-10,fy-50);g.fill();g.shadowBlur=0;g.fillStyle='#8d5b3d';g.beginPath();g.arc(0,fy-127,21,0,7);g.fill();g.fillStyle='#111518';g.beginPath();g.arc(-4,fy-140,22,3,6.5);g.quadraticCurveTo(8,fy-156,20,fy-136);g.quadraticCurveTo(7,fy-144,-3,fy-138);g.quadraticCurveTo(-11,fy-148,-21,fy-135);g.fill()}g.restore();if(p.atk>0){g.strokeStyle=p.imam?'#67f28a':'#c9edff';g.lineWidth=p.imam?11:7;g.shadowColor=g.strokeStyle;g.shadowBlur=20;g.beginPath();let x=p.x+p.w/2,y=p.y+40,r=p.imam?66:52;if((p.face||1)>0)g.arc(x+20,y,r,-1.1,1.05);else g.arc(x-20,y,r,2.1,4.2);g.stroke();g.shadowBlur=0}}function foe(e){g.save();g.translate(e.x+e.w/2,0);g.fillStyle=e.b?'#14251a':'#1c242a';rect(-e.w/2,e.y+15,e.w,e.h-15,g.fillStyle);g.fillStyle=e.b?'#78ed91':'#d25c5c';rect(-10,e.y+18,20,4,g.fillStyle);g.restore();if(e.b){let bw=150,bx=e.x+e.w/2-bw/2;rect(bx,e.y-18,bw,8,'#18080a');rect(bx,e.y-18,bw*(e.hp/e.max),8,'#d34552')}}function render(){g.save();if(shake>1)g.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);bg();E.forEach(foe);hero();for(const q of P){g.globalAlpha=Math.max(0,q.l);rect(q.x,q.y,3,3,q.green?'#78ff97':'#d4f0ff')}g.globalAlpha=1;g.restore();requestAnimationFrame(loop)}function loop(n){let dt=Math.min(.033,(n-last)/1000||0);last=n;update(dt);render()}onkeydown=e=>{let k=e.key.toLowerCase();if(k==='a'||k==='arrowleft')keys.l=1;if(k==='d'||k==='arrowright')keys.r=1;if(k==='w'||k==='arrowup'||k===' '){keys.j=1;e.preventDefault()}if(k==='j'||k==='k'||k==='x')attack();if(k==='shift')dash()};onkeyup=e=>{let k=e.key.toLowerCase();if(k==='a'||k==='arrowleft')keys.l=0;if(k==='d'||k==='arrowright')keys.r=0;if(k==='w'||k==='arrowup'||k===' ')keys.j=0};document.querySelectorAll('.k').forEach(b=>{b.onpointerdown=e=>{e.preventDefault();let k=b.dataset.k;if(k==='a')attack();else if(k==='d')dash();else keys[k]=1};b.onpointerup=b.onpointercancel=e=>{let k=b.dataset.k;if(k!=='a'&&k!=='d')keys[k]=0}});play.onclick=()=>{start.style.display='none';run=1;reset();demise.currentTime=0;demise.play().catch(()=>{})};restart.onclick=()=>{run=1;reset();demise.currentTime=0;demise.play().catch(()=>{})};resist.onclick=()=>{localStorage.setItem('imamverseChoice','resist');CHOICE.classList.remove('on');document.getElementById('stt').textContent='MBIW RESISTS';document.getElementById('sts').textContent='You refuse to disappear. The fight for control has only begun.';O.textContent='Chapter I complete — RESIST path saved.';ST.classList.add('on')};embrace.onclick=()=>{localStorage.setItem('imamverseChoice','embrace');CHOICE.classList.remove('on');document.getElementById('stt').textContent='ÏMAM TAKES CONTROL';document.getElementById('sts').textContent='No more hesitation. Casablanca has seen the beginning of ÏMAM.';O.textContent='Chapter I complete — EMBRACE path saved.';ST.classList.add('on')};requestAnimationFrame(loop)})();</script>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ÏMAMVERSE — Days Before Reincarnation</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#020609;color:#fff;font-family:Arial,sans-serif}
+button{font:inherit}canvas{width:100%;height:100%;display:block}
+.ui{position:fixed;inset:0;pointer-events:none}.top{display:flex;justify-content:space-between;gap:14px;padding:12px 14px}
+.brand{font:20px Georgia,serif;letter-spacing:.15em}.chapter{font-size:10px;letter-spacing:.16em;color:#9db2aa;margin-top:3px}
+.bars{width:min(390px,56vw)}.label{font-size:9px;letter-spacing:.14em;color:#87998f}.b{height:10px;border:1px solid #fff3;margin:3px 0 7px;background:#0009;overflow:hidden}
+.f{height:100%;background:#e8f7ff;transition:width .1s}.r{background:#69ee88;width:0}
+.obj{position:absolute;left:14px;bottom:14px;max-width:min(540px,72vw);background:#06100ed9;border:1px solid #72ef8f55;padding:10px 12px;font-size:13px;line-height:1.4}
+.hint{position:absolute;right:14px;bottom:14px;font-size:10px;color:#8da09a}
+.overlay{position:fixed;inset:0;display:none;place-items:center;background:#020609ed;z-index:18;padding:18px}.overlay.on{display:grid}.start{display:grid;z-index:20}
+.box{width:min(680px,92vw);text-align:center;padding:28px;border:1px solid #9ed8ff55;background:#041019f2;box-shadow:0 0 50px #000}
+.box h1{font:clamp(38px,8vw,78px) Georgia,serif;margin:0 0 8px;letter-spacing:.08em}.box h2{font:clamp(25px,5vw,42px) Georgia,serif;margin:0 0 8px;letter-spacing:.08em}
+.box p{line-height:1.55;color:#c7d4d0}.eyebrow{font-size:10px;letter-spacing:.22em;color:#7ded99;margin-bottom:10px}.btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.btn{pointer-events:auto;border:1px solid #8dd5ff;background:#10304b;color:#fff;padding:12px 20px;font-weight:700;letter-spacing:.12em;cursor:pointer;min-width:170px}
+.btn.green{border-color:#70ff91;background:#153d22}.btn.ghost{background:#0b1419;border-color:#ffffff35}.btn:disabled{opacity:.38;cursor:default}
+.note{font-size:11px;color:#83968f;margin-top:16px}.trans{z-index:17;background:radial-gradient(circle,#59ee7830,#000e)}.choice{z-index:19;background:radial-gradient(circle at 50% 40%,#12311d,#020609f2 58%)}
+.choice .box{border-color:#63ef8655;box-shadow:0 0 45px #3bff6a18}.status{z-index:19}.interlude{z-index:18;background:radial-gradient(circle at 50% 45%,#0d2515,#020609f3 62%)}
+.mob{position:absolute;left:0;right:0;bottom:12px;display:none;justify-content:space-between;padding:0 12px}.grp{display:flex;gap:8px;pointer-events:auto}
+.k{width:58px;height:58px;border-radius:50%;border:1px solid #fff4;background:#06131ddd;color:#fff;font-size:20px}.atk{width:70px;height:70px}.pow{border-color:#6cff8c99;color:#8fffaa}
+.flash{position:fixed;inset:0;background:#6bff8b;opacity:0;pointer-events:none;z-index:12}.flash.on{animation:flash .4s ease-out}@keyframes flash{0%{opacity:.28}100%{opacity:0}}
+@media(max-width:820px),(pointer:coarse){.mob{display:flex}.hint{display:none}.obj{bottom:90px;max-width:78vw}.bars{width:50vw}.top{padding:10px}.brand{font-size:17px}}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div class="flash" id="flash"></div>
+
+<div class="ui">
+  <div class="top">
+    <div><div class="brand" id="name">MBIW</div><div class="chapter" id="chapterLabel">CHAPTER I · THE FALL OF MBIW</div></div>
+    <div class="bars">
+      <div class="label">LIFE</div><div class="b"><div class="f" id="hp"></div></div>
+      <div class="label">POWER</div><div class="b"><div class="f r" id="power"></div></div>
+    </div>
+  </div>
+  <div class="obj" id="obj">Survive the rooftop ambush.</div>
+  <div class="hint">A/D move · Space jump · J attack · Q power · Shift dash</div>
+  <div class="mob">
+    <div class="grp"><button class="k" data-k="l">◀</button><button class="k" data-k="r">▶</button></div>
+    <div class="grp"><button class="k pow" data-k="s">●</button><button class="k" data-k="d">↠</button><button class="k" data-k="j">↑</button><button class="k atk" data-k="a">✦</button></div>
+  </div>
+</div>
+
+<div class="overlay start" id="start">
+  <div class="box">
+    <div class="eyebrow">DAYS BEFORE REINCARNATION</div>
+    <h1>ÏMAMVERSE</h1>
+    <p>A complete three-chapter action story through Casablanca. Fight as MBIW, awaken ÏMAM, choose who controls the body, and reach the Point of No Return.</p>
+    <div class="btns"><button class="btn green" id="newGame">NEW GAME</button><button class="btn" id="continueGame">CONTINUE</button></div>
+    <div class="note">Your chapter checkpoints and choices are saved on this device.</div>
+  </div>
+</div>
+
+<div class="overlay trans" id="trans"><div class="box"><div class="eyebrow">THE FALL OF MBIW</div><h1>ÏMAM</h1><p>REINCARNATION HAS BEGUN.</p></div></div>
+
+<div class="overlay choice" id="choice">
+  <div class="box">
+    <div class="eyebrow" id="choiceEye">CHAPTER I</div>
+    <h2 id="choiceTitle">WHO ARE YOU?</h2>
+    <p id="choiceText"></p>
+    <div class="btns"><button class="btn" id="choiceLeft"></button><button class="btn green" id="choiceRight"></button></div>
+    <div class="note" id="choiceNote">Your decision changes the next chapter.</div>
+  </div>
+</div>
+
+<div class="overlay interlude" id="interlude">
+  <div class="box"><div class="eyebrow" id="interEye"></div><h2 id="interTitle"></h2><p id="interText"></p><div class="btns"><button class="btn green" id="interButton">CONTINUE</button></div></div>
+</div>
+
+<div class="overlay status" id="status">
+  <div class="box"><div class="eyebrow" id="statusEye"></div><h2 id="statusTitle"></h2><p id="statusText"></p><div class="btns"><button class="btn green" id="statusMain">RETRY</button><button class="btn ghost" id="statusMenu">MAIN MENU</button></div></div>
+</div>
+
+<script>
+(()=>{
+const C=document.getElementById('c'),g=C.getContext('2d');
+const HP=document.getElementById('hp'),POWER=document.getElementById('power'),NAME=document.getElementById('name'),OBJ=document.getElementById('obj'),CHLABEL=document.getElementById('chapterLabel');
+const START=document.getElementById('start'),TRANS=document.getElementById('trans'),CHOICE=document.getElementById('choice'),INTER=document.getElementById('interlude'),STATUS=document.getElementById('status'),FLASH=document.getElementById('flash');
+const SAVE_KEY='IMAMVERSE_FULL_SAVE_V1';
+let W=0,H=0,D=1,last=0,run=0,chapter=1,phase=0,path='',shake=0,time=0,ending='',statusMode='retry';
+let keys={l:0,r:0,j:0};
+let p={x:90,y:0,w:42,h:90,vx:0,vy:0,on:1,hp:100,pow:0,imam:0,atk:0,inv:0,dash:0,face:1,special:0};
+let enemies=[],particles=[],shots=[],enemyShots=[];
+const cityImg=new Image();cityImg.src='assets/casablanca.webp';
+
+const tracks={
+  demise:new Audio('../assets/audio/3%20-%20DEMISE%20OF%20MBIW.mp3'),
+  taliban:new Audio('../assets/audio/5%20-%20Taliban.mp3'),
+  iconic:new Audio('../assets/audio/6%20-%20Iconic.mp3'),
+  finale:new Audio('../assets/audio/7erek%20ras%20x%20haqqi.mp3')
+};
+Object.values(tracks).forEach(a=>{a.loop=true;a.volume=.11});
+let currentTrack=null;
+
+function music(name){
+  if(currentTrack===tracks[name])return;
+  Object.values(tracks).forEach(a=>a.pause());
+  currentTrack=tracks[name]||null;
+  if(currentTrack){currentTrack.currentTime=0;currentTrack.play().catch(()=>{})}
+}
+function stopMusic(){Object.values(tracks).forEach(a=>a.pause());currentTrack=null}
+function rs(){D=Math.min(2,devicePixelRatio||1);W=innerWidth;H=innerHeight;C.width=W*D;C.height=H*D;g.setTransform(D,0,0,D,0,0)}
+onresize=rs;rs();
+const ground=()=>H*.81;
+
+function save(data){localStorage.setItem(SAVE_KEY,JSON.stringify(data))}
+function loadSave(){try{return JSON.parse(localStorage.getItem(SAVE_KEY)||'null')}catch(e){return null}}
+function updateContinue(){const s=loadSave();continueGame.disabled=!s||s.complete;continueGame.textContent=s&&s.chapter?'CONTINUE CHAPTER '+roman(s.chapter):'CONTINUE'}
+function roman(n){return n===1?'I':n===2?'II':'III'}
+
+function enemy(x,type=0){
+  const cfg=[
+    {w:40,h:70,hp:4,speed:82,dmg:12,fire:0,name:'Raider'},
+    {w:76,h:145,hp:18,speed:58,dmg:18,fire:0,name:'Corrupted Warden'},
+    {w:54,h:94,hp:10,speed:96,dmg:14,fire:1,name:'Sentinel'},
+    {w:86,h:150,hp:30,speed:68,dmg:19,fire:1,name:'Commander'},
+    {w:96,h:162,hp:46,speed:72,dmg:22,fire:1,name:'Reclaimer'}
+  ][type];
+  return {x,y:ground()-cfg.h,w:cfg.w,h:cfg.h,hp:cfg.hp,max:cfg.hp,type,speed:cfg.speed,dmg:cfg.dmg,fire:cfg.fire,shot:1+Math.random()*1.2,hit:0,name:cfg.name};
+}
+function spawn(list){enemies=list.map(v=>enemy(W*v[0],v[1]||0))}
+function clearCombat(){enemies=[];shots=[];enemyShots=[];particles=[]}
+
+function playerBase(imam){
+  Object.assign(p,{x:Math.max(70,W*.09),y:ground()-90,w:42,h:90,vx:0,vy:0,on:1,hp:100,pow:imam?60:0,imam:imam?1:0,atk:0,inv:0,dash:0,face:1,special:0});
+  NAME.textContent=imam?'ÏMAM':'MBIW';
+}
+function setChapter(n){
+  chapter=n;
+  CHLABEL.textContent=n===1?'CHAPTER I · THE FALL OF MBIW':n===2?'CHAPTER II · BIRTH OF ÏMAM':'CHAPTER III · POINT OF NO RETURN';
+}
+function startChapter1(){
+  hideAll();setChapter(1);phase=0;path='';ending='';clearCombat();playerBase(0);spawn([[.55,0],[.72,0],[.86,0]]);
+  OBJ.textContent='Survive the rooftop ambush.';music('demise');run=1;syncHUD();
+}
+function startChapter2(chosen){
+  hideAll();setChapter(2);phase=10;path=chosen||path||'resist';clearCombat();playerBase(1);p.pow=path==='embrace'?85:60;
+  spawn(path==='embrace'?[[.38,2],[.54,0],[.7,2],[.86,0]]:[[.4,0],[.56,2],[.72,0],[.86,2]]);
+  OBJ.textContent=path==='embrace'?'Break the government containment line.':'Keep control while escaping the containment line.';
+  music('iconic');save({chapter:2,path,complete:false});run=1;syncHUD();
+}
+function startChapter3(){
+  hideAll();setChapter(3);phase=20;clearCombat();playerBase(1);p.pow=100;
+  spawn([[.3,2],[.44,0],[.58,2],[.72,0],[.86,2]]);
+  OBJ.textContent='Cross the final blockade.';music('finale');save({chapter:3,path:path||'resist',complete:false});run=1;syncHUD();
+}
+function continueSaved(){
+  const s=loadSave();if(!s){startChapter1();return}path=s.path||'resist';s.chapter===3?startChapter3():s.chapter===2?startChapter2(path):startChapter1();
+}
+function hideAll(){START.classList.remove('on');START.style.display='none';TRANS.classList.remove('on');CHOICE.classList.remove('on');INTER.classList.remove('on');STATUS.classList.remove('on')}
+function menu(){run=0;stopMusic();hideAll();START.style.display='grid';START.classList.add('on');updateContinue()}
+
+function spark(x,y,green,count=8){for(let i=0;i<count;i++)particles.push({x,y,vx:(Math.random()-.5)*280,vy:(Math.random()-.8)*230,l:.65,green})}
+function hit(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+function attack(){if(run&&p.atk<=0){p.atk=p.imam?.3:.23;shake=p.imam?7:4}}
+function dash(){if(run&&p.dash<=0){p.dash=.5;p.vx=p.face*(p.imam?760:640);p.inv=Math.max(p.inv,.14)}}
+function special(){
+  if(!run||!p.imam||p.special>0)return;
+  const cost=path==='embrace'?20:25;
+  if(p.pow<cost)return;
+  p.pow-=cost;p.special=.38;shake=7;FLASH.classList.remove('on');void FLASH.offsetWidth;FLASH.classList.add('on');
+  shots.push({x:p.x+p.w/2+p.face*20,y:p.y+34,vx:p.face*760,w:30,h:10,dmg:path==='embrace'?6:5,l:1.2});
+}
+function syncHUD(){HP.style.width=Math.max(0,p.hp)+'%';POWER.style.width=Math.max(0,p.pow)+'%'}
+
+function transform(){
+  run=0;TRANS.classList.add('on');tracks.demise.pause();
+  setTimeout(()=>{p.imam=1;p.hp=100;p.pow=70;NAME.textContent='ÏMAM';music('taliban')},600);
+  setTimeout(()=>{TRANS.classList.remove('on');phase=1;spawn([[.76,1]]);OBJ.textContent='Defeat the Corrupted Warden.';run=1},1750);
+}
+function governmentWave(){
+  phase=2;p.hp=Math.max(p.hp,70);spawn([[.32,0],[.48,2],[.64,0],[.82,2]]);
+  OBJ.textContent='Government forces have arrived. Hold the rooftop.';shake=12;
+}
+function firstChoice(){
+  run=0;tracks.taliban.pause();
+  choiceEye.textContent='CHAPTER I COMPLETE';choiceTitle.textContent='WHO ARE YOU?';
+  choiceText.textContent='Casablanca is watching. MBIW is still inside you — but ÏMAM now controls the body.';
+  choiceLeft.textContent='RESIST ÏMAM';choiceRight.textContent='EMBRACE ÏMAM';choiceNote.textContent='This choice changes combat and the ending.';
+  choiceLeft.onclick=()=>choosePath('resist');choiceRight.onclick=()=>choosePath('embrace');CHOICE.classList.add('on');
+}
+function choosePath(v){
+  path=v;CHOICE.classList.remove('on');save({chapter:2,path,complete:false});
+  showInterlude('CHAPTER II','BIRTH OF ÏMAM',v==='resist'?'MBIW refuses to disappear. Every use of ÏMAM’s power becomes a fight for control.':'ÏMAM stops asking for permission. The city sees a new force moving through Casablanca.','BEGIN CHAPTER II',()=>startChapter2(v));
+}
+function chapter2Boss(){phase=11;p.hp=Math.max(p.hp,55);p.pow=Math.max(p.pow,55);spawn([[.74,3]]);OBJ.textContent='Defeat the Commander.'}
+function chapter2End(){
+  run=0;stopMusic();save({chapter:3,path,complete:false});
+  showInterlude('CHAPTER II COMPLETE','NO WAY BACK',path==='resist'?'You kept MBIW alive inside the storm — but the city is closing in.':'You chose ÏMAM, and the city answered with everything it has.','BEGIN CHAPTER III',startChapter3);
+}
+function chapter3Wave2(){phase=21;p.hp=Math.max(p.hp,60);p.pow=100;spawn([[.34,2],[.5,2],[.68,2],[.84,2]]);OBJ.textContent='Destroy the elite guard.'}
+function finalBoss(){phase=22;p.hp=Math.max(p.hp,70);p.pow=100;spawn([[.74,4]]);OBJ.textContent='Defeat the RECLAIMER.';shake=15}
+function finalChoice(){
+  run=0;stopMusic();
+  choiceEye.textContent='THE POINT OF NO RETURN';choiceTitle.textContent='ONE BODY. TWO NAMES.';
+  choiceText.textContent=path==='resist'?'MBIW is still there. ÏMAM has the power, but you decide whether the last voice inside survives.':'You embraced ÏMAM. One final decision remains: keep a boundary, or erase the old identity completely.';
+  choiceLeft.textContent='KEEP THE BALANCE';choiceRight.textContent='CROSS THE LINE';choiceNote.textContent='This determines your ending.';
+  choiceLeft.onclick=()=>finish('balance');choiceRight.onclick=()=>finish('line');CHOICE.classList.add('on');
+}
+function finish(v){
+  CHOICE.classList.remove('on');
+  if(path==='resist'&&v==='balance'){ending='DUALITY';showEnding('DUALITY','MBIW survives inside ÏMAM. The city knows the new name, but the old soul is not gone. Power and conscience now share one body.')}
+  else if(path==='resist'){ending='REINCARNATION';showEnding('REINCARNATION','MBIW finally stops resisting. ÏMAM walks away alone — stronger, colder, and impossible to ignore.')}
+  else if(v==='balance'){ending='THE CROWN WITHOUT A KING';showEnding('THE CROWN WITHOUT A KING','ÏMAM keeps the power but refuses to become a prisoner of it. Casablanca survives the night, unsure whether it witnessed a savior or a warning.')}
+  else{ending='POINT OF NO RETURN';showEnding('POINT OF NO RETURN','The old name fades. ÏMAM accepts what he has become and leaves the rooftop with no intention of going back.')}
+}
+function showEnding(title,text){
+  save({chapter:3,path,complete:true,ending});statusMode='again';statusEye.textContent='ÏMAMVERSE COMPLETE';statusTitle.textContent=title;statusText.textContent=text+' — END OF DAYS BEFORE REINCARNATION.';
+  statusMain.textContent='PLAY AGAIN';statusMenu.style.display='inline-block';STATUS.classList.add('on');
+}
+function showInterlude(eye,title,text,button,cb){
+  run=0;interEye.textContent=eye;interTitle.textContent=title;interText.textContent=text;interButton.textContent=button;interButton.onclick=cb;INTER.classList.add('on');
+}
+function die(){
+  run=0;stopMusic();statusMode='retry';statusEye.textContent='CHECKPOINT';statusTitle.textContent='YOU FELL';statusText.textContent='The story is not over. Restart from the beginning of this chapter.';
+  statusMain.textContent='RETRY CHAPTER '+roman(chapter);statusMenu.style.display='inline-block';STATUS.classList.add('on');
+}
+function retry(){STATUS.classList.remove('on');statusMode==='again'?startChapter1():chapter===1?startChapter1():chapter===2?startChapter2(path):startChapter3()}
+
+function update(dt){
+  if(!run)return;time+=dt;p.inv=Math.max(0,p.inv-dt);p.atk=Math.max(0,p.atk-dt);p.dash=Math.max(0,p.dash-dt);p.special=Math.max(0,p.special-dt);
+  if(p.imam)p.pow=Math.min(100,p.pow+3.5*dt);
+  const m=(keys.r?1:0)-(keys.l?1:0);if(m)p.face=m;if(p.dash<.34)p.vx=m*(p.imam?370:320);
+  if(keys.j&&p.on){p.vy=-(p.imam?710:650);p.on=0;keys.j=0}
+  p.vy+=1750*dt;p.x=Math.max(16,Math.min(W-p.w-16,p.x+p.vx*dt));p.y+=p.vy*dt;
+  if(p.y+p.h>=ground()){p.y=ground()-p.h;p.vy=0;p.on=1}
+  const ab={x:p.face>0?p.x+p.w-2:p.x-(p.imam?94:72),y:p.y+8,w:p.imam?98:76,h:78};
+
+  for(const e of enemies){
+    e.hit=Math.max(0,e.hit-dt);e.shot-=dt;
+    const dx=p.x-e.x,dist=Math.abs(dx);if(dist>62)e.x+=Math.sign(dx)*e.speed*dt;
+    if(e.fire&&e.shot<=0&&dist<520){e.shot=e.type>=4?1.0:e.type>=3?1.25:1.65;enemyShots.push({x:e.x+e.w/2,y:e.y+35,vx:Math.sign(dx)*-1*0,w:10,h:6,l:2.2});const q=enemyShots[enemyShots.length-1];q.vx=Math.sign(p.x-e.x)*(e.type>=4?440:360);q.dmg=e.type>=4?14:10}
+    if(p.atk>0&&hit(ab,e)&&e.hit<=0){
+      const dmg=p.imam?(e.type>=3?2:3):1;e.hp-=dmg;e.hit=.2;spark(e.x+e.w/2,e.y+30,p.imam);p.pow=Math.min(100,p.pow+(p.imam?4:12));
+    }
+    if(hit(p,e)&&p.inv<=0){p.hp-=e.dmg;p.inv=.58;spark(p.x,p.y+30,p.imam);shake=8;if(!p.imam)p.pow=Math.min(100,p.pow+13)}
+  }
+
+  for(const s of shots){s.x+=s.vx*dt;s.l-=dt;for(const e of enemies){if(e.hp>0&&hit(s,e)){e.hp-=s.dmg;s.l=0;e.hit=.18;spark(e.x+e.w/2,e.y+30,1,12)}}}
+  for(const q of enemyShots){q.x+=q.vx*dt;q.l-=dt;if(p.inv<=0&&hit(q,p)){p.hp-=q.dmg;p.inv=.5;q.l=0;shake=7;spark(p.x,p.y+30,p.imam)}}
+  shots=shots.filter(s=>s.l>0&&s.x>-50&&s.x<W+50);enemyShots=enemyShots.filter(s=>s.l>0&&s.x>-50&&s.x<W+50);
+  enemies=enemies.filter(e=>e.hp>0);
+
+  if(!enemies.length){
+    if(chapter===1&&phase===0){p.pow=100;transform()}
+    else if(chapter===1&&phase===1)governmentWave();
+    else if(chapter===1&&phase===2)firstChoice();
+    else if(chapter===2&&phase===10)chapter2Boss();
+    else if(chapter===2&&phase===11)chapter2End();
+    else if(chapter===3&&phase===20)chapter3Wave2();
+    else if(chapter===3&&phase===21)finalBoss();
+    else if(chapter===3&&phase===22)finalChoice();
+  }
+
+  if(p.hp<=0){p.hp=0;syncHUD();die();return}
+  for(const q of particles){q.x+=q.vx*dt;q.y+=q.vy*dt;q.vy+=480*dt;q.l-=dt}
+  particles=particles.filter(q=>q.l>0);shake*=.84;syncHUD();
+}
+
+function rect(x,y,w,h,c){g.fillStyle=c;g.fillRect(x,y,w,h)}
+function background(){
+  const grad=g.createLinearGradient(0,0,0,H);
+  grad.addColorStop(0,p.imam?'#06170c':'#071c2d');grad.addColorStop(1,'#020609');g.fillStyle=grad;g.fillRect(0,0,W,H);
+  if(cityImg.complete&&cityImg.naturalWidth){g.save();g.globalAlpha=.16;g.drawImage(cityImg,0,0,W,H);g.restore()}
+  g.save();g.shadowColor=p.imam?'#74ff91':'#bce9ff';g.shadowBlur=32;g.fillStyle=p.imam?'#b9f4c5':'#e2f3ff';g.beginPath();g.arc(W*.8,H*.17,Math.max(28,Math.min(W,H)*.05),0,7);g.fill();g.restore();
+  for(let i=-1;i<W/75+2;i++){const x=i*75-(p.x*.04%75),hh=50+((i*43)%110);rect(x,H*.69-hh,58,hh,'#08141d')}
+  const mx=W*.24,my=H*.69;rect(mx-15,my-175,30,175,'#07131a');rect(mx-21,my-135,42,12,'#07131a');g.fillStyle='#07131a';g.beginPath();g.moveTo(mx,my-220);g.lineTo(mx-11,my-175);g.lineTo(mx+11,my-175);g.fill();
+  rect(0,ground(),W,H-ground(),'#050b0f');rect(0,ground()-5,W,5,p.imam?'#2a6339':'#293f4d');
+}
+function hero(){
+  const cx=p.x+p.w/2,fy=p.y+p.h;g.save();g.translate(cx,0);g.scale(p.face,1);
+  if(p.inv>0&&Math.floor(time*18)%2===0)g.globalAlpha=.4;
+  if(p.imam){
+    g.shadowColor='#57f079';g.shadowBlur=22;g.fillStyle='#07100b';g.beginPath();g.moveTo(-32,fy-3);g.lineTo(-25,fy-83);g.lineTo(-14,fy-120);g.lineTo(0,fy-142);g.lineTo(17,fy-117);g.lineTo(29,fy-72);g.lineTo(34,fy-6);g.lineTo(13,fy-22);g.lineTo(5,fy-3);g.lineTo(-7,fy-3);g.lineTo(-16,fy-24);g.fill();g.shadowBlur=0;
+    g.fillStyle='#111713';g.beginPath();g.arc(0,fy-128,23,0,7);g.fill();g.beginPath();g.moveTo(-28,fy-129);g.quadraticCurveTo(0,fy-166,29,fy-129);g.lineTo(20,fy-105);g.lineTo(-20,fy-105);g.fill();
+    g.shadowColor='#75ff94';g.shadowBlur=12;rect(-11,fy-132,7,3,'#75ff94');rect(5,fy-132,7,3,'#75ff94');
+  }else{
+    g.shadowColor='#90dcff';g.shadowBlur=18;rect(-15,fy-53,12,50,'#12191f');rect(5,fy-53,12,50,'#12191f');
+    g.fillStyle='#eef3f5';g.beginPath();g.moveTo(-24,fy-58);g.lineTo(-21,fy-111);g.quadraticCurveTo(0,fy-124,22,fy-110);g.lineTo(25,fy-58);g.lineTo(10,fy-50);g.lineTo(-10,fy-50);g.fill();g.shadowBlur=0;
+    g.fillStyle='#8d5b3d';g.beginPath();g.arc(0,fy-127,21,0,7);g.fill();g.fillStyle='#111518';g.beginPath();g.arc(-4,fy-140,22,3,6.5);g.quadraticCurveTo(8,fy-156,20,fy-136);g.quadraticCurveTo(7,fy-144,-3,fy-138);g.quadraticCurveTo(-11,fy-148,-21,fy-135);g.fill();
+  }
+  g.restore();
+  if(p.atk>0){g.strokeStyle=p.imam?'#67f28a':'#c9edff';g.lineWidth=p.imam?11:7;g.shadowColor=g.strokeStyle;g.shadowBlur=20;g.beginPath();const x=p.x+p.w/2,y=p.y+40,r=p.imam?68:52;p.face>0?g.arc(x+20,y,r,-1.1,1.05):g.arc(x-20,y,r,2.1,4.2);g.stroke();g.shadowBlur=0}
+}
+function foe(e){
+  g.save();g.translate(e.x+e.w/2,0);
+  const body=e.type===4?'#1d171e':e.type===3?'#1a2029':e.type===2?'#17231c':e.type===1?'#14251a':'#1c242a';
+  rect(-e.w/2,e.y+15,e.w,e.h-15,body);
+  const eye=e.type>=3?'#ff4358':e.type>=1?'#78ed91':'#d25c5c';rect(-11,e.y+18,22,4,eye);
+  if(e.type>=2){rect(-e.w*.32,e.y+e.h*.48,e.w*.64,5,e.type>=3?'#802937':'#315c3b')}
+  g.restore();
+  if(e.type>=1){const bw=e.type>=4?190:e.type>=3?170:150,bx=e.x+e.w/2-bw/2;rect(bx,e.y-18,bw,8,'#18080a');rect(bx,e.y-18,bw*(e.hp/e.max),8,e.type>=3?'#ef4356':'#d34552');g.fillStyle='#cbd5d1';g.font='10px Arial';g.textAlign='center';g.fillText(e.name,e.x+e.w/2,e.y-24)}
+}
+function render(){
+  g.save();if(shake>1)g.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);background();enemies.forEach(foe);hero();
+  for(const s of shots){g.save();g.shadowColor='#65ff8b';g.shadowBlur=18;rect(s.x,s.y,s.w,s.h,'#74ff94');g.restore()}
+  for(const q of enemyShots){g.save();g.shadowColor='#ff3e55';g.shadowBlur=12;rect(q.x,q.y,q.w,q.h,'#ff5266');g.restore()}
+  for(const q of particles){g.globalAlpha=Math.max(0,q.l);rect(q.x,q.y,3,3,q.green?'#78ff97':'#d4f0ff')}g.globalAlpha=1;g.restore();
+}
+function loop(n){const dt=Math.min(.033,(n-last)/1000||0);last=n;update(dt);render();requestAnimationFrame(loop)}
+
+onkeydown=e=>{
+  const k=e.key.toLowerCase();
+  if(k==='a'||k==='arrowleft')keys.l=1;if(k==='d'||k==='arrowright')keys.r=1;
+  if(k==='w'||k==='arrowup'||k===' '){keys.j=1;e.preventDefault()}
+  if(k==='j'||k==='k'||k==='x')attack();if(k==='q'||k==='c')special();if(k==='shift')dash();
+};
+onkeyup=e=>{const k=e.key.toLowerCase();if(k==='a'||k==='arrowleft')keys.l=0;if(k==='d'||k==='arrowright')keys.r=0;if(k==='w'||k==='arrowup'||k===' ')keys.j=0};
+document.querySelectorAll('.k').forEach(b=>{
+  b.onpointerdown=e=>{e.preventDefault();const k=b.dataset.k;if(k==='a')attack();else if(k==='d')dash();else if(k==='s')special();else keys[k]=1};
+  b.onpointerup=b.onpointercancel=()=>{const k=b.dataset.k;if(k!=='a'&&k!=='d'&&k!=='s')keys[k]=0};
+});
+
+newGame.onclick=()=>{localStorage.removeItem(SAVE_KEY);startChapter1()};
+continueGame.onclick=continueSaved;
+statusMain.onclick=retry;statusMenu.onclick=menu;
+
+updateContinue();syncHUD();requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
