@@ -42,7 +42,7 @@ button{font:inherit}canvas{width:100%;height:100%;display:block}
 .flash{position:fixed;inset:0;background:#6bff8b;opacity:0;pointer-events:none;z-index:12}.flash.on{animation:flash .4s ease-out}@keyframes flash{0%{opacity:.28}100%{opacity:0}}
 .sceneTag{margin-top:5px;font-size:7px;letter-spacing:.2em;color:#6f8179}
 .titlecard{z-index:24;background:#010304f7}.titlecard .box{border:none;background:transparent;box-shadow:none;max-width:900px}.titlecard h1{font-size:clamp(50px,10vw,110px);line-height:.9}.titlecard h2{color:#78ff98;font-size:clamp(17px,3vw,26px);letter-spacing:.28em}.titleRule{width:min(420px,75vw);height:1px;background:linear-gradient(90deg,transparent,#6cff8b,transparent);margin:20px auto}
-.dialogue{z-index:23;background:linear-gradient(90deg,#010304f2 0 34%,#020609c9 68%,#020609ed)}.dialogue .box{display:grid;grid-template-columns:180px 1fr;gap:24px;text-align:left;align-items:end;width:min(820px,94vw);border-left:3px solid #6cff8b}.portrait{height:240px;background-position:center bottom;background-repeat:no-repeat;background-size:contain;filter:drop-shadow(0 0 20px #000)}.speechName{font-size:10px;letter-spacing:.24em;color:#72ff93;margin-bottom:10px}.speechText{font:22px/1.45 Georgia,serif;color:#eef4f1}.dialogue .btns{justify-content:flex-start}
+.dialogue{z-index:23;background:linear-gradient(90deg,#010304f2 0 34%,#020609c9 68%,#020609ed)}.dialogue .box{display:grid;grid-template-columns:180px 1fr;gap:24px;text-align:left;align-items:end;width:min(820px,94vw);border-left:3px solid #6cff8b}.portrait{height:240px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;filter:drop-shadow(0 0 20px #000)}.portrait img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom}.speechName{font-size:10px;letter-spacing:.24em;color:#72ff93;margin-bottom:10px}.speechText{font:22px/1.45 Georgia,serif;color:#eef4f1}.dialogue .btns{justify-content:flex-start}
 .bossintro{z-index:25;background:#010203f3}.bossintro .box{border-color:#ff526655;background:linear-gradient(145deg,#150709f1,#030506f3);box-shadow:0 0 80px #ff3e5516}.bossintro h1{color:#fff;text-shadow:0 0 22px #ff4558}.bossMark{font-size:9px;letter-spacing:.42em;color:#ff6172;margin-bottom:12px}
 .credits{z-index:26;background:linear-gradient(#010304c9,#010304f5),url('assets/casablanca.webp') center/cover no-repeat}.credits .box{width:min(760px,92vw)}.creditsLogo{height:220px;background:url('assets/imam.webp') center bottom/contain no-repeat;filter:drop-shadow(0 0 28px #5cff7938);margin:-25px auto 5px}.creditsText{font-size:11px;letter-spacing:.15em;line-height:2;color:#9eafa8}
 @media(max-width:820px),(pointer:coarse){
@@ -182,7 +182,7 @@ function showTitle(eye,main,sub,cb){
 }
 function showDialogue(name,text,who,cb){
   run=0;cinematic(true);SPEECHNAME.textContent=name;SPEECHTEXT.textContent=text;
-  PORTRAIT.style.backgroundImage="url('assets/"+(who==='mbiw'?'mbiw':'imam')+".webp')";
+  PORTRAIT.innerHTML='<img alt="'+name+'" src="assets/'+(who==='mbiw'?'mbiw':'imam')+'.webp">';
   SPEECHNEXT.disabled=true;DIALOGUE.classList.add('on');
   setTimeout(()=>{SPEECHNEXT.disabled=false},700);
   SPEECHNEXT.onclick=()=>{if(SPEECHNEXT.disabled)return;DIALOGUE.classList.remove('on');cinematic(false);cb&&cb()}
