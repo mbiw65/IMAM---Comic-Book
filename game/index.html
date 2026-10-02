@@ -42,7 +42,18 @@ button{font:inherit}canvas{width:100%;height:100%;display:block}
 .flash{position:fixed;inset:0;background:#6bff8b;opacity:0;pointer-events:none;z-index:12}.flash.on{animation:flash .4s ease-out}@keyframes flash{0%{opacity:.28}100%{opacity:0}}
 .sceneTag{margin-top:5px;font-size:7px;letter-spacing:.2em;color:#6f8179}
 .titlecard{z-index:24;background:#010304f7}.titlecard .box{border:none;background:transparent;box-shadow:none;max-width:900px}.titlecard h1{font-size:clamp(50px,10vw,110px);line-height:.9}.titlecard h2{color:#78ff98;font-size:clamp(17px,3vw,26px);letter-spacing:.28em}.titleRule{width:min(420px,75vw);height:1px;background:linear-gradient(90deg,transparent,#6cff8b,transparent);margin:20px auto}
-.dialogue{z-index:23;background:linear-gradient(90deg,#010304f2 0 34%,#020609c9 68%,#020609ed)}.dialogue .box{display:grid;grid-template-columns:180px 1fr;gap:24px;text-align:left;align-items:end;width:min(820px,94vw);border-left:3px solid #6cff8b}.portrait{height:240px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;filter:drop-shadow(0 0 20px #000)}.portrait img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom}.speechName{font-size:10px;letter-spacing:.24em;color:#72ff93;margin-bottom:10px}.speechText{font:22px/1.45 Georgia,serif;color:#eef4f1}.dialogue .btns{justify-content:flex-start}
+.dialogue{z-index:23;background:linear-gradient(90deg,#010304f2 0 34%,#020609c9 68%,#020609ed)}.dialogue .box{display:grid;grid-template-columns:180px 1fr;gap:24px;text-align:left;align-items:end;width:min(820px,94vw);border-left:3px solid #6cff8b}.portrait{height:240px;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;filter:drop-shadow(0 0 20px #000)}
+.portraitFigure{position:relative;width:155px;height:230px}
+.portraitFigure .torso{position:absolute;left:27px;bottom:-8px;width:101px;height:132px;border-radius:48px 48px 12px 12px;transform:skew(-2deg);box-shadow:0 0 28px #0008}
+.portraitFigure.mbiw .torso{background:linear-gradient(120deg,#f5f7f7,#aab8bd 55%,#eef4f5);border:1px solid #fff8}
+.portraitFigure.imam .torso{background:linear-gradient(120deg,#070b09,#172019 55%,#030504);border:1px solid #5fff7a45;box-shadow:0 0 28px #58ff7820}
+.portraitFigure .neck{position:absolute;left:62px;bottom:116px;width:33px;height:35px;background:#9a694a;border-radius:8px}
+.portraitFigure .head{position:absolute;left:45px;bottom:137px;width:66px;height:74px;background:linear-gradient(135deg,#b87b56,#7d4e35);border-radius:46% 46% 50% 50%;box-shadow:inset -10px -8px 18px #0003}
+.portraitFigure .hair{position:absolute;left:38px;bottom:190px;width:82px;height:48px;background:#101315;border-radius:54% 48% 38% 42%;transform:rotate(-4deg);box-shadow:-8px 6px 0 -2px #101315,8px 5px 0 -4px #101315}
+.portraitFigure .beard{position:absolute;left:51px;bottom:137px;width:55px;height:31px;border-bottom:12px solid #17191a;border-radius:0 0 48% 48%}
+.portraitFigure .eye{position:absolute;bottom:169px;width:10px;height:4px;border-radius:50%;z-index:3}.portraitFigure .eye.l{left:59px}.portraitFigure .eye.r{left:87px}
+.portraitFigure.mbiw .eye{background:#d9f3ff;box-shadow:0 0 8px #c9eeff}.portraitFigure.imam .eye{background:#65ff84;box-shadow:0 0 13px #55ff78,0 0 22px #55ff7866}
+.portraitFigure.imam:after{content:"";position:absolute;inset:10px 12px 0;border-radius:50%;box-shadow:0 0 35px #5cff7924;pointer-events:none}.speechName{font-size:10px;letter-spacing:.24em;color:#72ff93;margin-bottom:10px}.speechText{font:22px/1.45 Georgia,serif;color:#eef4f1}.dialogue .btns{justify-content:flex-start}
 .bossintro{z-index:25;background:#010203f3}.bossintro .box{border-color:#ff526655;background:linear-gradient(145deg,#150709f1,#030506f3);box-shadow:0 0 80px #ff3e5516}.bossintro h1{color:#fff;text-shadow:0 0 22px #ff4558}.bossMark{font-size:9px;letter-spacing:.42em;color:#ff6172;margin-bottom:12px}
 .credits{z-index:26;background:linear-gradient(#010304c9,#010304f5),url('assets/casablanca.webp') center/cover no-repeat}.credits .box{width:min(760px,92vw)}.creditsLogo{height:220px;background:url('assets/imam.webp') center bottom/contain no-repeat;filter:drop-shadow(0 0 28px #5cff7938);margin:-25px auto 5px}.creditsText{font-size:11px;letter-spacing:.15em;line-height:2;color:#9eafa8}
 @media(max-width:820px),(pointer:coarse){
@@ -182,7 +193,7 @@ function showTitle(eye,main,sub,cb){
 }
 function showDialogue(name,text,who,cb){
   run=0;cinematic(true);SPEECHNAME.textContent=name;SPEECHTEXT.textContent=text;
-  PORTRAIT.innerHTML='<img alt="'+name+'" src="assets/'+(who==='mbiw'?'mbiw':'imam')+'.webp">';
+  PORTRAIT.innerHTML='<div class="portraitFigure '+who+'"><div class="torso"></div><div class="neck"></div><div class="head"></div><div class="hair"></div><div class="beard"></div><div class="eye l"></div><div class="eye r"></div></div>';
   SPEECHNEXT.disabled=true;DIALOGUE.classList.add('on');
   setTimeout(()=>{SPEECHNEXT.disabled=false},700);
   SPEECHNEXT.onclick=()=>{if(SPEECHNEXT.disabled)return;DIALOGUE.classList.remove('on');cinematic(false);cb&&cb()}
